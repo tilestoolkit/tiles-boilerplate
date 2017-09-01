@@ -97,6 +97,8 @@ void BLE_Handler::ProcessEvents()
         feedback_handle.startGazing();
         } else if(Event->SecondValue == String("off")){
             feedback_handle.stopGazing();
+        }  else if(Event->SecondValue == String("dollar")){
+            feedback_handle.showFace(2);
         }
     }
 }

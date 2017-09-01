@@ -11,9 +11,7 @@ class MATRIX
         MATRIX(int i);
         void start_gazing();
         void stop_gazing();
-
-        void gazing();
-
+        void face(uint8_t type);
         void RefreshValues();
         void HandleTime(unsigned int ElapsedTime);
 
@@ -29,6 +27,7 @@ class MATRIX
 
         unsigned int  Matrix_Timing;
         bool State;       
+        void gazing();
         
         #define REFRESH_RATE 10 //half frequence because of the 10ms delay in the loop
 

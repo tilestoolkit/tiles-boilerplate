@@ -33,6 +33,25 @@ void MATRIX::stop_gazing()
   State = NO_BLINKING;
 }
 
+void MATRIX::face(uint8_t type)
+{
+  switch(type){
+    case 1:
+    {
+      matrix.clear();
+      break;
+    }
+    case 2:
+    {
+      matrix.clear();
+      matrix.drawBitmap(0,0,dollar,8,8,LED_ON);
+      matrix.writeDisplay();
+      break;
+    }
+  }
+
+}
+
 void MATRIX::HandleTime(unsigned int  ElapsedTime)
 {
     Matrix_Timing += ElapsedTime;

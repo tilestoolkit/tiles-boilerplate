@@ -36,6 +36,11 @@ void Feedbacks_Handler::stopGazing()
   MATRIXX->stop_gazing();
 }
 
+void Feedbacks_Handler::showFace(uint8_t type)
+{
+  MATRIXX->face(type);
+}
+
 void Feedbacks_Handler::setColor(String color)
 {
   if(RGB_LEDAvailable)
