@@ -17,5 +17,4 @@ class CAP1188
     private:
         Adafruit_CAP1188 cap;
         uint8_t previous;
-
 };

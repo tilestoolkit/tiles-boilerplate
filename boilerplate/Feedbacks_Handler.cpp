@@ -5,6 +5,7 @@ Feedbacks_Handler::Feedbacks_Handler()
     HapticAvailable = false;
     RGB_LEDAvailable = false;
     NEO_STRIPAvailable = false;
+    MATRIX_Available = true;
 }
 
 void Feedbacks_Handler::setRGB_LED(RGB_LED *pLED)

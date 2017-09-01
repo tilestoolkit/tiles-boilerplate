@@ -2,13 +2,18 @@
 #include "Adafruit_LEDBackpack.h"
 #include "faces.h"
 
+#define BLINKING true
+#define NO_BLINKING false
+
 class MATRIX
 {
     public: 
         MATRIX(int i);
         void start_gazing();
         void stop_gazing();
+
         void gazing();
+
         void RefreshValues();
         void HandleTime(unsigned int ElapsedTime);
 
@@ -23,6 +28,8 @@ class MATRIX
         int8_t  dX, dY;       
 
         unsigned int  Matrix_Timing;
-        bool State;                
+        bool State;       
+        
+        #define REFRESH_RATE 20
 
 };

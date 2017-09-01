@@ -23,6 +23,30 @@ MATRIX::MATRIX(int i)
 
 }
 
+void MATRIX::start_gazing()
+{
+  State = BLINKING;
+}
+
+void MATRIX::stop_gazing()
+{
+  State = NO_BLINKING;
+}
+
+void MATRIX::HandleTime(unsigned int  ElapsedTime)
+{
+    Matrix_Timing += ElapsedTime;
+}
+
+void MATRIX::RefreshValues()
+{
+    if(State == BLINKING && Matrix_Timing > REFRESH_RATE)
+    {
+        gazing();
+        Matrix_Timing = 0;
+    }
+}
+
 void MATRIX::gazing()
 {
   matrix.clear();
@@ -43,7 +67,7 @@ void MATRIX::gazing()
       do {
         newX = random(7); newY = random(7);
         dX   = newX - 3;  dY   = newY - 3;
-      } while((dX * dX + dY * dY) >= 10);      // Thank you Pythagoras
+      } while((dX * dX + dY * dY) >= 10);      
       dX            = newX - eyeX;             // Horizontal distance to move
       dY            = newY - eyeY;             // Vertical distance to move
       gazeFrames    = random(3, 15);           // Duration of eye movement
@@ -52,6 +76,5 @@ void MATRIX::gazing()
   } else {
     matrix.fillRect(eyeX, eyeY, 2, 2, LED_OFF);
   }
-
   matrix.writeDisplay();
 }

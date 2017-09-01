@@ -40,14 +40,13 @@ MATRIX *m_handle = NULL;
 void setup(void)
 {
     override_uart_limit = true;
-    Serial.begin(9600); // Commented just to try the LED (RX/TX = LED_R/LED_G)
+    Serial.begin(9600); 
     interrupts(); // Enable interrupts
     
     // Initialization of Sensors
     Accelerometer = new ADXL345(ACC_INT1_PIN);
     IMU = new LSM9DS0();
     TOUCH = new CAP1188(0);
-    Serial.println("step1");
     sensor_handle.setAccelerometer(Accelerometer);
     sensor_handle.setInertialCentral(IMU);
     sensor_handle.setTouchSensor(TOUCH);
@@ -83,7 +82,9 @@ void loop(void)
     sensor_handle.pollEvent();
     feedback_handle.UpdateFeedback();
     BLE.ProcessEvents();
-    m_handle->gazing();
+    //m_handle->gazing();
+    m_handle->start_gazing();
+    m_handle->RefreshValues();
     delay(20); // 10ms Important delay, do not delete it, increased to 20 to match frame rates
     
 }
@@ -121,7 +122,8 @@ void TIMER1_Interrupt(void)
     if (NRF_TIMER1->EVENTS_COMPARE[0] != 0)
     {        
         sensor_handle.HandleTime(number_of_ms);
-        feedback_handle.HandleTime(number_of_ms);      
+        feedback_handle.HandleTime(number_of_ms);
+        m_handle->HandleTime(number_of_ms);      
         NRF_TIMER1->EVENTS_COMPARE[0] = 0;
     }
 }
