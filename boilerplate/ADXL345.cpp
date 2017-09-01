@@ -218,7 +218,7 @@ void ADXL345::RefreshValues() // This function has to be adapted to the current 
 
     
     //Populate sensor events if interrupt occured
-    if (digitalRead(InterruptPin))  //Interrupt occured
+    if (true)  //Interrupt occured
     {
         int Source = accel.readRegister(ADXL345_REG_INT_SOURCE);
         

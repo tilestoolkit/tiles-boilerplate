@@ -13,6 +13,8 @@
 #include "BLE_Handler.h"
 #include "Feedbacks_Handler.h"
 #include "Sensors_Handler.h"
+//#include "CAP1188.h"
+#include "MATRIX.h"
 
 //Variables for timing
 uint_fast16_t volatile number_of_ms = 10;     // ms
@@ -25,6 +27,7 @@ Sensors_Handler sensor_handle(&BLE);
 ADXL345 *Accelerometer = NULL;
 LSM9DS0 *IMU = NULL;
 #define ACC_INT1_PIN        4 // Pin where the acceleromter interrupt1 is connected
+CAP1188 *TOUCH = NULL;
 
 // Variables for Feedbacks 
 Feedbacks_Handler feedback_handle;
@@ -32,6 +35,7 @@ Feedbacks_Handler feedback_handle;
 //RGB_LED *LED;
 NEO_STRIP *STRIP;
 //#define VIBRATING_M_PIN     3 // Pin where the vibrating motor is connected
+MATRIX *m_handle = NULL;
 
 
 void setup(void)
@@ -43,15 +47,21 @@ void setup(void)
     // Initialization of Sensors
     Accelerometer = new ADXL345(ACC_INT1_PIN);
     IMU = new LSM9DS0();
+    TOUCH = new CAP1188(0);
+
     sensor_handle.setAccelerometer(Accelerometer);
     sensor_handle.setInertialCentral(IMU);
+    //sensor_handle.setTouchSensor(TOUCH);
+    RFduino_pinWakeCallback(3, HIGH, callback);
     
-    STRIP = new NEO_STRIP();
-    feedback_handle.setNEO_STRIP(STRIP);
-    delay(2000);
-    feedback_handle.setColor("green");
-
     // Intitialization of Feedbacks
+    STRIP = new NEO_STRIP();
+    m_handle = new MATRIX(0);
+
+    feedback_handle.setNEO_STRIP(STRIP);
+    delay(100);
+    feedback_handle.setColor("black");
+    
     // HapticMotor = new Haptic(VIBRATING_M_PIN);
     // LED = new RGB_LED(0, 1, 2);
     // TokenFeedback.setHapticMotor(HapticMotor);
@@ -74,7 +84,10 @@ void loop(void)
     sensor_handle.pollEvent();
     feedback_handle.UpdateFeedback();
     BLE.ProcessEvents();
-    delay(10); // Important delay, do not delete it ! Why ?? I want to delete this one !!
+    TOUCH->refreshValues();
+    m_handle->gazing();
+    delay(20); // 10ms Important delay, do not delete it, increased to 20 to match frame rates
+    
 }
 
 
@@ -113,4 +126,11 @@ void TIMER1_Interrupt(void)
         feedback_handle.HandleTime(number_of_ms);      
         NRF_TIMER1->EVENTS_COMPARE[0] = 0;
     }
+}
+
+
+int callback(uint32_t ulPin)
+{
+  Serial.println("callback");
+  Serial.println("touched");
 }

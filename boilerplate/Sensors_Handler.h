@@ -1,5 +1,6 @@
 #include "ADXL345.h"
 #include "LSM9DS0.h"
+#include "CAP1188.h"
 #include "BLE_Handler.h"
 
 // class Sensors_Handler - Handles all the Sensor sources (Accelerometer, Gyro, Compass...)
@@ -11,13 +12,14 @@ class Sensors_Handler
       void HandleTime(unsigned int ElapsedTime);   
       void setAccelerometer(ADXL345 *Acc);  // Set the private member _Accelerometer with an existing instance of an Accelerometer object
       void setInertialCentral(LSM9DS0 *InC);  // Set the private member _Accelerometer with an existing instance of an Accelerometer object
-      
+      void setTouchSensor(CAP1188 *Touch);  
+
     private:
       bool EventTriggered;      // True if an event has occured, else false. Reset on read with pollEvent();
       String EventString;       // Event code according to protocol.h
       bool _InertialCentralAvailable;
       bool _AccelerometerAvailable;
-      
+      bool _TouchSensorAvailable;
       BLE_Handler *BLE;
 
       //Accelrometer
@@ -29,5 +31,10 @@ class Sensors_Handler
       LSM9DS0 *_InertialCentral;
       #define INERTIAL_CENTRAL_UPDATE  00   //Accelerometer refresh period
       unsigned int InertialCentral_Timing;
+
+      //Sensors source of TokenSoloEvent
+      CAP1188 *_TouchSensor;
+      #define TOUCHSENSOR_UPDATE  100   //Accelerometer refresh period
+      unsigned int TouchSensor_Timing;
 };
 

@@ -13,6 +13,10 @@ Sensors_Handler::Sensors_Handler(BLE_Handler *Handler)   //default constructor
     //InertialCentral
     _InertialCentral = NULL;
     InertialCentral_Timing = 0;
+
+    //TouchController
+    _TouchSensor = NULL;
+    TouchSensor_Timing = 0;
 }
 
 
@@ -20,6 +24,7 @@ void Sensors_Handler::HandleTime(unsigned int ElapsedTime)
 {
     Accelerometer_Timing += ElapsedTime;  
     InertialCentral_Timing += ElapsedTime;
+    TouchSensor_Timing += ElapsedTime;
     _InertialCentral->HandleTime(ElapsedTime);
 }
 
@@ -27,6 +32,7 @@ String Sensors_Handler::pollEvent()    // If an event has occured returns the ev
 {
     String AccEvent;
     String InertialCentralEvent;
+    String TouchEvent;
 
     if(_AccelerometerAvailable == true && Accelerometer_Timing >= ACCELEROMETER_UPDATE)
     {
@@ -74,8 +80,16 @@ String Sensors_Handler::pollEvent()    // If an event has occured returns the ev
                 InertialCentralEvent = String("cclockrot");
         }
     }
+
+    if(_TouchSensorAvailable == true && TouchSensor_Timing >= TOUCHSENSOR_UPDATE)
+    {
+        TouchSensor_Timing = 0;
+        short touchpin = _TouchSensor->isTouched();
+
+
+    }
     
-    //Mix between all sensor events (Exemple : Gyro rotated & Acc tilted = Particular event)
+    
     if(_InertialCentralAvailable == true)
       EventString = InertialCentralEvent; 
 
@@ -105,6 +119,12 @@ void Sensors_Handler::setInertialCentral(LSM9DS0 *InC)  // Set the private membe
 {
     _InertialCentral = InC;
     _InertialCentralAvailable = InC->SensorAvailable;
+}
+
+void Sensors_Handler::setTouchSensor(CAP1188 *Touch)  // Set the private member _Accelerometer with an existing instance of an Accelerometer object
+{
+    _TouchSensor = Touch;
+    _TouchSensorAvailable = Touch->SensorAvailable;
 }
 
 
