@@ -13,7 +13,6 @@
 #include "BLE_Handler.h"
 #include "Feedbacks_Handler.h"
 #include "Sensors_Handler.h"
-//#include "CAP1188.h"
 #include "MATRIX.h"
 
 //Variables for timing
@@ -48,10 +47,10 @@ void setup(void)
     Accelerometer = new ADXL345(ACC_INT1_PIN);
     IMU = new LSM9DS0();
     TOUCH = new CAP1188(0);
-
+    Serial.println("step1");
     sensor_handle.setAccelerometer(Accelerometer);
     sensor_handle.setInertialCentral(IMU);
-    //sensor_handle.setTouchSensor(TOUCH);
+    sensor_handle.setTouchSensor(TOUCH);
     RFduino_pinWakeCallback(3, HIGH, callback);
     
     // Intitialization of Feedbacks
@@ -84,7 +83,6 @@ void loop(void)
     sensor_handle.pollEvent();
     feedback_handle.UpdateFeedback();
     BLE.ProcessEvents();
-    TOUCH->refreshValues();
     m_handle->gazing();
     delay(20); // 10ms Important delay, do not delete it, increased to 20 to match frame rates
     

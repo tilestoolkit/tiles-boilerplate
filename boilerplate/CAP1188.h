@@ -16,6 +16,6 @@ class CAP1188
 
     private:
         Adafruit_CAP1188 cap;
-        bool toogle;
+        uint8_t previous;
 
 };

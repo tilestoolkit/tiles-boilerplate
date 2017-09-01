@@ -30,9 +30,7 @@ void Sensors_Handler::HandleTime(unsigned int ElapsedTime)
 
 String Sensors_Handler::pollEvent()    // If an event has occured returns the event code
 {
-    String AccEvent;
-    String InertialCentralEvent;
-    String TouchEvent;
+   EventString = "";
 
     if(_AccelerometerAvailable == true && Accelerometer_Timing >= ACCELEROMETER_UPDATE)
     {
@@ -41,16 +39,16 @@ String Sensors_Handler::pollEvent()    // If an event has occured returns the ev
         _Accelerometer->RefreshValues();
         
         if (_Accelerometer->isTapped())
-            AccEvent = String("tap,single");
+        EventString = String("tap,single");
         
         else if (_Accelerometer->isDoubleTapped())
-            AccEvent = String("tap,double");
+        EventString = String("tap,double");
         
        // else if (_Accelerometer->isShaked())
-        //    AccEvent = String("shake");
+        //    EventString = String("shake");
         
         //else if (_Accelerometer->isTilted())
-        //    AccEvent = String("tilt");
+        //    EventString = String("tilt");
     }
 
     if(_InertialCentralAvailable == true && InertialCentral_Timing >= ACCELEROMETER_UPDATE)
@@ -61,43 +59,50 @@ String Sensors_Handler::pollEvent()    // If an event has occured returns the ev
         _InertialCentral->RefreshValues();
         
         if (_InertialCentral->isTapped())
-            InertialCentralEvent = String("tap");
+            EventString = String("tap");
         
         else if (_InertialCentral->isDoubleTapped())
-            InertialCentralEvent = String("doubletap");
+            EventString = String("doubletap");
         
         else if (_InertialCentral->isShaked())
-            InertialCentralEvent = String("shake");
+            EventString = String("shake");
         
         else if (_InertialCentral->isTilted())
-            InertialCentralEvent = String("tilt");
+            EventString = String("tilt");
         
         else if(isRotated != 0)
         {
             if(isRotated == 1)
-                InertialCentralEvent = String("clockrot");
+                EventString = String("clockrot");
             else if(isRotated == -1)
-                InertialCentralEvent = String("cclockrot");
+                EventString = String("cclockrot");
         }
     }
 
-    if(_TouchSensorAvailable == true && TouchSensor_Timing >= TOUCHSENSOR_UPDATE)
+     if(_TouchSensorAvailable == true && TouchSensor_Timing >= TOUCHSENSOR_UPDATE)
     {
         TouchSensor_Timing = 0;
         short touchpin = _TouchSensor->isTouched();
-
-
-    }
+        if(touchpin > 0)
+        {
+            String temp = String(touchpin);
+            EventString = String("Touched, " + temp);
+            Serial.print("Touched");
+            Serial.println(touchpin);
+        }
+    } 
     
     
-    if(_InertialCentralAvailable == true)
-      EventString = InertialCentralEvent; 
+    // if(_InertialCentralAvailable == true)
+    //   EventString = InertialCentralEvent; 
 
-    else if(_AccelerometerAvailable == true)
-      EventString = AccEvent; 
+    // else if(_AccelerometerAvailable == true)
+    //   EventString = AccEvent; 
+    // else if(_TouchSensorAvailable == true)
+    //     EventString = TouchEvent;
 
-    else
-      EventString = String("");
+    // else
+    //   EventString = String("");
 
     if(EventString != String(""))
     {  
@@ -121,10 +126,11 @@ void Sensors_Handler::setInertialCentral(LSM9DS0 *InC)  // Set the private membe
     _InertialCentralAvailable = InC->SensorAvailable;
 }
 
-void Sensors_Handler::setTouchSensor(CAP1188 *Touch)  // Set the private member _Accelerometer with an existing instance of an Accelerometer object
+void Sensors_Handler::setTouchSensor(CAP1188 *Touch)  
 {
+    Serial.println("DEBUG");
     _TouchSensor = Touch;
-    _TouchSensorAvailable = Touch->SensorAvailable;
+    _TouchSensorAvailable = true;
 }
 
 

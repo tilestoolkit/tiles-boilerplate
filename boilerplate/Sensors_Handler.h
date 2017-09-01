@@ -3,7 +3,6 @@
 #include "CAP1188.h"
 #include "BLE_Handler.h"
 
-// class Sensors_Handler - Handles all the Sensor sources (Accelerometer, Gyro, Compass...)
 class Sensors_Handler
 {
     public:
