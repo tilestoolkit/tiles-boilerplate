@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<!--
+Simone Mora. 2017.
+-->
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, user-scalable=no,
+		shrink-to-fit=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
+
+	<title>Boilerplate DEMO</title>
+
+	<style>
+		@import 'ui/css/evothings-app.css';
+	</style>
+
+	<style>
+	div {
+		margin: 10px 0px;
+	}
+	button {
+		margin: 5px 0px;
+	}
+	.lead {
+		font-weight: bold;
+	}
+	</style>
+
+	<script>
+	// Redirect console.log to Evothings Workbench.
+	if (window.hyper && window.hyper.log) { console.log = hyper.log }
+	</script>
+
+	<script src="cordova.js"></script>
+	<script src="libs/jquery/jquery.js"></script>
+	<script src="libs/evothings/evothings.js"></script>
+	<script src="libs/evothings/ui/ui.js"></script>
+	<script src="libs/evothings/rfduinoble/rfduinoble.js"></script>
+	<script src="libs/encoder/encoding.js"></script>
+
+</head>
+
+<body>
+
+	<header>
+		<button class="back" onclick="history.back()">
+			<!-- <img src="ui/images/arrow-left.svg" /> -->
+		</button>
+		<!-- <img class="logotype" src="ui/images/logo.svg" alt="Evothings" /> -->
+		<!--<button class="menu" onclick=""><img src="ui/images/menu.svg" /></button>-->
+	</header>
+
+	<h1>Boilerplate DEMO</h1>
+
+	<p id="info" class="lead">Initializing...</p>
+
+	<button type="button" class="yellow" onclick="app.connect()">
+		Connect/Disconnect
+	</button>
+
+	<br />
+	<button type="button" class="blue" onclick="app.ledOn()">
+		A
+	</button>
+
+	<button type="button" class="blue" onclick="app.ledBlink()">
+		B
+	</button>
+
+	<button type="button" class="blue" onclick="app.ledFade()">
+		B
+	</button>
+
+	<button type="button" class="arctic" onclick="app.whiteStill()">
+		D
+	</button>
+
+	<button type="button" class="arctic" onclick="app.whiteBlink()">
+		E
+	</button>
+
+	<button type="button" class="charcoal" onclick="app.ledOff()">
+		F
+	</button>
+
+	<button type="button" class="indigo" onclick="app.hapticLong()">
+		G
+	</button>
+
+	<button type="button" class="indigo" onclick="app.hapticBurst()">
+		H
+	</button>
+
+	<!-- TODO: Image is missing.
+	<p><img src="RFduino_Image.png" style="max-height:30%;" /></p>
+	-->
+
+	<script>
+	// Short name for RFduino BLE library.
+	var rfduinoble = evothings.rfduinoble;
+
+	// Application object.
+	var app = {};
+
+	// Connected device.
+	app.device = null;
+
+	// Turn on LED.
+	app.ledOn = function()
+	{
+		var te = new TextEncoder("utf-8").encode("led,on,blue");
+		app.device && app.device.writeDataArray(te);
+	};
+	app.ledBlink = function()
+	{
+		var te = new TextEncoder("utf-8").encode("led,blink,blue");
+		app.device && app.device.writeDataArray(te);
+	};
+	app.ledFade = function()
+	{
+		var te = new TextEncoder("utf-8").encode("led,fade,blue");
+		app.device && app.device.writeDataArray(te);
+	};
+	app.whiteStill = function()
+	{
+		var te = new TextEncoder("utf-8").encode("led,on,white");
+		app.device && app.device.writeDataArray(te);
+	};
+	app.whiteBlink = function()
+	{
+		var te = new TextEncoder("utf-8").encode("led,blink,white");
+		app.device && app.device.writeDataArray(te);
+	};
+	app.ledOff = function()
+	{
+		var te = new TextEncoder("utf-8").encode("led,off");
+		app.device && app.device.writeDataArray(te);
+	};
+	app.hapticLong = function()
+	{
+		var te = new TextEncoder("utf-8").encode("haptic,long");
+		app.device && app.device.writeDataArray(te);
+	};
+	app.hapticBurst = function()
+	{
+		var te = new TextEncoder("utf-8").encode("haptic,burst");
+		app.device && app.device.writeDataArray(te);
+	};
+
+	app.showMessage = function(info)
+	{
+		document.getElementById("info").innerHTML = info;
+	};
+
+	// Called when BLE and other native functions are available.
+	app.onDeviceReady = function()
+	{
+		app.showMessage('Press the yellow button to connect');
+	};
+
+	app.connect = function()
+	{
+		console.log("close");
+		rfduinoble.close();
+
+		// Wait 500 ms for close to complete before connecting.
+		setTimeout(function()
+		{
+			console.log("connecting");
+			app.showMessage("Connecting...");
+			rfduinoble.connect(
+				"Sparegris",
+				function(device)
+				{
+					console.log("connected");
+					app.showMessage("Connected");
+					app.device = device;
+				},
+				function(errorCode)
+				{
+					app.showMessage("Connect error: " + errorCode);
+				});
+			},
+			500);
+	};
+
+	// When the app is fully loaded the "deviceready" event is triggered.
+	document.addEventListener(
+		'deviceready',
+		function() { evothings.scriptsLoaded(app.onDeviceReady) },
+		false);
+
+</script>
+</body>
+</html>

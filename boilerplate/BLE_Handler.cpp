@@ -13,6 +13,7 @@ void RFduinoBLE_onConnect()
 {
     extern BLE_Handler BLE;
     BLE.Connected = true;
+    Serial.println("Connection established");
 }
 
 // Code that executes everytime token is being disconnected from
@@ -20,6 +21,7 @@ void RFduinoBLE_onDisconnect()
 {
     extern BLE_Handler BLE;
     BLE.Connected = false;
+    Serial.println("Disconnected from device");    
 }
 
 //Add a token to the stack
@@ -39,7 +41,7 @@ void BLE_Handler::SendEvent(Token* Event)
     char sendData[20] = {0};
     payload.toCharArray(sendData, payload.length()+1);    
     RFduinoBLE.send(sendData, payload.length());
-    Serial.print("Token sent: "); Serial.println(payload);
+    Serial.print("Event sent: "); Serial.println(payload);
 }
 
 // BT Token Received Callback
@@ -47,6 +49,7 @@ void RFduinoBLE_onReceive(char *data, int length)
 {
     extern BLE_Handler BLE;
     BLE.ReceiveEvent(data, length);
+   // Serial.print("Payload received: "); Serial.println(data);
 }
 
 // Add a token to the stack
@@ -72,7 +75,7 @@ void BLE_Handler::ProcessEvents()
     else
         {
             String temp = Event->getEventString();
-            Serial.print("Token received: ");
+            Serial.print("Command received: ");
             Serial.println(temp);
         }
     
