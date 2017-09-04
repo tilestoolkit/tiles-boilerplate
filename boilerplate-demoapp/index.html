@@ -53,6 +53,8 @@ Simone Mora. 2017.
 	<h1>Boilerplate DEMO</h1>
 
 	<p id="info" class="lead">Initializing...</p>
+	<p id="info2" class="lead"></p>
+	<p id="info3" class="lead"></p>
 
 	<button type="button" class="yellow" onclick="app.connect()">
 		Connect/Disconnect
@@ -88,7 +90,7 @@ Simone Mora. 2017.
 	</button>
 
 	<button type="button" class="indigo" onclick="app.h()">
-		H
+		Enable notification
 	</button>
 
 	<!-- TODO: Image is missing.
@@ -143,13 +145,39 @@ Simone Mora. 2017.
 	};
 	app.h = function()
 	{
-		var te = new TextEncoder("utf-8").encode("haptic,burst");
-		app.device && app.device.writeDataArray(te);
+	//	var te = new TextEncoder("utf-8").encode("haptic,burst");
+	//	app.device && app.device.writeDataArray(te);
+					//Code for handling data from RFDUINO
+					app.device.enableNotification(
+                        '00002221-0000-1000-8000-00805f9b34fb',
+                        function(data){
+                                // for this app pass data to my handler
+                                app.rfdHandler(data);
+                        },
+                        function(errorCode)
+                        {
+                                app.showMessage("Connect error: " + errorCode);
+                        }
+				);
+
+
+
+
 	};
 
 	app.showMessage = function(info)
 	{
 		document.getElementById("info").innerHTML = info;
+	};
+
+	app.showMessage2 = function(info)
+	{
+		document.getElementById("info2").innerHTML = info;
+	};
+
+	app.showMessage3 = function(info)
+	{
+		document.getElementById("info3").innerHTML = info;
 	};
 
 	// Called when BLE and other native functions are available.
@@ -180,9 +208,37 @@ Simone Mora. 2017.
 				{
 					app.showMessage("Connect error: " + errorCode);
 				});
+
 			},
 			500);
 	};
+
+
+	//Code for handling data from RFDUINO
+		
+				
+	app.rfdHandler = function(rfdData)
+        {
+                var myDataArray = new Uint8Array(rfdData);
+                // Probably should do some maximum length tests for production someday.
+                var myString ="Received Length: ";   
+                myString = myString + myDataArray.byteLength + " Bytes";        
+                app.showMessage(myString);
+        
+                myString = "HEX: ";
+                for(i=0;i<myDataArray.byteLength;i++){
+                        myString = myString + " " + myDataArray[i].toString(16);                
+                }
+                app.showMessage2(myString);
+                myString = "ASC: ";
+                for(i=0;i<myDataArray.byteLength;i++){
+                        myString = myString + " " + String.fromCharCode(myDataArray[i]);                
+                }
+
+                //myString = myString + myDataArray[0];
+                app.showMessage3(myString);
+        };
+
 
 	// When the app is fully loaded the "deviceready" event is triggered.
 	document.addEventListener(
