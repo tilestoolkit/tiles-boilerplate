@@ -59,35 +59,35 @@ Simone Mora. 2017.
 	</button>
 
 	<br />
-	<button type="button" class="blue" onclick="app.ledOn()">
+	<button type="button" class="blue" onclick="app.a()">
 		A
 	</button>
 
-	<button type="button" class="blue" onclick="app.ledBlink()">
+	<button type="button" class="blue" onclick="app.b()">
 		B
 	</button>
 
-	<button type="button" class="blue" onclick="app.ledFade()">
+	<button type="button" class="blue" onclick="app.c()">
 		B
 	</button>
 
-	<button type="button" class="arctic" onclick="app.whiteStill()">
+	<button type="button" class="arctic" onclick="app.d()">
 		D
 	</button>
 
-	<button type="button" class="arctic" onclick="app.whiteBlink()">
+	<button type="button" class="arctic" onclick="app.e()">
 		E
 	</button>
 
-	<button type="button" class="charcoal" onclick="app.ledOff()">
+	<button type="button" class="charcoal" onclick="app.f()">
 		F
 	</button>
 
-	<button type="button" class="indigo" onclick="app.hapticLong()">
+	<button type="button" class="indigo" onclick="app.g()">
 		G
 	</button>
 
-	<button type="button" class="indigo" onclick="app.hapticBurst()">
+	<button type="button" class="indigo" onclick="app.h()">
 		H
 	</button>
 
@@ -106,42 +106,42 @@ Simone Mora. 2017.
 	app.device = null;
 
 	// Turn on LED.
-	app.ledOn = function()
+	app.a = function()
 	{
-		var te = new TextEncoder("utf-8").encode("led,on,blue");
+		var te = new TextEncoder("utf-8").encode("matrix,gazing");
 		app.device && app.device.writeDataArray(te);
 	};
-	app.ledBlink = function()
+	app.b = function()
 	{
-		var te = new TextEncoder("utf-8").encode("led,blink,blue");
+		var te = new TextEncoder("utf-8").encode("matrix,off");
 		app.device && app.device.writeDataArray(te);
 	};
-	app.ledFade = function()
+	app.c = function()
 	{
-		var te = new TextEncoder("utf-8").encode("led,fade,blue");
+		var te = new TextEncoder("utf-8").encode("matrix,dollar");
 		app.device && app.device.writeDataArray(te);
 	};
-	app.whiteStill = function()
+	app.d = function()
 	{
 		var te = new TextEncoder("utf-8").encode("led,on,white");
 		app.device && app.device.writeDataArray(te);
 	};
-	app.whiteBlink = function()
+	app.e = function()
 	{
 		var te = new TextEncoder("utf-8").encode("led,blink,white");
 		app.device && app.device.writeDataArray(te);
 	};
-	app.ledOff = function()
+	app.f = function()
 	{
 		var te = new TextEncoder("utf-8").encode("led,off");
 		app.device && app.device.writeDataArray(te);
 	};
-	app.hapticLong = function()
+	app.g = function()
 	{
 		var te = new TextEncoder("utf-8").encode("haptic,long");
 		app.device && app.device.writeDataArray(te);
 	};
-	app.hapticBurst = function()
+	app.h = function()
 	{
 		var te = new TextEncoder("utf-8").encode("haptic,burst");
 		app.device && app.device.writeDataArray(te);
@@ -169,7 +169,7 @@ Simone Mora. 2017.
 			console.log("connecting");
 			app.showMessage("Connecting...");
 			rfduinoble.connect(
-				"Sparegris",
+				"Tile_50",
 				function(device)
 				{
 					console.log("connected");
