@@ -23,7 +23,7 @@ BLE_Handler BLE;
 Sensors_Handler sensor_handle(&BLE);
 ADXL345 *ACCELEROMETER = NULL;
 LSM9DS0 *IMU = NULL;
-#define ACC_INT1_PIN  4 // Pin where the acceleromter interrupt1 is connected
+#define ACC_INT1_PIN  4 
 CAP1188 *TOUCH = NULL;
 
 // Variables for Feedbacks 
@@ -31,14 +31,14 @@ Feedbacks_Handler feedback_handle;
 //Haptic *HapticMotor;
 //RGB_LED *LED;
 NEO_STRIP *STRIP;
-//#define VIBRATING_M_PIN     3 // Pin where the vibrating motor is connected
+//#define VIBRATING_M_PIN     3 
 MATRIX *M_MATRIX = NULL;
 
 
 void setup(void)
 {
     override_uart_limit = true;
-    Serial.begin(9600); 
+    Serial.begin(9600);         //Remove if TX/RX lines are in commond with LED lines
     interrupts(); 
     
     //Initialization of SENSORS
@@ -110,7 +110,7 @@ void timer_config(void)
     //        NRF_TIMER2->CC[0] = (10*31)+(10/4);
     //-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
    
-    NRF_TIMER1->CC[0] = (number_of_ms * 31) + (number_of_ms / 4);                                                                                  //CC[0] register holds interval count value i.e your desired cycle
+    NRF_TIMER1->CC[0] = (number_of_ms * 31) + (number_of_ms / 4);                                                              // CC[0] register holds interval count value i.e your desired cycle
     NRF_TIMER1->INTENSET = TIMER_INTENSET_COMPARE0_Enabled << TIMER_INTENSET_COMPARE0_Pos;                                     // Enable COMAPRE0 Interrupt
     NRF_TIMER1->SHORTS = (TIMER_SHORTS_COMPARE0_CLEAR_Enabled << TIMER_SHORTS_COMPARE0_CLEAR_Pos);                             // Count then Complete mode enabled
     attachInterrupt(TIMER1_IRQn, TIMER1_Interrupt);                                                                            // also used in variant.cpp in the RFduino2.2 folder to configure the RTC1

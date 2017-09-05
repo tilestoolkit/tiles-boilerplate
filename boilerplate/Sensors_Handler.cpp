@@ -44,8 +44,8 @@ String Sensors_Handler::pollEvent()    // If an event has occured returns the ev
         else if (_Accelerometer->isDoubleTapped())
         EventString = String("tap,double");
         
-       // else if (_Accelerometer->isShaked())
-        //    EventString = String("shake");
+        else if (_Accelerometer->isShaked())
+        EventString = String("shake");
         
         //else if (_Accelerometer->isTilted())
         //    EventString = String("tilt");
@@ -86,23 +86,12 @@ String Sensors_Handler::pollEvent()    // If an event has occured returns the ev
         if(touchpin > 0)
         {
             String temp = String(touchpin);
-            EventString = String("Touched, " + temp);
-            Serial.print("Touched");
-            Serial.println(touchpin);
+            EventString = String("touched," + temp);
+            //Serial.print("Touched");
+            //Serial.println(touchpin);
         }
     } 
     
-    
-    // if(_InertialCentralAvailable == true)
-    //   EventString = InertialCentralEvent; 
-
-    // else if(_AccelerometerAvailable == true)
-    //   EventString = AccEvent; 
-    // else if(_TouchSensorAvailable == true)
-    //     EventString = TouchEvent;
-
-    // else
-    //   EventString = String("");
 
     if(EventString != String(""))
     {  
@@ -128,7 +117,6 @@ void Sensors_Handler::setInertialCentral(LSM9DS0 *InC)  // Set the private membe
 
 void Sensors_Handler::setTouchSensor(CAP1188 *Touch)  
 {
-    Serial.println("DEBUG");
     _TouchSensor = Touch;
     _TouchSensorAvailable = true;
 }

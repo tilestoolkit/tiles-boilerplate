@@ -82,11 +82,11 @@ void BLE_Handler::ProcessEvents()
     {
         if(Command->SecondValue == String("on"))
         {
-          //  feedback.setColor(Command->ThirdValue);
+          feedback_handle.setColor(Command->ThirdValue);
         }
         else if(Command->SecondValue == String("off"))
         {
-          //  feedbakc.setColor(Command->SecondValue);
+          feedback_handle.setColor(Command->SecondValue);
         }
     }
     if(Command->FirstValue == String("haptic"))

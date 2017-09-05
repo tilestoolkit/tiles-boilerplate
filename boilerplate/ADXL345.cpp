@@ -94,7 +94,7 @@ bool ADXL345::isTapped ()       // True if the sensor has been tapped once
 {
     if(Tapped)
     {
-        Serial.println("isTAPPED");
+    //Serial.println("isTAPPED");
       Tapped = false;
       return true;
     }
@@ -106,7 +106,7 @@ bool ADXL345::isDoubleTapped () // Returns true if the sensor has been double ta
 {
     if(DoubleTapped)
     {
-        Serial.println("isDOUBLETAPPED");
+       // Serial.println("isDOUBLETAPPED");
       DoubleTapped = false;
       return true;
     }
@@ -230,14 +230,14 @@ void ADXL345::RefreshValues() // This function has to be adapted to the current 
                 {
                     DoubleTapped = 1;
                     Tapped = 0;
-                    Serial.println("iDOUUBLETAPPED");
+                   // Serial.println("iDOUUBLETAPPED");
                 }
             
                 else
                 {
                   DoubleTapped = 0;
                   Tapped = 1;
-                  Serial.println("isTAPPED");
+                  //Serial.println("isTAPPED");
                 }
             }
         }

@@ -44,8 +44,7 @@ class Feedbacks_Handler
 
       MATRIX *MATRIXX;
       bool MATRIX_Available;
- 
-      
+     
 };
 
 #endif

@@ -8,18 +8,29 @@ Feedbacks_Handler::Feedbacks_Handler()
     MATRIX_Available = false;
 }
 
+// RGB LED
 void Feedbacks_Handler::setRGB_LED(RGB_LED *pLED)
 {
   LED = pLED;
   RGB_LEDAvailable = true;
 }
 
+void Feedbacks_Handler::setColor(String color)
+{
+  if(RGB_LEDAvailable)
+    LED->setColor(color);
+  else if(NEO_STRIPAvailable)
+    STRIP->setColor(color);
+}
+
+// NEOPIXEL LED/STRIP
 void Feedbacks_Handler::setNEO_STRIP(NEO_STRIP *pSTRIP)
 {
  STRIP = pSTRIP;
  NEO_STRIPAvailable = true;
 }
 
+// MATRIX
 void Feedbacks_Handler::setMATRIX(MATRIX *pMATRIX)
 {
   MATRIXX = pMATRIX;
@@ -41,30 +52,7 @@ void Feedbacks_Handler::showFace(uint8_t type)
   MATRIXX->face(type);
 }
 
-void Feedbacks_Handler::setColor(String color)
-{
-  if(RGB_LEDAvailable)
-    LED->setColor(color);
-  else if(NEO_STRIPAvailable)
-    STRIP->setColor(color);
-}
-
-String Feedbacks_Handler::UpdateFeedback()
-{
-  if(HapticAvailable)
-    HapticMotor->RefreshValues();
-  if(MATRIX_Available)
-    MATRIXX->RefreshValues();
-}
-
-void Feedbacks_Handler::HandleTime(unsigned int ElapsedTime)
-{
-  if(HapticAvailable)
-    HapticMotor->HandleTime(ElapsedTime);
-  if(MATRIX_Available)
-    MATRIXX->HandleTime(ElapsedTime);
-} 
-
+//Haptic Motor
 void Feedbacks_Handler::setHapticMotor(Haptic *pHapticMotor)
 {
     HapticMotor = pHapticMotor;
@@ -87,3 +75,23 @@ void Feedbacks_Handler::Vibrate(String Type)
     else if(Type == String("long"))
       HapticMotor->VibrateLong();
 }
+
+//Service Methods
+String Feedbacks_Handler::UpdateFeedback()
+{
+  if(HapticAvailable)
+    HapticMotor->RefreshValues();
+  if(MATRIX_Available)
+    MATRIXX->RefreshValues();
+}
+
+void Feedbacks_Handler::HandleTime(unsigned int ElapsedTime)
+{
+  if(HapticAvailable)
+    HapticMotor->HandleTime(ElapsedTime);
+  if(MATRIX_Available)
+    MATRIXX->HandleTime(ElapsedTime);
+
+    //Serial.print("Elapsed Time: "); Serial.println(ElapsedTime);
+} 
+

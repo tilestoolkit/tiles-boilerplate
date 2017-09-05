@@ -8,7 +8,6 @@
 
 #define ACC_FIR_SIZE          (uint8_t)10
 #define ACC_SHAKE_THRESH      100
-
 //#define   LOG_ACC
 
 class ADXL345

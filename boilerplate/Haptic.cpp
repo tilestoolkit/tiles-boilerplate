@@ -9,7 +9,7 @@ Haptic::Haptic(int HapticPin)
 
 void Haptic::Vibrate(int ms)
 {
-	  VibrateTime = ms;
+	VibrateTime = ms;
     Haptic_Timing = 0;
     StartVibrate();
 }
@@ -36,6 +36,7 @@ void Haptic::StopVibrate()
     State = INACTIVE;
 }
 
+//Service methods
 
 void Haptic::HandleTime(unsigned int  ElapsedTime)
 {
