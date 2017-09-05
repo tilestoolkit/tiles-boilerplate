@@ -1,7 +1,7 @@
 /********************************************************
   # NAME: boilerplate.ino
   # AUTHOR: Simone Mora (simonem@ntnu.no)
-  # DATE: 
+  # DATE: 5-9-17
   # LICENSE: Apache V2.0
 ********************************************************/
 
@@ -9,23 +9,21 @@
 #include <WInterrupts.h>
 #include <RFduinoBLE.h>
 #include <string.h>
-
 #include "BLE_Handler.h"
 #include "Feedbacks_Handler.h"
 #include "Sensors_Handler.h"
-//#include "MATRIX.h"
 
 //Variables for timing
-uint_fast16_t volatile number_of_ms = 10;     // ms
+uint_fast16_t volatile number_of_ms = 10;    
 
-// VARIABLES FOR BLUETOOTH
+// Variables for BLE
 BLE_Handler BLE;
 
 // Variables for Sensors
 Sensors_Handler sensor_handle(&BLE);
-ADXL345 *Accelerometer = NULL;
+ADXL345 *ACCELEROMETER = NULL;
 LSM9DS0 *IMU = NULL;
-#define ACC_INT1_PIN        4 // Pin where the acceleromter interrupt1 is connected
+#define ACC_INT1_PIN  4 // Pin where the acceleromter interrupt1 is connected
 CAP1188 *TOUCH = NULL;
 
 // Variables for Feedbacks 
@@ -41,30 +39,33 @@ void setup(void)
 {
     override_uart_limit = true;
     Serial.begin(9600); 
-    interrupts(); // Enable interrupts
+    interrupts(); 
     
-    // Initialization of Sensors
-    Accelerometer = new ADXL345(ACC_INT1_PIN);
+    //Initialization of SENSORS
+    //Accelerometer
+    ACCELEROMETER = new ADXL345(ACC_INT1_PIN);
+    sensor_handle.setAccelerometer(ACCELEROMETER);
+    //IMU
     IMU = new LSM9DS0();
-    TOUCH = new CAP1188(0);
-    sensor_handle.setAccelerometer(Accelerometer);
     sensor_handle.setInertialCentral(IMU);
+    //Touch 
+    TOUCH = new CAP1188(0);
     sensor_handle.setTouchSensor(TOUCH);
-    RFduino_pinWakeCallback(3, HIGH, callback);
     
-    // Intitialization of Feedbacks
+    //Intitialization of FEEDBACKS
+    //NeoPixels LED/STRIP
     STRIP = new NEO_STRIP();
-    M_MATRIX = new MATRIX(0);
-
     feedback_handle.setNEO_STRIP(STRIP);
-    //delay(100);
     feedback_handle.setColor("black");
+    //RGB LED
+    //LED = new RGB_LED(0, 1, 2);
+    //DotMatrix
+    M_MATRIX = new MATRIX(0);
     feedback_handle.setMATRIX(M_MATRIX);
-    
-    // HapticMotor = new Haptic(VIBRATING_M_PIN);
-    // LED = new RGB_LED(0, 1, 2);
-    // TokenFeedback.setHapticMotor(HapticMotor);
-    // TokenFeedback.setRGB_LED(LED);
+    //HapticMotor (Analog)
+    //HapticMotor = new Haptic(VIBRATING_M_PIN);
+    //feedback_handle.setHapticMotor(HapticMotor);
+    //feedback_handle.setRGB_LED(LED);
   
     // Configure the RFduino BLE properties
     char DeviceName[8] = {0};
@@ -83,14 +84,16 @@ void loop(void)
     sensor_handle.pollEvent();
     feedback_handle.UpdateFeedback();
     BLE.ProcessEvents();
-    delay(10); // 10ms Important delay, do not delete it, increased to 20 to match frame rates
+    delay(10); // 10ms Important delay, do not delete it
 }
+
+/*******************INTERNAL FUNCTIONS********************/
 
 
 #define TRIGGER_INTERVAL 1000      // ms
 void timer_config(void)
 {
-    NRF_TIMER1->TASKS_STOP = 1;                                     // Stop timer
+    NRF_TIMER1->TASKS_STOP = 1;                                      // Stop timer
     NRF_TIMER1->MODE = TIMER_MODE_MODE_Timer;                        // sets the timer to TIME mode (doesn't make sense but OK!)
     NRF_TIMER1->BITMODE = TIMER_BITMODE_BITMODE_16Bit;               // with BLE only Timer 1 and Timer 2 and that too only in 16bit mode
     NRF_TIMER1->PRESCALER = 9;                                       // Prescaler 9 produces 31250 Hz timer frequency => t = 1/f =>  32 uS
@@ -122,11 +125,4 @@ void TIMER1_Interrupt(void)
         feedback_handle.HandleTime(number_of_ms);
         NRF_TIMER1->EVENTS_COMPARE[0] = 0;
     }
-}
-
-
-int callback(uint32_t ulPin)
-{
-  Serial.println("callback");
-  Serial.println("touched");
 }

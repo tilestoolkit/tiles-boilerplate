@@ -1,6 +1,6 @@
 #include "BLE_Handler.h"
 
-BLE_Handler::BLE_Handler()//  Default constructor
+BLE_Handler::BLE_Handler()
 {
     Connected = false;
     String MAC = String(*(uint8_t *)0x100000a4, HEX);
@@ -29,7 +29,7 @@ void BLE_Handler::Emit(Token *Event)
 {
     if(Event != NULL)
     {
-      Serial.println("Added Event !");
+    //  Serial.println("Added Event to stack");
       ReceivedStack.push(Event);  
     }
 }
@@ -41,7 +41,7 @@ void BLE_Handler::SendEvent(Token* Event)
     char sendData[20] = {0};
     payload.toCharArray(sendData, payload.length()+1);    
     RFduinoBLE.send(sendData, payload.length());
-    Serial.print("Event sent: "); Serial.println(payload);
+    Serial.print("**Event sent: "); Serial.print(payload); Serial.println("**");
 }
 
 // BT Token Received Callback
@@ -67,46 +67,45 @@ void BLE_Handler::ProcessEvents()
     if(ReceivedStack.count() == 0)
       return;
       
-    Token *Event = NULL;
-    Event = ReceivedStack.pop();
+    Token *Command = NULL;
+    Command = ReceivedStack.pop();
 
-    if(Event == NULL)
+    if(Command == NULL)
       return;
     else
         {
-            String temp = Event->getEventString();
-            Serial.print("Command received: ");
-            Serial.println(temp);
+            String temp = Command->getEventString();
+            Serial.print("**Command received: "); Serial.print(temp); Serial.println("**");
         }
     
-    if(Event->FirstValue == String("led"))
+    if(Command->FirstValue == String("led"))
     {
-        if(Event->SecondValue == String("on"))
+        if(Command->SecondValue == String("on"))
         {
-          //  feedback.setColor(Event->ThirdValue);
+          //  feedback.setColor(Command->ThirdValue);
         }
-        else if(Event->SecondValue == String("off"))
+        else if(Command->SecondValue == String("off"))
         {
-          //  feedbakc.setColor(Event->SecondValue);
+          //  feedbakc.setColor(Command->SecondValue);
         }
     }
-    if(Event->FirstValue == String("haptic"))
+    if(Command->FirstValue == String("haptic"))
     {
-      //  feedback.Vibrate(Event->SecondValue);
+      //  feedback.Vibrate(Command->SecondValue);
     }
-    if(Event->FirstValue == String("matrix"))
+    if(Command->FirstValue == String("matrix"))
     {
-        if(Event->SecondValue == String("gazing")){
+        if(Command->SecondValue == String("gazing")){
         feedback_handle.startGazing();
-        } else if(Event->SecondValue == String("off")){
+        } else if(Command->SecondValue == String("off")){
             feedback_handle.stopGazing();
-        }  else if(Event->SecondValue == String("dollar")){
+        }  else if(Command->SecondValue == String("dollar")){
             feedback_handle.showFace(2);
         }
     }
 }
 
-/*******************************************************************************************************/
+/*********************************TOKEN CLASS************************************************/
 
 Token::Token()
 {
@@ -145,7 +144,6 @@ String Token::getEventString()
     String Payload;
     extern BLE_Handler BLE;
     
-    //Payload = BLE.AdvertiseName + "," + FirstValue;
     Payload = BLE.AdvertiseName + "," + FirstValue;
     
     if(SecondValue.length() != 0)

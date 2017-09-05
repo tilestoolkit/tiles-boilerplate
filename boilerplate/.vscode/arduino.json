@@ -1,6 +1,6 @@
 {
     "board": "RFduino:RFduino:RFduino",
-    "port": "/dev/cu.usbserial-DN00B3PT",
+    "port": "/dev/cu.usbserial-DO00BNGW",
     "sketch": "boilerplate.ino",
     "output": "../../temp/vsoutput"
 }
