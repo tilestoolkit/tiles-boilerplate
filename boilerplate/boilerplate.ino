@@ -28,44 +28,72 @@ CAP1188 *TOUCH = NULL;
 
 // Variables for Feedbacks 
 Feedbacks_Handler feedback_handle;
-//Haptic *HapticMotor;
-//RGB_LED *LED;
+Haptic *HapticMotor;
+RGB_LED *LED;
 NEO_STRIP *STRIP;
-//#define VIBRATING_M_PIN     3 
+#define VIBRATING_M_PIN     3 
 MATRIX *M_MATRIX = NULL;
+
+#define xAccelerometer_ADXL345 true
+#define xIMU_LSM9DS0 true
+#define xTouch_CAP1188 false
+
+#define xLED_RGB true
+#define xLED_NEO false
+#define xDOTM_MATRIX false
+#define xHAPTIC_analog true
 
 
 void setup(void)
 {
     override_uart_limit = true;
-    Serial.begin(9600);         //Remove if TX/RX lines are in commond with LED lines
+    //Serial.begin(9600);         //Remove if TX/RX lines are in commond with LED lines
     interrupts(); 
     
     //Initialization of SENSORS
     //Accelerometer
+    if(xAccelerometer_ADXL345){
     ACCELEROMETER = new ADXL345(ACC_INT1_PIN);
     sensor_handle.setAccelerometer(ACCELEROMETER);
+    }
     //IMU
+    if(xIMU_LSM9DS0){
     IMU = new LSM9DS0();
     sensor_handle.setInertialCentral(IMU);
+    }
     //Touch 
+    if(xTouch_CAP1188){
     TOUCH = new CAP1188(0);
     sensor_handle.setTouchSensor(TOUCH);
-    
+    }
+
     //Intitialization of FEEDBACKS
+    //RGB LED
+    if(xLED_RGB){
+    LED = new RGB_LED(0, 1, 2);
+    feedback_handle.setRGB_LED(LED);
+    feedback_handle.setColor("red");
+    delay(500);
+    feedback_handle.setColor("off");
+    }  
     //NeoPixels LED/STRIP
+    if(xLED_NEO){
     STRIP = new NEO_STRIP();
     feedback_handle.setNEO_STRIP(STRIP);
-    feedback_handle.setColor("black");
-    //RGB LED
-    //LED = new RGB_LED(0, 1, 2);
+    feedback_handle.setColor("red");
+    delay(500);
+    feedback_handle.setColor("off");
+    }
     //DotMatrix
+    if(xDOTM_MATRIX){
     M_MATRIX = new MATRIX(0);
     feedback_handle.setMATRIX(M_MATRIX);
+    }
     //HapticMotor (Analog)
-    //HapticMotor = new Haptic(VIBRATING_M_PIN);
-    //feedback_handle.setHapticMotor(HapticMotor);
-    //feedback_handle.setRGB_LED(LED);
+    if(xHAPTIC_analog){
+    HapticMotor = new Haptic(VIBRATING_M_PIN);
+    feedback_handle.setHapticMotor(HapticMotor);
+    }
   
     // Configure the RFduino BLE properties
     char DeviceName[8] = {0};

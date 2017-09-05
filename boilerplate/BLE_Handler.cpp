@@ -91,7 +91,7 @@ void BLE_Handler::ProcessEvents()
     }
     if(Command->FirstValue == String("haptic"))
     {
-      //  feedback.Vibrate(Command->SecondValue);
+        feedback_handle.Vibrate(Command->SecondValue);
     }
     if(Command->FirstValue == String("matrix"))
     {
