@@ -37,14 +37,26 @@ These are the electronic parts for which data primitives are available
 * RGB LED, common anode or common catode
 * NeoPixel LEDs
 * 8X8 Dot Matrix based on HT16K33
-* Vibration motor driven by transisort
+* Vibration motor driven by analogic circuit
 * Vibration motor driven by DRV2605 IC (soon)
 
 ## Protocol
 
 ### Input
 |SenderID|Name|P1|P2|Device|Note|
+|--------|----|--|--|------|----|
 |Tile_XX|tap|single,double||ADXL345,LSM9DS0||
 |Tile_XX|shake|||ADXL345,LSM9DS0||
 |Tile_XX|tilt|||ADXL345,LSM9DS0||
 |Tile_XX|rotation|clockwise,counterclock||LSM9DS0|
+|Tile_XX|touched|1,2,3,4||CAP1188|ID of the pin touched in P1|
+
+### Output
+|ReceiverID|Name|P1|P2|Device|Note|
+|----------|----|--|--|------|----|
+|          |led |off||RGB,NEOPIXEL||
+|          |led |on|red,gree,blue,white|RGB,NEOPIXEL||
+|          |led |on|[HEX]|RGB,NEOPIXEL||
+|          |haptic|short,long||Vibration motor (analog)||
+|          |matrix|off||8X8 Matrix||
+|          |matrix|gazing||8X8 Matrix||
