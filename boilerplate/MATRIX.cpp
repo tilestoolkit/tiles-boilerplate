@@ -2,7 +2,7 @@
 
 MATRIX::MATRIX(int i)
 {
-    Serial.println("CAP1188 registration started!");
+    Serial.println("Matrix registration started!");
     //matrix = Adafruit_8x8matrix();
 
     //Eyes animation config

@@ -12,14 +12,19 @@
 #include "BLE_Handler.h"
 #include "Feedbacks_Handler.h"
 #include "Sensors_Handler.h"
+#include <Ai_RFD_WS2812.h>
+
+#define PIN     2
+#define NUM_LED 7
+RFD_WS2812 blinker = RFD_WS2812(NUM_LED, PIN);
 
 
 #define xAccelerometer_ADXL345 true
 #define xIMU_LSM9DS0 true
-#define xTouch_CAP1188 true
+#define xTouch_CAP1188 false
 
 #define xLED_RGB false
-#define xLED_NEO true
+#define xLED_NEO false
 #define xDOTM_MATRIX true
 #define xHAPTIC_analog false
 
@@ -45,9 +50,6 @@ NEO_STRIP *STRIP;
 #define VIBRATING_M_PIN     3 
 MATRIX *M_MATRIX = NULL;
 
-
-
-
 void setup(void)
 {
     override_uart_limit = true;
@@ -55,6 +57,15 @@ void setup(void)
     if(!xLED_RGB)
         Serial.begin(9600);         //Remove if TX/RX lines are in commond with LED lines
     interrupts(); 
+
+    blinker.initialize();
+    Serial.println("DEBUGA");
+    colorWipe(blinker.packRGB(255,0,0),25);
+    delay(500);
+    colorWipe(blinker.packRGB(0,0,255),25);
+    Serial.println("DEBUGB");
+    
+    
     
     //Initialization of SENSORS
     //Accelerometer
@@ -70,26 +81,11 @@ void setup(void)
     //Touch 
     if(xTouch_CAP1188){
     TOUCH = new CAP1188(0);
-    sensor_handle.setTouchSensor(TOUCH);
+   sensor_handle.setTouchSensor(TOUCH);
     }
 
     //Intitialization of FEEDBACKS
-    //RGB LED
-    if(xLED_RGB){
-    LED = new RGB_LED(0, 1, 2);
-    feedback_handle.setRGB_LED(LED);
-    feedback_handle.setColor("red");
-    delay(500);
-    feedback_handle.setColor("off");
-    }  
-    //NeoPixels LED/STRIP
-    if(xLED_NEO){
-    STRIP = new NEO_STRIP();
-    feedback_handle.setNEO_STRIP(STRIP);
-    feedback_handle.setColor("red");
-    delay(500);
-    feedback_handle.setColor("off");
-    }
+
     //DotMatrix
     if(xDOTM_MATRIX){
     M_MATRIX = new MATRIX(0);
@@ -100,7 +96,24 @@ void setup(void)
     HapticMotor = new Haptic(VIBRATING_M_PIN);
     feedback_handle.setHapticMotor(HapticMotor);
     }
-  
+    //RGB LED
+    if(xLED_RGB){
+        LED = new RGB_LED(0, 1, 2);
+        feedback_handle.setRGB_LED(LED);
+        //feedback_handle.setColor("red");
+        //delay(500);
+        //feedback_handle.setColor("off");
+        }  
+        //NeoPixels LED/STRIP
+        if(xLED_NEO){
+        STRIP = new NEO_STRIP();
+        feedback_handle.setNEO_STRIP(STRIP);
+        //feedback_handle.setColor("red");
+        //delay(500);
+        //feedback_handle.setColor("off");
+        }
+
+
     // Configure the RFduino BLE properties
     char DeviceName[8] = {0};
     BLE.AdvertiseName.toCharArray(DeviceName, 8);  
@@ -159,4 +172,15 @@ void TIMER1_Interrupt(void)
         feedback_handle.HandleTime(number_of_ms);
         NRF_TIMER1->EVENTS_COMPARE[0] = 0;
     }
+}
+
+// Fill the dots one after the other with a color
+void colorWipe(uint32_t c, uint8_t wait) 
+{
+  for(uint16_t i=0; i<blinker.getNumPixels(); i++) 
+  {
+      blinker.setPixel(i, c);
+      blinker.render();
+      delay(wait);
+  }
 }
