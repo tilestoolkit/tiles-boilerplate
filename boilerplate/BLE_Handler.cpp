@@ -76,8 +76,7 @@ void BLE_Handler::ProcessEvents()
         {
             String temp = Command->getEventString();
             Serial.print("**Command received: "); Serial.print(temp); Serial.println("**");
-        }
-    
+        }   
     if(Command->FirstValue == String("led"))
     {
         if(Command->SecondValue == String("on"))
@@ -99,8 +98,8 @@ void BLE_Handler::ProcessEvents()
         feedback_handle.startGazing();
         } else if(Command->SecondValue == String("off")){
             feedback_handle.stopGazing();
-        }  else if(Command->SecondValue == String("dollar")){
-            feedback_handle.showFace(2);
+        }  else {
+            feedback_handle.showFace(String(Command->SecondValue));
         }
     }
 }

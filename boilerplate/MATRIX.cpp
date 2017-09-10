@@ -45,11 +45,32 @@ void MATRIX::face(uint8_t type)
     {
       matrix.clear();
       matrix.drawBitmap(0,0,dollar,8,8,LED_ON);
-      matrix.writeDisplay();
+      matrix.writeDisplay();   
       break;
     }
   }
+}
 
+void MATRIX::face(String type)
+{
+  stop_gazing();
+  matrix.clear();
+  if(type == "sad1")
+    matrix.drawBitmap(0,0,sad1,8,8,LED_ON);
+    else if(type == "sad2")
+    matrix.drawBitmap(0,0,sad2,8,8,LED_ON);
+    else if(type == "sad3")
+    matrix.drawBitmap(0,0,sad3,8,8,LED_ON);
+    else if(type == "dollar")
+    matrix.drawBitmap(0,0,dollar,8,8,LED_ON);
+    else if(type == "happy1")
+    matrix.drawBitmap(0,0,happy1,8,8,LED_ON);
+    else if(type == "x")
+    matrix.drawBitmap(0,0,x,8,8,LED_ON);
+    else if(type == "puzzled")
+    matrix.drawBitmap(0,0,puzzled,8,8,LED_ON);
+    
+  matrix.writeDisplay(); 
 }
 
 void MATRIX::HandleTime(unsigned int  ElapsedTime)

@@ -37,8 +37,7 @@ class Token
     void set(String pFirstValue, String pSecondValue = String(""), String pThirdValue = String(""));  
     String FirstValue;
     String SecondValue;
-    String ThirdValue;
-     
+    String ThirdValue;     
 };
 
 #endif

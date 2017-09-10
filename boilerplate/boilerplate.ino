@@ -13,6 +13,17 @@
 #include "Feedbacks_Handler.h"
 #include "Sensors_Handler.h"
 
+
+#define xAccelerometer_ADXL345 true
+#define xIMU_LSM9DS0 true
+#define xTouch_CAP1188 true
+
+#define xLED_RGB false
+#define xLED_NEO true
+#define xDOTM_MATRIX true
+#define xHAPTIC_analog false
+
+
 //Variables for timing
 uint_fast16_t volatile number_of_ms = 10;    
 
@@ -34,20 +45,15 @@ NEO_STRIP *STRIP;
 #define VIBRATING_M_PIN     3 
 MATRIX *M_MATRIX = NULL;
 
-#define xAccelerometer_ADXL345 true
-#define xIMU_LSM9DS0 true
-#define xTouch_CAP1188 false
 
-#define xLED_RGB true
-#define xLED_NEO false
-#define xDOTM_MATRIX false
-#define xHAPTIC_analog true
 
 
 void setup(void)
 {
     override_uart_limit = true;
-    //Serial.begin(9600);         //Remove if TX/RX lines are in commond with LED lines
+    
+    if(!xLED_RGB)
+        Serial.begin(9600);         //Remove if TX/RX lines are in commond with LED lines
     interrupts(); 
     
     //Initialization of SENSORS

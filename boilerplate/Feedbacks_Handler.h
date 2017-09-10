@@ -30,7 +30,7 @@ class Feedbacks_Handler
       void setMATRIX(MATRIX *pMATRIX);
       void startGazing();
       void stopGazing();
-      void showFace(uint8_t type);
+      void showFace(String type);
       
     private:
       Haptic *HapticMotor;

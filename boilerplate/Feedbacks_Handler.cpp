@@ -47,7 +47,7 @@ void Feedbacks_Handler::stopGazing()
   MATRIXX->stop_gazing();
 }
 
-void Feedbacks_Handler::showFace(uint8_t type)
+void Feedbacks_Handler::showFace(String type)
 {
   MATRIXX->face(type);
 }

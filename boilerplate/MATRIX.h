@@ -12,6 +12,7 @@ class MATRIX
         void start_gazing();
         void stop_gazing();
         void face(uint8_t type);
+        void face(String type);
         void RefreshValues();
         void HandleTime(unsigned int ElapsedTime);
 
