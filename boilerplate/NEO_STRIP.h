@@ -16,7 +16,7 @@ class NEO_STRIP
 
     private:
         bool state;
-        RFD_WS2812 leds = RFD_WS2812(NUM_LEDS, NEO_PIN);
+        RFD_WS2812 leds = RFD_WS2812(NUM_LEDS, NEO_PIN);;
         
 };
 

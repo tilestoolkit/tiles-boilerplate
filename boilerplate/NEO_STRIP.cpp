@@ -3,7 +3,7 @@
 
 NEO_STRIP::NEO_STRIP()
 {
-  
+  //leds = RFD_WS2812(NUM_LEDS, NEO_PIN);
   leds.initialize();
 
 }
@@ -22,14 +22,14 @@ NEO_STRIP::NEO_STRIP()
  void NEO_STRIP::setColor(String color)
  {
     if (color == "off"){
-      colorWipe(blinker.packRGB(0,0,0),25);
+      colorWipe(leds.packRGB(0,0,0),25);
     } 
     else if (color == "red") {
-      colorWipe(blinker.packRGB(255,0,0),25);
+      colorWipe(leds.packRGB(255,0,0),25);
       Serial.println("RED");
     }
     else if (color == "green"){
-      colorWipe(blinker.packRGB(0,255,0),25);
+      colorWipe(leds.packRGB(0,255,0),25);
       Serial.println("GREEN");
       
       } 
