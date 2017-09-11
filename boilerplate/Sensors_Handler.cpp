@@ -157,7 +157,7 @@ void Sensors_Handler::state_change()
         states++;
         break;
         case 8:
-        feedback_handle.start_gazing();
+        feedback_handle.startGazing();
         states=1;
         break;
     }
