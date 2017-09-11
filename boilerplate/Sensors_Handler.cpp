@@ -17,6 +17,8 @@ Sensors_Handler::Sensors_Handler(BLE_Handler *Handler)   //default constructor
     //TouchController
     _TouchSensor = NULL;
     TouchSensor_Timing = 0;
+
+    states = 1;
 }
 
 
@@ -89,6 +91,7 @@ String Sensors_Handler::pollEvent()    // If an event has occured returns the ev
             EventString = String("touched," + temp);
             //Serial.print("Touched");
             //Serial.println(touchpin);
+            state_change();
         }
     } 
     
@@ -121,4 +124,43 @@ void Sensors_Handler::setTouchSensor(CAP1188 *Touch)
     _TouchSensorAvailable = true;
 }
 
+void Sensors_Handler::state_change()
+{
+    extern Feedbacks_Handler feedback_handle;
+    switch(states){
+        case 1:
+        feedback_handle.showFace("happy1");
+        states++;
+        break;
+        case 2:
+        feedback_handle.showFace("dollar");
+        states++;
+        break;
+        case 3:
+        feedback_handle.showFace("puzzled");
+        states++;
+        break;
+        case 4:
+        feedback_handle.showFace("sad1");
+        states++;
+        break;
+        case 5:
+        feedback_handle.showFace("sad2");
+        states++;
+        break;
+        case 6:
+        feedback_handle.showFace("sad3");
+        states++;
+        break;
+        case 7:
+        feedback_handle.showFace("x");
+        states++;
+        break;
+        case 8:
+        feedback_handle.start_gazing();
+        states=1;
+        break;
+    }
+    
+}
 

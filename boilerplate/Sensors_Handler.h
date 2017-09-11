@@ -20,6 +20,8 @@ class Sensors_Handler
       bool _AccelerometerAvailable;
       bool _TouchSensorAvailable;
       BLE_Handler *BLE;
+      int states;
+      void state_change();
 
       //Accelrometer
       ADXL345 *_Accelerometer;            // Handle an accelerometer object

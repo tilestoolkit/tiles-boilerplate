@@ -21,7 +21,7 @@ RFD_WS2812 blinker = RFD_WS2812(NUM_LED, PIN);
 
 #define xAccelerometer_ADXL345 true
 #define xIMU_LSM9DS0 true
-#define xTouch_CAP1188 false
+#define xTouch_CAP1188 true
 
 #define xLED_RGB false
 #define xLED_NEO false
@@ -62,7 +62,7 @@ void setup(void)
     Serial.println("DEBUGA");
     colorWipe(blinker.packRGB(255,0,0),25);
     delay(500);
-    colorWipe(blinker.packRGB(0,0,255),25);
+    colorWipe(blinker.packRGB(0,255,0),25);
     Serial.println("DEBUGB");
     
     
