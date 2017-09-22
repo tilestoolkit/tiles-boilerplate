@@ -1,18 +1,16 @@
 #include "NEO_STRIP.h"
 
-
 NEO_STRIP::NEO_STRIP()
 {
-  Serial.println("LED0");
+  //Serial.println("LED0");
  // leds = RFD_WS2812(7, 2);
   leds.initialize();
   colorWipe(leds.packRGB(0,0,255),25);
-  Serial.println("LED1");
+  //Serial.println("LED1");
   delay(500);
   colorWipe(leds.packRGB(0,0,0),25);
-  Serial.println("LED2");
+ // Serial.println("LED2");
 }
-
 
 // Fill the dots one after the other with a color
 void NEO_STRIP::colorWipe(uint32_t c, uint8_t wait) 
@@ -24,18 +22,6 @@ void NEO_STRIP::colorWipe(uint32_t c, uint8_t wait)
       delay(wait);
   }
 }
-
-
- /* Fill the dots one after the other with a color
- void NEO_STRIP::colorWipe(uint32_t c, uint8_t wait) 
- {
-   for(uint16_t i=0; NUM_LEDS; i++) 
-   {
-       leds.setPixel(i, c);
-       leds.render();
-       delay(wait);
-   }
- }*/
 
  void NEO_STRIP::set_Color(String color)
  {
@@ -49,7 +35,6 @@ void NEO_STRIP::colorWipe(uint32_t c, uint8_t wait)
     else if (color == "green"){
       colorWipe(leds.packRGB(0,255,0),25);
       Serial.println("GREEN");
-      
       } 
     else if (color == "blue"){
       colorWipe(leds.packRGB(0,0,255),25);
