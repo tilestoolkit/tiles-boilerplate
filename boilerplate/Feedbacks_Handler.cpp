@@ -3,6 +3,7 @@
 Feedbacks_Handler::Feedbacks_Handler()
 {
     HapticAvailable = false;
+    HapticICAvailable = false;
     RGB_LEDAvailable = false;
     NEO_STRIPAvailable = false;
     MATRIX_Available = false;
@@ -65,21 +66,33 @@ void Feedbacks_Handler::setHapticMotor(Haptic *pHapticMotor)
     HapticAvailable = true;
 }
 
-void Feedbacks_Handler::Vibrate(unsigned int Time)
+void Feedbacks_Handler::setHapticMotor(DRV2605 *pHapticIC){
+    HapticIC = pHapticIC;
+    HapticICAvailable = true;
+}
+
+
+void Feedbacks_Handler::Vibrate(uint8_t Time)
 {  
-    if(HapticAvailable == false)
-      return;     
-    HapticMotor->Vibrate(Time);
+    if(HapticICAvailable == true)
+      HapticIC->Vibrate(Time);
+      else     
+        HapticMotor->Vibrate(Time);
 }
 
 void Feedbacks_Handler::Vibrate(String Type)
 {
-    if(HapticAvailable == false)
-      return;    
+    if(HapticAvailable == true)
+    {    
     if(Type == String("short"))
       HapticMotor->VibrateShort();
     else if(Type == String("long"))
       HapticMotor->VibrateLong();
+    } else if(HapticICAvailable == true)
+    {
+      Vibrate(Type.toInt());
+      Serial.print("*DEBUG: "); Serial.println(Type.toInt());
+    } 
 }
 
 //Service Methods

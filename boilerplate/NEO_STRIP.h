@@ -1,5 +1,4 @@
 #include <Arduino.h>
-//#include "FastLED.h"
 #include <Ai_RFD_WS2812.h>
 #include "CONFIG.h"
 

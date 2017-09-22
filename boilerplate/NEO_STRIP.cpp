@@ -31,11 +31,9 @@ void NEO_STRIP::colorWipe(uint32_t c, uint8_t wait)
     } 
     else if (color == "red") {
       colorWipe(leds.packRGB(255,0,0),25);
-      Serial.println("RED");
     }
     else if (color == "green"){
       colorWipe(leds.packRGB(0,255,0),25);
-      Serial.println("GREEN");
       } 
     else if (color == "blue"){
       colorWipe(leds.packRGB(0,0,255),25);
@@ -46,11 +44,9 @@ void NEO_STRIP::colorWipe(uint32_t c, uint8_t wait)
     else if (color == "black") {
       colorWipe(leds.packRGB(0,0,0),25);
     }
-
  }
 
  void NEO_STRIP::blink(String color){
-  Serial.println("BLINKING");
   blinking = true;
   blinkingColor = color;
  }

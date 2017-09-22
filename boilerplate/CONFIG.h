@@ -19,6 +19,7 @@
 const uint8_t GET_NAME             = 32;
 
 #define xAccelerometer_ADXL345 true
+#define ACC_INT1_PIN  4 
 #define xIMU_LSM9DS0 true
 #define xTouch_CAP1188 true
 #define xLED_RGB false
@@ -27,6 +28,8 @@ const uint8_t GET_NAME             = 32;
 #define NUM_LEDS 7      //Number of leds in the neopixel strip
 #define xDOTM_MATRIX true
 #define xHAPTIC_analog false
+#define VIBRATING_M_PIN     3 
+#define xHAPTIC_IC true
 
 
 #endif

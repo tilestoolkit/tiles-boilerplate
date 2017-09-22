@@ -5,6 +5,7 @@
 #include "RGB_LED.h"
 #include "NEO_STRIP.h"
 #include "MATRIX.h"
+#include "DRV2605.h"
 
 class Feedbacks_Handler
 {
@@ -16,8 +17,10 @@ class Feedbacks_Handler
 
       // Haptic
       void setHapticMotor(Haptic *pHapticMotor);
-      void Vibrate(unsigned int Time);
+      void setHapticMotor(DRV2605 *pHapticIC);
+      //void Vibrate(unsigned int Time);
       void Vibrate(String Type);
+      void Vibrate(uint8_t Time);
 
       // RGB Led
       void setRGB_LED(RGB_LED *pLED);
@@ -36,6 +39,9 @@ class Feedbacks_Handler
     private:
       Haptic *HapticMotor;
       bool HapticAvailable;
+
+      DRV2605 *HapticIC;
+      bool HapticICAvailable;
 
       RGB_LED *LED;
       bool RGB_LEDAvailable;
