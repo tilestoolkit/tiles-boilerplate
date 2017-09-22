@@ -20,7 +20,7 @@ void Feedbacks_Handler::setColor(String color)
   if(RGB_LEDAvailable)
     LED->setColor(color);
   else if(NEO_STRIPAvailable)
-    STRIP->setColor(color);
+    STRIP->set_Color(color);
 }
 
 // NEOPIXEL LED/STRIP

@@ -12,11 +12,10 @@
 #include "BLE_Handler.h"
 #include "Feedbacks_Handler.h"
 #include "Sensors_Handler.h"
-#include <Ai_RFD_WS2812.h>
+//#include <Ai_RFD_WS2812.h>
 
-#define PIN     2
-#define NUM_LED 7
-RFD_WS2812 blinker = RFD_WS2812(NUM_LED, PIN);
+//#include "NEO_STRIP.h"
+
 
 
 #define xAccelerometer_ADXL345 true
@@ -46,7 +45,12 @@ CAP1188 *TOUCH = NULL;
 Feedbacks_Handler feedback_handle;
 Haptic *HapticMotor;
 RGB_LED *LED;
-NEO_STRIP *STRIP;
+NEO_STRIP *STRIP = NULL;
+
+#define PIN     2
+#define NUM_LED 7
+//RFD_WS2812 blinker = RFD_WS2812(NUM_LED, PIN);
+
 #define VIBRATING_M_PIN     3 
 MATRIX *M_MATRIX = NULL;
 
@@ -58,14 +62,19 @@ void setup(void)
         Serial.begin(9600);         //Remove if TX/RX lines are in commond with LED lines
     interrupts(); 
 
+    /*
     blinker.initialize();
     Serial.println("DEBUGA");
     colorWipe(blinker.packRGB(255,0,0),25);
     delay(500);
     colorWipe(blinker.packRGB(0,255,0),25);
-    Serial.println("DEBUGB");
-    
-    
+    Serial.println("DEBUGB"); */
+
+
+    STRIP = new NEO_STRIP();
+    STRIP->set_Color("red");
+    delay(500);
+    STRIP->set_Color("white");
     
     //Initialization of SENSORS
     //Accelerometer
@@ -174,7 +183,7 @@ void TIMER1_Interrupt(void)
     }
 }
 
-// Fill the dots one after the other with a color
+/* Fill the dots one after the other with a color
 void colorWipe(uint32_t c, uint8_t wait) 
 {
   for(uint16_t i=0; i<blinker.getNumPixels(); i++) 
@@ -183,4 +192,4 @@ void colorWipe(uint32_t c, uint8_t wait)
       blinker.render();
       delay(wait);
   }
-}
+}*/
