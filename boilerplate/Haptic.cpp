@@ -36,6 +36,8 @@ void Haptic::StopVibrate()
     State = INACTIVE;
 }
 
+
+
 //Service methods
 
 void Haptic::HandleTime(unsigned int  ElapsedTime)

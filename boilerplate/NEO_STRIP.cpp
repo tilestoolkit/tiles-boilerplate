@@ -27,6 +27,7 @@ void NEO_STRIP::colorWipe(uint32_t c, uint8_t wait)
  {
     if (color == "off"){
       colorWipe(leds.packRGB(0,0,0),25);
+      blinking = false;
     } 
     else if (color == "red") {
       colorWipe(leds.packRGB(255,0,0),25);
@@ -42,5 +43,37 @@ void NEO_STRIP::colorWipe(uint32_t c, uint8_t wait)
     else if (color == "white") {
       colorWipe(leds.packRGB(255,255,255),25);
     }
+    else if (color == "black") {
+      colorWipe(leds.packRGB(0,0,0),25);
+    }
+
  }
 
+ void NEO_STRIP::blink(String color){
+  Serial.println("BLINKING");
+  blinking = true;
+  blinkingColor = color;
+ }
+
+//Service methods
+void NEO_STRIP::HandleTime(unsigned int  ElapsedTime)
+{
+    Blink_Timing += ElapsedTime;
+}
+
+void NEO_STRIP::RefreshValues()
+{
+    if(blinking == true && Blink_Timing > BlinkingTime)
+    {
+      if (ledState == false) {
+        ledState = true;
+      } else {
+        ledState = false;
+      }
+      if (ledState == false)
+        set_Color("black");
+      else
+        set_Color(blinkingColor);
+      Blink_Timing = 0;
+    }
+}

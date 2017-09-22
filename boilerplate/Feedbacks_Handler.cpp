@@ -23,6 +23,12 @@ void Feedbacks_Handler::setColor(String color)
     STRIP->set_Color(color);
 }
 
+void Feedbacks_Handler::blink(String color)
+{
+    if(NEO_STRIPAvailable)
+    STRIP->blink(color);
+}
+
 // NEOPIXEL LED/STRIP
 void Feedbacks_Handler::setNEO_STRIP(NEO_STRIP *pSTRIP)
 {
@@ -83,6 +89,8 @@ String Feedbacks_Handler::UpdateFeedback()
     HapticMotor->RefreshValues();
   if(MATRIX_Available)
     MATRIXX->RefreshValues();
+  if(NEO_STRIPAvailable)
+    STRIP->RefreshValues();
 }
 
 void Feedbacks_Handler::HandleTime(unsigned int ElapsedTime)
@@ -91,6 +99,8 @@ void Feedbacks_Handler::HandleTime(unsigned int ElapsedTime)
     HapticMotor->HandleTime(ElapsedTime);
   if(MATRIX_Available)
     MATRIXX->HandleTime(ElapsedTime);
+  if(NEO_STRIPAvailable)
+    STRIP->HandleTime(ElapsedTime);
 
     //Serial.print("Elapsed Time: "); Serial.println(ElapsedTime);
 } 
