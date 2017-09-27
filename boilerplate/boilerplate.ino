@@ -77,7 +77,7 @@ void setup(void)
     HapticIC = new DRV2605();
     feedback_handle.setHapticMotor(HapticIC);
     }
-    
+
     //RGB LED
     if(xLED_RGB){
         LED = new RGB_LED(0, 1, 2);

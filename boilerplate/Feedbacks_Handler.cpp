@@ -91,7 +91,7 @@ void Feedbacks_Handler::Vibrate(String Type)
     } else if(HapticICAvailable == true)
     {
       Vibrate(Type.toInt());
-      Serial.print("*DEBUG: "); Serial.println(Type.toInt());
+      //Serial.print("*DEBUG: "); Serial.println(Type.toInt());
     } 
 }
 
