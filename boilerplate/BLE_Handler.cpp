@@ -141,6 +141,32 @@ Token::Token(char* Data, uint8_t Length)
     }    
 }
 
+Token::Token(String Data)
+{
+    String Command;
+    Command = Data;
+    
+    
+    int CommaIndex = Command.indexOf(',');
+    if(CommaIndex > 0)
+    {
+    int SecondCommaIndex = Command.indexOf(',', CommaIndex + 1);
+    FirstValue = Command.substring(0, CommaIndex);
+    SecondValue = Command.substring(CommaIndex + 1, SecondCommaIndex);
+    ThirdValue = "";
+    if(SecondCommaIndex > 0)
+    {
+      ThirdValue = Command.substring(SecondCommaIndex + 1);
+    }
+    }
+    else
+    {
+        FirstValue = Command.substring(0, CommaIndex);
+        SecondValue = "";
+        ThirdValue = "";        
+    }    
+}
+
 
 String Token::getEventString()
 {

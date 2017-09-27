@@ -14,8 +14,6 @@
 #include "Sensors_Handler.h"
 #include "CONFIG.h"
 
-
-
 //Variables for timing
 uint_fast16_t volatile number_of_ms = 10;    
 
@@ -40,8 +38,9 @@ MATRIX *M_MATRIX = NULL;
 void setup(void)
 {
     override_uart_limit = true;  
-    if(!xLED_RGB)
-        Serial.begin(9600);        
+    if(!xLED_RGB){
+        Serial.begin(9600);
+    }        
     interrupts(); 
 
     //Initialization of SENSORS
@@ -77,20 +76,19 @@ void setup(void)
     HapticIC = new DRV2605();
     feedback_handle.setHapticMotor(HapticIC);
     }
-
     //RGB LED
     if(xLED_RGB){
-        LED = new RGB_LED(0, 1, 2);
-        feedback_handle.setRGB_LED(LED);
-        }  
+    LED = new RGB_LED(0, 1, 2);
+    feedback_handle.setRGB_LED(LED);
+    }  
     //NeoPixels LED/STRIP
     if(xLED_NEO){
-        STRIP = new NEO_STRIP();
-        feedback_handle.setNEO_STRIP(STRIP);
-        feedback_handle.setColor("blue");
-        delay(500);
-        feedback_handle.setColor("off");
-        }
+    STRIP = new NEO_STRIP();
+    feedback_handle.setNEO_STRIP(STRIP);
+    feedback_handle.setColor("blue");
+    delay(500);
+    feedback_handle.setColor("off");
+    }
 
     // Configure the RFduino BLE properties
     char DeviceName[8] = {0};
@@ -105,12 +103,20 @@ void setup(void)
 }
 
 void loop(void)
-{
+{   
+    while(Serial.available()){
+    String serialCommand = Serial.readString();
+    //Serial.print("SERIAL EVENT: "); Serial.println(serialCommand);
+    Token *command = new Token(serialCommand);
+    BLE.ReceivedStack.push(command);
+    }
+
     sensor_handle.pollEvent();
     feedback_handle.UpdateFeedback();
     BLE.ProcessEvents();
     delay(10); // 10ms Important delay, do not delete it
 }
+
 
 /*******************INTERNAL FUNCTIONS********************/
 
