@@ -115,3 +115,4 @@ void MATRIX::gazing()
   }
   matrix.writeDisplay();
 }
+

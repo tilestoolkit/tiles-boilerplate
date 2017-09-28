@@ -86,6 +86,10 @@ void BLE_Handler::ProcessEvents()
         else if(Command->SecondValue == String("blink"))
         {
           feedback_handle.blink(Command->ThirdValue);
+        }    
+        else if(Command->SecondValue == String("fade"))
+        {
+          feedback_handle.fade(Command->ThirdValue);
         }
         else if(Command->SecondValue == String("off"))
         {
@@ -93,11 +97,11 @@ void BLE_Handler::ProcessEvents()
         }
 
     }
-    if(Command->FirstValue == String("haptic"))
+    else if(Command->FirstValue == String("haptic"))
     {
         feedback_handle.Vibrate(Command->SecondValue);
     }
-    if(Command->FirstValue == String("matrix"))
+    else if(Command->FirstValue == String("matrix"))
     {
         if(Command->SecondValue == String("gazing")){
         feedback_handle.startGazing();
@@ -107,6 +111,8 @@ void BLE_Handler::ProcessEvents()
             feedback_handle.showFace(String(Command->SecondValue));
         }
     }
+    else
+        Serial.println("**COMMAND NOT RECOGNIZED**");
 }
 
 /*********************************TOKEN CLASS************************************************/

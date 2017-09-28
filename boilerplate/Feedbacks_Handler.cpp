@@ -16,12 +16,20 @@ void Feedbacks_Handler::setRGB_LED(RGB_LED *pLED)
   RGB_LEDAvailable = true;
 }
 
+// NEOPIXEL LED/STRIP
+void Feedbacks_Handler::setNEO_STRIP(NEO_STRIP *pSTRIP)
+{
+ STRIP = pSTRIP;
+ NEO_STRIPAvailable = true;
+}
+
+// Common LED methods
 void Feedbacks_Handler::setColor(String color)
 {
   if(RGB_LEDAvailable)
     LED->setColor(color);
   else if(NEO_STRIPAvailable)
-    STRIP->set_Color(color);
+    STRIP->setColor(color);
 }
 
 void Feedbacks_Handler::blink(String color)
@@ -30,11 +38,10 @@ void Feedbacks_Handler::blink(String color)
     STRIP->blink(color);
 }
 
-// NEOPIXEL LED/STRIP
-void Feedbacks_Handler::setNEO_STRIP(NEO_STRIP *pSTRIP)
+void Feedbacks_Handler::fade(String color)
 {
- STRIP = pSTRIP;
- NEO_STRIPAvailable = true;
+    if(NEO_STRIPAvailable)
+    STRIP->fade(color);
 }
 
 // MATRIX

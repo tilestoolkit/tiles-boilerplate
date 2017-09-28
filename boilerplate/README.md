@@ -38,7 +38,7 @@ These are the electronic parts for which data primitives are available
 * NeoPixel LEDs
 * 8X8 Dot Matrix based on HT16K33
 * Vibration motor driven by analogic circuit
-* Vibration motor driven by DRV2605 IC (soon)
+* Vibration motor driven by DRV2605 IC
 
 ## Protocol
 
@@ -55,8 +55,10 @@ These are the electronic parts for which data primitives are available
 |ReceiverID|Name|P1|P2|Device|Note|
 |----------|----|--|--|------|----|
 |          |led |off||RGB,NEOPIXEL||
-|          |led |on|red,gree,blue,white|RGB,NEOPIXEL||
-|          |led |on|[HEX]|RGB,NEOPIXEL||
+|          |led |on,blink |red,gree,blue,white|RGB,NEOPIXEL||
 |          |haptic|short,long||Vibration motor (analog)||
 |          |matrix|off||8X8 Matrix||
 |          |matrix|gazing||8X8 Matrix||
+
+##ToDo
+- add hex color handling

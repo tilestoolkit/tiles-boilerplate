@@ -29,6 +29,7 @@ class Feedbacks_Handler
       void setNEO_STRIP(NEO_STRIP *pSTRIP);
       void setColor(String color);
       void blink(String color);
+      void fade(String color);
 
       // MATRIX
       void setMATRIX(MATRIX *pMATRIX);

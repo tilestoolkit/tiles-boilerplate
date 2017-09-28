@@ -7,13 +7,7 @@
 #define SIMBLEE 2
 #define UC RFDUINO
 
-// TOKEN FIRMWARE METADATA
-#define NAME    "AnyBoard Pawn"
-#define VERSION "0.1"
-#define UUID    "3191-6275-32g4"
-
-
-
+//Devices
 #define xAccelerometer_ADXL345 true
 #define ACC_INT1_PIN  4 
 #define xIMU_LSM9DS0 true
