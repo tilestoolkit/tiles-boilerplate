@@ -106,6 +106,7 @@ void loop(void)
 {   
     while(Serial.available()){
     String serialCommand = Serial.readString();
+    serialCommand.trim();
     //Serial.print("SERIAL EVENT: "); Serial.println(serialCommand);
     Token *command = new Token(serialCommand);
     BLE.ReceivedStack.push(command);

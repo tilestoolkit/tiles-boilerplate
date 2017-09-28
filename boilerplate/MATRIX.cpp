@@ -2,9 +2,6 @@
 
 MATRIX::MATRIX(int i)
 {
-    Serial.println("Matrix registration started!");
-    //matrix = Adafruit_8x8matrix();
-
     //Eyes animation config
     #define MATRIX_EYES         0
   //  blinkIndex = { 1, 2, 3, 4, 3, 2, 1 };   // Blink bitmap sequence (see faces.h)
