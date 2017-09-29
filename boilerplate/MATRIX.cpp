@@ -4,7 +4,6 @@ MATRIX::MATRIX(int i)
 {
     //Eyes animation config
     #define MATRIX_EYES         0
-  //  blinkIndex = { 1, 2, 3, 4, 3, 2, 1 };   // Blink bitmap sequence (see faces.h)
     blinkCountdown = 100;                    // Countdown to next blink (in frames)
     gazeCountdown  =  75;                    // Countdown to next eye movement
     gazeFrames     =  25;                    // Duration of eye movement (smaller = faster)
@@ -17,7 +16,6 @@ MATRIX::MATRIX(int i)
     matrix.begin(0x70);
     matrix.setBrightness(15);  // 0 to 15
     matrix.blinkRate(0);      // 0 to 3
-
 }
 
 void MATRIX::start_gazing()

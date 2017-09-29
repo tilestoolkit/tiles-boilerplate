@@ -97,8 +97,7 @@ void NEO_STRIP::RefreshValues()
     }
 
     if(fading == true && LED_Timing > FadingTime)
-    {  
-      
+    {       
       if(target_r == 255){
         curr_r = curr_r +fadeAmount;}
       if(target_g == 255){
@@ -110,8 +109,6 @@ void NEO_STRIP::RefreshValues()
       if(counter <= 0 || counter >= 230){
         fadeAmount = -fadeAmount;
       }
-
       LED_Timing = 0;
-
     }
 }

@@ -98,7 +98,7 @@ void setup(void)
 
     // Start the BLE stack
     RFduinoBLE.begin();
-    Serial.println("**Setup Completed**");  
+    Serial.println("**Setup Complete**");  
     timer_config();
 }
 

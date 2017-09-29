@@ -35,6 +35,5 @@ class NEO_STRIP
         unsigned int counter = 0;
 
         RFD_WS2812 leds = RFD_WS2812(NUM_LEDS, NEO_PIN);
-        //RFD_WS2812 leds;
 };
 
