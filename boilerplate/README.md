@@ -42,7 +42,7 @@ These are the electronic parts for which data primitives are available
 
 ## Protocol
 
-### Input
+### Sensor
 |SenderID|Name|P1|P2|Device|Note|
 |--------|----|--|--|------|----|
 |Tile_XX|tap|single,double||ADXL345,LSM9DS0||
@@ -51,14 +51,18 @@ These are the electronic parts for which data primitives are available
 |Tile_XX|rotation|clockwise,counterclock||LSM9DS0|
 |Tile_XX|touched|1,2,3,4||CAP1188|ID of the pin touched in P1|
 
-### Output
+### Feedbacks
 |ReceiverID|Name|P1|P2|Device|Note|
 |----------|----|--|--|------|----|
 |          |led |off||RGB,NEOPIXEL||
-|          |led |on,blink |red,gree,blue,white|RGB,NEOPIXEL||
-|          |haptic|short,long||Vibration motor (analog)||
+|          |led |on |red,green,blue,white|RGB,NEOPIXEL||
+|          |led |blink |red,green,blue,white|NEOPIXEL||
+|          |led |fade |red,green,blue,white|NEOPIXEL||
 |          |matrix|off||8X8 Matrix||
 |          |matrix|gazing||8X8 Matrix||
+|          |matrix|dollar,happy1,x,puzzled,sad1,sad2,sad3,||8X8 Matrix||
+|          |haptic|short,long||Vibration motor (analog)||
+|          |haptic|[ID]]||DRV2605| Feedback pattern ID, see page 57-58 of the [datasheet](http://www.ti.com/lit/ds/symlink/drv2605.pdf) |
 
 ##ToDo
 - add hex color handling

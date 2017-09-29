@@ -9,8 +9,6 @@
 #define COMMON_ANODE  1
 #define COMMON_CATHODE  2
 
-#define LED_TYPE COMMON_ANODE
-
 #if LED_TYPE == COMMON_ANODE
   #define LED_OFF HIGH
   #define LED_ON LOW
