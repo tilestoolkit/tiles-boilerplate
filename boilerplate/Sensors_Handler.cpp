@@ -91,7 +91,7 @@ String Sensors_Handler::pollEvent()    // If an event has occured returns the ev
             EventString = String("touched," + temp);
             //Serial.print("Touched");
             //Serial.println(touchpin);
-            state_change();
+            //state_change();
         }
     } 
     

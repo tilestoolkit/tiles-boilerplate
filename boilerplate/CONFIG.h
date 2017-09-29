@@ -5,7 +5,7 @@
 
 //Devices
 #define xAccelerometer_ADXL345 true
-#define ACC_INT1_PIN  4 
+#define ACC_INT1_PIN  8 
 
 #define xIMU_LSM9DS0 true
 
@@ -18,10 +18,10 @@
 #define LED_TYPE COMMON_ANODE
 
 #define xLED_NEO true
-#define NEO_PIN 2
-#define NUM_LEDS 7      //Number of leds in the neopixel strip
+#define NEO_PIN 9
+#define NUM_LEDS 1      //Number of leds in the neopixel strip
 
-#define xDOTM_MATRIX true
+#define xDOTM_MATRIX false
 
 #define xHAPTIC_analog false
 #define VIBRATING_M_PIN     3 

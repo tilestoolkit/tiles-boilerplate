@@ -11,6 +11,7 @@ NEO_STRIP::NEO_STRIP()
 // Fill the dots one after the other with a color
  void NEO_STRIP::setColor(String color)
  {
+    //Serial.println("debug B");
     if (color == "off"){
       colorWipe(leds.packRGB(0,0,0),25);
       blinking = false;

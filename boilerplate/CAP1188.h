@@ -1,8 +1,8 @@
 #include <Adafruit_Sensor.h>
 #include <Adafruit_CAP1188.h>
 
-#define CAP1188_RESET  4
-#define CAP1188_IRQ 3
+#define CAP1188_RESET  12
+#define CAP1188_IRQ 15
 
 
 class CAP1188

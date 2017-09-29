@@ -9,7 +9,7 @@ BLE_Handler::BLE_Handler()
 }
 
 // Code that executes everytime token is being connected to
-void RFduinoBLE_onConnect()
+void SimbleeBLE_onConnect()
 {
     extern BLE_Handler BLE;
     BLE.Connected = true;
@@ -17,7 +17,7 @@ void RFduinoBLE_onConnect()
 }
 
 // Code that executes everytime token is being disconnected from
-void RFduinoBLE_onDisconnect()
+void SimbleeBLE_onDisconnect()
 {
     extern BLE_Handler BLE;
     BLE.Connected = false;
@@ -40,12 +40,12 @@ void BLE_Handler::SendEvent(Token* Event)
     String payload = Event->getEventString();
     char sendData[20] = {0};
     payload.toCharArray(sendData, payload.length()+1);    
-    RFduinoBLE.send(sendData, payload.length());
+    SimbleeBLE.send(sendData, payload.length());
     Serial.print("**Event sent: "); Serial.print(payload); Serial.println("**");
 }
 
 // BT Token Received Callback
-void RFduinoBLE_onReceive(char *data, int length)
+void SimbleeBLE_onReceive(char *data, int length)
 {
     extern BLE_Handler BLE;
     BLE.ReceiveEvent(data, length);
@@ -82,6 +82,7 @@ void BLE_Handler::ProcessEvents()
         if(Command->SecondValue == String("on"))
         {
           feedback_handle.setColor(Command->ThirdValue);
+          Serial.println("debug A");
         }
         else if(Command->SecondValue == String("blink"))
         {

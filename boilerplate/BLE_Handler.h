@@ -1,7 +1,7 @@
 #ifndef BLEHANDLER_h
 #define BLEHANDLER_h
 
-#include <RFduinoBLE.h>
+#include <SimbleeBLE.h>
 #include <StackArray.h>
 #include "CONFIG.h"
 #include "Feedbacks_Handler.h"

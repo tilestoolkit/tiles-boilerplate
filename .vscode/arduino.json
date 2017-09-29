@@ -1,0 +1,6 @@
+{
+    "board": "Simblee:Simblee:Simblee",
+    "sketch": "boilerplate/boilerplate.ino",
+    "port": "/dev/cu.usbserial-DN008X22",
+    "output": "../../temp/vsoutput"
+}
