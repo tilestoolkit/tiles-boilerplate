@@ -66,8 +66,8 @@ String Sensors_Handler::pollEvent()    // If an event has occured returns the ev
         else if (_InertialCentral->isDoubleTapped())
             EventString = String("doubletap");
         
-        else if (_InertialCentral->isShaked())
-            EventString = String("shake");
+        else if (_InertialCentral->isShaked()){}
+           // EventString = String("shake");
         
         else if (_InertialCentral->isTilted())
             EventString = String("tilt");
@@ -85,13 +85,16 @@ String Sensors_Handler::pollEvent()    // If an event has occured returns the ev
     {
         TouchSensor_Timing = 0;
         short touchpin = _TouchSensor->isTouched();
-        if(touchpin > 0)
+        if(touchpin == 2)
         {
             String temp = String(touchpin);
             EventString = String("touched," + temp);
             //Serial.print("Touched");
             //Serial.println(touchpin);
             //state_change();
+        } else if(touchpin == 1){
+            Serial.println("quiquiqui");
+           BLE->shoutdown();
         }
     } 
     

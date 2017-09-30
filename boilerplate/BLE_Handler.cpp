@@ -34,6 +34,14 @@ void BLE_Handler::Emit(Token *Event)
     }
 }
 
+void BLE_Handler::shoutdown()
+{
+    digitalWrite(STATUS_LED_PIN,LOW);
+    Serial.println("Tile shutting down");
+    delay(20);
+    Simblee_systemOff();
+}
+
 //Send a token via BT
 void BLE_Handler::SendEvent(Token* Event)
 {

@@ -17,6 +17,8 @@ class BLE_Handler
       void ReceiveEvent(char *Data, int Lenght);
       void ProcessEvents();
       void Emit(Token *Event);
+      void shoutdown();
+
       bool Connected;
       bool EventReceived;   // true if an event has been Received, cleared with a call to ProcessEvents()
       bool EventToSend;     // true if there are events waiting to be send

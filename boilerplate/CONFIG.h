@@ -11,6 +11,10 @@
 
 #define xTouch_CAP1188 true
 
+#define STATUS_LED_PIN 19
+
+#define BUTTON_PIN 16
+
 #define xLED_RGB false
 #define LED_RED_PIN 0
 #define LED_GREEN_PIN 1
