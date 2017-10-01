@@ -33,9 +33,15 @@ void STATUS_LED::blinking()
     blink = true;
 }
 
+void STATUS_LED::fade2()
+{
+    fade = true;
+    blink = false;
+}
+
 void STATUS_LED::RefreshValues()
 {
-    if(blink == true && Status_Led_Timing > Led_RefreshThreshold)
+    if(blink == true && Status_Led_Timing > BlinkingTime)
     {
       if (ledState == false) {
         ledState = true;
@@ -47,6 +53,16 @@ void STATUS_LED::RefreshValues()
       else
         on();
     Status_Led_Timing = 0;
+    }
+
+    else if(fade == true && Status_Led_Timing > FadeTime)
+    {
+        analogWrite(STATUS_LED_PIN,brightness);
+        brightness = brightness + fadeAmount;
+        if (brightness <= 0 || brightness >= 255) {
+            fadeAmount = -fadeAmount;
+          }
+        Status_Led_Timing = 0;
     }
 
 

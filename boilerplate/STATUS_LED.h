@@ -1,3 +1,6 @@
+#ifndef STATUS_LED_h
+#define STATUS_LED_h
+
 #include <Arduino.h>
 #include "CONFIG.h"
 
@@ -10,11 +13,18 @@ public:
     void on();
     void off();
     void blinking();
+    void fade2();
 private:
 
     void off_blinking();
     unsigned int Status_Led_Timing;
-    unsigned int Led_RefreshThreshold = 500; //Refresh values every 50ms
+    unsigned int BlinkingTime = 500; //Refresh values every 50ms
     bool blink = false;
+    bool fade = false;
+    unsigned int brightness = 0;
+    unsigned int  FadeTime = 50;
+    unsigned int fadeAmount = 5; 
     bool ledState = false;
 };
+
+#endif

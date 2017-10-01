@@ -34,7 +34,7 @@ DRV2605 *HapticIC;
 RGB_LED *LED;
 NEO_STRIP *STRIP = NULL;
 MATRIX *M_MATRIX = NULL;
-STATUS_LED *status_led = NULL;
+STATUS_LED status_led;
 
 
 int ledState = HIGH;         
@@ -42,7 +42,7 @@ int buttonState = LOW;
 int lastButtonState = LOW;  
 int i = 0; 
 unsigned long lastDebounceTime = 0;  // the last time the output pin was toggled
-unsigned long debounceDelay = 500;    // the debounce time; increase if the output flickers
+unsigned long debounceDelay = 1000;    // the debounce time; increase if the output flickers
 
 void setup(void)
 {
@@ -52,8 +52,10 @@ void setup(void)
     }        
     interrupts(); 
 
-    status_led = new STATUS_LED();
-    status_led->on(); 
+    //status_led = new STATUS_LED();
+    status_led.on(); 
+    
+    //Configure pushbutton to wake up the device
     pinMode(BUTTON_PIN, INPUT);
     digitalWrite(BUTTON_PIN,HIGH);
     Simblee_pinWakeCallback(BUTTON_PIN,LOW,callback);
@@ -100,7 +102,7 @@ void setup(void)
     if(xLED_NEO){
     STRIP = new NEO_STRIP();
     feedback_handle.setNEO_STRIP(STRIP);
-    feedback_handle.setColor("white");
+    feedback_handle.setColor("blue");
     delay(500);
     feedback_handle.setColor("off");
     }
@@ -135,6 +137,8 @@ void loop(void)
         if(buttonState == LOW){
           Serial.print("DEBUG: "); Serial.println(i);
           i++;
+          delay(100);
+          //BLE.shoutdown();
         }
       }
     }
@@ -149,7 +153,7 @@ void loop(void)
     }
 
     //Refresh values
-    status_led->RefreshValues();
+    status_led.RefreshValues();
     sensor_handle.pollEvent();
     feedback_handle.UpdateFeedback();
     BLE.ProcessEvents();
@@ -195,7 +199,7 @@ void TIMER2_Interrupt(void)
         //Serial.print("Interrupt: "); Serial.println(number_of_ms);
         sensor_handle.HandleTime(number_of_ms);
         feedback_handle.HandleTime(number_of_ms);
-        status_led->HandleTime(number_of_ms);
+        status_led.HandleTime(number_of_ms);
         NRF_TIMER2->EVENTS_COMPARE[0] = 0;
     }
 }
