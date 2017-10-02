@@ -14,6 +14,7 @@
 #include "Sensors_Handler.h"
 #include "CONFIG.h"
 #include "STATUS_LED.h"
+#include "BUZZER.h"
 
 //Variables for timing
 uint_fast16_t volatile number_of_ms = 10;    
@@ -35,6 +36,7 @@ RGB_LED *LED;
 NEO_STRIP *STRIP = NULL;
 MATRIX *M_MATRIX = NULL;
 STATUS_LED status_led;
+BUZZER buzz;
 
 
 int ledState = HIGH;         
@@ -162,6 +164,7 @@ void loop(void)
 
 int callback(uint32_t ulPin)
 {
+  buzz.play_melody();
   Serial.println("Tile waken up");
   Simblee_resetPinWake(ulPin);
 }
