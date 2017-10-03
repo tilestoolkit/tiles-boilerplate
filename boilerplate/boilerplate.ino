@@ -104,9 +104,9 @@ void setup(void)
     if(xLED_NEO){
     STRIP = new NEO_STRIP();
     feedback_handle.setNEO_STRIP(STRIP);
-    feedback_handle.setColor("blue");
-    delay(500);
-    feedback_handle.setColor("off");
+    //feedback_handle.setColor("blue");
+    //delay(500);
+    //feedback_handle.setColor("off");
     }
 
     // Configure the RFduino BLE properties
@@ -164,7 +164,7 @@ void loop(void)
 
 int callback(uint32_t ulPin)
 {
-  buzz.play_melody();
+  //buzz.play_melody();
   Serial.println("Tile waken up");
   Simblee_resetPinWake(ulPin);
 }
