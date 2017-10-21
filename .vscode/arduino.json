@@ -2,5 +2,5 @@
     "board": "Simblee:Simblee:Simblee",
     "sketch": "boilerplate/boilerplate.ino",
     "port": "/dev/cu.usbserial-DO00BNGW",
-    "output": "../../temp/vsoutput"
+    "output": "../temp/vsoutput"
 }
