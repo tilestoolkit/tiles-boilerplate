@@ -7,7 +7,7 @@
 
 #include <Wire.h>
 #include <WInterrupts.h>
-#include <SimbleeBLE.h>
+#include <bluefruit.h>
 #include <string.h>
 #include "BLE_Handler.h"
 #include "Feedbacks_Handler.h"
@@ -117,6 +117,7 @@ void setup(void)
 
     // Start the BLE stack
     SimbleeBLE.begin();
+    
     timer_config(1000);
 
     Serial.println("**Setup Complete**");  

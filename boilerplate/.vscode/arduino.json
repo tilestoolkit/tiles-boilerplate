@@ -1,6 +1,7 @@
 {
-    "board": "RFduino:RFduino:RFduino",
-    "port": "/dev/cu.usbserial-DN008X22",
     "sketch": "boilerplate.ino",
-    "output": "../../temp/vsoutput"
+    "port": "/dev/cu.SLAB_USBtoUART",
+    "board": "adafruit:nrf52:feather52",
+    "configuration": "debug=l0",
+    "output": "./temp/vsoutput"
 }
