@@ -80,14 +80,6 @@ void BLE_Handler::SendEvent(Token* Event)
     Serial.print("**Event sent: "); Serial.print(payload); Serial.println("**");
 }
 
-// BT Token Received Callback
-//void SimbleeBLE_onReceive(char *data, int length)
-//{
-//    extern BLE_Handler BLE;
-//    BLE.ReceiveEvent(data, length);
-   // Serial.print("Payload received: "); Serial.println(data);
-//}
-
 //Add a token to the stack
 void BLE_Handler::Emit(Token *Event)
 {

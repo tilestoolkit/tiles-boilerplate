@@ -36,7 +36,7 @@ String Sensors_Handler::pollEvent()    // If an event has occured returns the ev
 
     if(_AccelerometerAvailable == true && Accelerometer_Timing >= ACCELEROMETER_UPDATE)
     {
-        Serial.println("ACC UPDATE");
+        //Serial.println("ACC UPDATE");
         Accelerometer_Timing = 0;
         
         _Accelerometer->RefreshValues();
@@ -84,6 +84,7 @@ String Sensors_Handler::pollEvent()    // If an event has occured returns the ev
 
      if(_TouchSensorAvailable == true && TouchSensor_Timing >= TOUCHSENSOR_UPDATE)
     {
+        //Serial.println("DEBUG");
         TouchSensor_Timing = 0;
         short touchpin = _TouchSensor->isTouched();
         if(touchpin == 2)
@@ -94,8 +95,10 @@ String Sensors_Handler::pollEvent()    // If an event has occured returns the ev
             //Serial.println(touchpin);
             //state_change();
         } else if(touchpin == 1){
-            Serial.println("quiquiqui");
-           BLE->shoutdown();
+            String temp = String(touchpin);
+            EventString = String("touched," + temp);
+            //Serial.println("quiquiqui");
+          // BLE->shoutdown();
         }
     } 
     

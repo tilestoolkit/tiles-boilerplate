@@ -9,7 +9,7 @@
 
 #define xIMU_LSM9DS0 false
 
-#define xTouch_CAP1188 false
+#define xTouch_CAP1188 true
 
 #define STATUS_LED_PIN 19
 
