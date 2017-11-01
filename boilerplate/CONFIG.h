@@ -21,8 +21,8 @@
 #define LED_BLUE_PIN 2
 #define LED_TYPE COMMON_ANODE
 
-#define xLED_NEO false
-#define NEO_PIN 29
+#define xLED_NEO true
+#define NEO_PIN 27
 #define NUM_LEDS 1      //Number of leds in the neopixel strip
 
 #define xDOTM_MATRIX false
