@@ -23,7 +23,7 @@
 
 #define xLED_NEO true
 #define NEO_PIN 27
-#define NUM_LEDS 1      //Number of leds in the neopixel strip
+#define NUM_LEDS 3      //Number of leds in the neopixel strip
 
 #define xDOTM_MATRIX false
 

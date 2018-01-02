@@ -3,11 +3,12 @@
 NEO_STRIP::NEO_STRIP()
 {
   leds.begin();
-  leds.show();
+  leds.setBrightness(5);
+  //leds.show();
 
-  colorWipe(leds.Color(0,0,255),25);
-  delay(500);
-  colorWipe(leds.Color(0,0,0),25);
+  //colorWipe(leds.Color(0,0,255),25);
+  //delay(500);
+  //colorWipe(leds.Color(0,0,0),25);
 }
 
 // Fill the dots one after the other with a color
