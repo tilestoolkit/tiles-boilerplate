@@ -49,9 +49,8 @@ unsigned long debounceDelay = 1000;    // the debounce time; increase if the out
 
 void setup(void)
 {
-    if(!xLED_RGB){
-        Serial.begin(9600);
-    }        
+   
+    Serial.begin(9600);      
     interrupts(); 
 
     Serial.println("START SETUP");

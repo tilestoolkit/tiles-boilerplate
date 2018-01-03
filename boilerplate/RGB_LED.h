@@ -1,11 +1,5 @@
-#ifndef RGB_LED_h
-#define RGB_LED_h
-
 #include <Arduino.h>
-#include <CONFIG.h>
-
-#define ACTIVE true
-#define INACTIVE false
+#include "CONFIG.h"
 
 #define COMMON_ANODE  1
 #define COMMON_CATHODE  2
@@ -26,8 +20,7 @@ class RGB_LED
         void HandleTime(unsigned int ElapsedTime);
         void parseColorString(String color, int& red, int& green, int& blue);
         void setColor(String color);
-        void setRGBaColor(uint8_t R, uint8_t G, uint8_t B, float a = 1.0);
-		
+        void setRGBaColor(uint8_t R, uint8_t G, uint8_t B, float a = 1.0);	
 	  private:
         unsigned int  RGB_LED_Timing;
         bool State;
@@ -35,7 +28,4 @@ class RGB_LED
         int _R_LED;
         int _G_LED;
         int _B_LED;
-		
 };
-
-#endif

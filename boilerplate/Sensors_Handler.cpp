@@ -98,7 +98,7 @@ String Sensors_Handler::pollEvent()    // If an event has occured returns the ev
             String temp = String(touchpin);
             EventString = String("touched," + temp);
             //Serial.println("quiquiqui");
-          // BLE->shoutdown();
+           BLE->shoutdown();
         }
     } 
     

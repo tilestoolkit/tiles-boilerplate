@@ -32,5 +32,5 @@
 #define xHAPTIC_analog false
 #define VIBRATING_M_PIN     3 
 
-#define xHAPTIC_IC false
+#define xHAPTIC_IC true
 #endif

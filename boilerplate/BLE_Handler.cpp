@@ -161,6 +161,7 @@ void BLE_Handler::shoutdown()
     //status_led.off();
     Serial.println("Tile shutting down");
     delay(20);
+    systemOff(BUTTON_PIN, LOW);
     //Simblee_systemOff();
     //Simblee_ULPDelay(INFINITE);
 }
