@@ -2,6 +2,7 @@
 #define RGB_LED_h
 
 #include <Arduino.h>
+#include <CONFIG.h>
 
 #define ACTIVE true
 #define INACTIVE false
@@ -21,7 +22,6 @@ class RGB_LED
 {
     public:
     		RGB_LED(int R, int G, int B);
-
         void RefreshValues();
         void HandleTime(unsigned int ElapsedTime);
         void parseColorString(String color, int& red, int& green, int& blue);
@@ -30,9 +30,7 @@ class RGB_LED
 		
 	  private:
         unsigned int  RGB_LED_Timing;
-        
         bool State;
-
         int _Common;
         int _R_LED;
         int _G_LED;

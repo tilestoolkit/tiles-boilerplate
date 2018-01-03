@@ -98,7 +98,7 @@ void setup(void)
     }
     //RGB LED
     if(xLED_RGB){
-    LED = new RGB_LED(0, 1, 2);
+    LED = new RGB_LED(LED_RED, LED_GREEN, LED_BLUE);
     feedback_handle.setRGB_LED(LED);
     }  
     //NeoPixels LED/STRIP

@@ -5,7 +5,6 @@
 #define ACC_INT_DOUBLE_TAP    0x20
 #define ACC_INT_ACT           0x10
 #define ACC_INT_INACT         0x08
-
 #define ACC_FIR_SIZE          (uint8_t)10
 #define ACC_SHAKE_THRESH      100
 //#define   LOG_ACC

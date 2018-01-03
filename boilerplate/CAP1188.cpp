@@ -7,7 +7,7 @@ CAP1188::CAP1188(int foo)
     volatile byte interrupt = 0;
 
       // Initialize capacitive sensor
-    if (!cap.begin()) {
+    if (!cap.begin(0x2B)) {
     Serial.println("CAP1188 not found");
     SensorAvailable = false;
     while (1);

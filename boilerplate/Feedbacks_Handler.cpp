@@ -121,7 +121,6 @@ void Feedbacks_Handler::HandleTime(unsigned int ElapsedTime)
     MATRIXX->HandleTime(ElapsedTime);
   if(NEO_STRIPAvailable)
     STRIP->HandleTime(ElapsedTime);
-
     //Serial.print("Elapsed Time: "); Serial.println(ElapsedTime);
 } 
 
