@@ -23,7 +23,6 @@ BLE_Handler BLE;
 // Variables for Sensors
 Sensors_Handler sensor_handle(&BLE);
 ADXL345 *ACCELEROMETER = NULL;
-LSM9DS0 *IMU = NULL;
 CAP1188 *TOUCH = NULL;
 
 // Variables for Feedbacks 
@@ -49,11 +48,7 @@ void setup(void)
     ACCELEROMETER = new ADXL345(ACC_INT1_PIN);
     sensor_handle.setAccelerometer(ACCELEROMETER);
     }
-    //IMU
-    if(xIMU_LSM9DS0){
-    IMU = new LSM9DS0();
-    sensor_handle.setInertialCentral(IMU);
-    }
+
     //Touch 
     if(xTouch_CAP1188){
     TOUCH = new CAP1188(0);

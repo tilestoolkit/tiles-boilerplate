@@ -7,26 +7,24 @@
 #define xAccelerometer_ADXL345 true
 #define ACC_INT1_PIN  4 
 
-#define xIMU_LSM9DS0 true
+#define xTouch_CAP1188 false
 
-#define xTouch_CAP1188 true
-
-#define xLED_RGB false
+#define xLED_RGB true
 #define LED_RED_PIN 0
 #define LED_GREEN_PIN 1
 #define LED_BLUE_PIN 2
-#define LED_TYPE COMMON_ANODE
+#define LED_TYPE COMMON_CATHODE
 
-#define xLED_NEO true
+#define xLED_NEO false
 #define NEO_PIN 2
 #define NUM_LEDS 7      //Number of leds in the neopixel strip
 
-#define xDOTM_MATRIX true
+#define xDOTM_MATRIX false
 
-#define xHAPTIC_analog false
+#define xHAPTIC_analog true
 #define VIBRATING_M_PIN     3 
 
-#define xHAPTIC_IC true
+#define xHAPTIC_IC false
 
 
 #endif
