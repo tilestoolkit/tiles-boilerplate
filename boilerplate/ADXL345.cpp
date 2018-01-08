@@ -241,12 +241,10 @@ void ADXL345::RefreshValues() // This function has to be adapted to the current 
                 }
             }
         }
-  
         else if(abs(d_x) > 200 || abs(d_y) > 200)
         {
           Shaked = true;
         }
-      
         if(Source & ACC_INT_ACT)
         {
             #ifdef LOG_ACC
@@ -255,8 +253,7 @@ void ADXL345::RefreshValues() // This function has to be adapted to the current 
             #endif
             
             State = true;
-        }
-        
+        }      
         if(Source & ACC_INT_INACT)
         {
             #ifdef LOG_ACC
@@ -267,6 +264,5 @@ void ADXL345::RefreshValues() // This function has to be adapted to the current 
             State = false;
         }
     }
-    //Serial.println("finishedRefresh");
     return;  
 }

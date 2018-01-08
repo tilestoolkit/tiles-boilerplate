@@ -8,7 +8,7 @@ BLE_Handler::BLE_Handler()
 void BLE_Handler::start()
 {
     Bluefruit.begin();
-    Bluefruit.setName("TEST");
+    Bluefruit.setName("Tile_");
     Bluefruit.setConnectCallback(connect_callback);
     Bluefruit.setDisconnectCallback(disconnect_callback);
     service.begin();
