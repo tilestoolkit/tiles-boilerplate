@@ -23,7 +23,6 @@ BLE_Handler BLE;
 // Variables for Sensors
 Sensors_Handler sensor_handle(&BLE);
 ADXL345 *ACCELEROMETER = NULL;
-//CAP1188 *TOUCH = NULL;
 
 // Variables for Feedbacks 
 Feedbacks_Handler feedback_handle;
@@ -31,7 +30,6 @@ Haptic *HapticMotor;
 DRV2605 *HapticIC;
 RGB_LED *LED;
 NEO_STRIP *STRIP = NULL;
-//MATRIX *M_MATRIX = NULL;
 
 
 void setup(void)
@@ -49,18 +47,6 @@ void setup(void)
     sensor_handle.setAccelerometer(ACCELEROMETER);
     }
 
-    //Touch 
-//    if(xTouch_CAP1188){
-//    TOUCH = new CAP1188(0);
-//    sensor_handle.setTouchSensor(TOUCH);
-//    }
-
-    //Intitialization of FEEDBACKS
-    //DotMatrix
-//    if(xDOTM_MATRIX){
-//    M_MATRIX = new MATRIX(0);
-//    feedback_handle.setMATRIX(M_MATRIX);
-//    }
     //HapticMotor (Analog)
     if(xHAPTIC_analog){
     HapticMotor = new Haptic(VIBRATING_M_PIN);

@@ -5,9 +5,7 @@
 
 //Devices
 #define xAccelerometer_ADXL345 true
-#define ACC_INT1_PIN  4 
-
-//#define xTouch_CAP1188 false
+#define ACC_INT1_PIN  4
 
 #define xLED_RGB true
 #define LED_RED_PIN 0
@@ -22,7 +20,7 @@
 #define xDOTM_MATRIX false
 
 #define xHAPTIC_analog true
-#define VIBRATING_M_PIN     3 
+#define VIBRATING_M_PIN 3 
 
 #define xHAPTIC_IC false
 

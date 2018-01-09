@@ -6,7 +6,6 @@ Feedbacks_Handler::Feedbacks_Handler()
     HapticICAvailable = false;
     RGB_LEDAvailable = false;
     NEO_STRIPAvailable = false;
-//    MATRIX_Available = false;
 }
 
 // RGB LED
@@ -44,27 +43,6 @@ void Feedbacks_Handler::fade(String color)
     STRIP->fade(color);
 }
 
-// MATRIX
-//void Feedbacks_Handler::setMATRIX(MATRIX *pMATRIX)
-//{
-//  MATRIXX = pMATRIX;
-//  MATRIX_Available = true;
-//}
-//
-//void Feedbacks_Handler::startGazing()
-//{
-//  MATRIXX->start_gazing();
-//}
-//
-//void Feedbacks_Handler::stopGazing()
-//{
-//  MATRIXX->stop_gazing();
-//}
-//
-//void Feedbacks_Handler::showFace(String type)
-//{
-//  MATRIXX->face(type);
-//}
 
 //Haptic Motor
 void Feedbacks_Handler::setHapticMotor(Haptic *pHapticMotor)
@@ -107,8 +85,6 @@ String Feedbacks_Handler::UpdateFeedback()
 {
   if(HapticAvailable)
     HapticMotor->RefreshValues();
-//  if(MATRIX_Available)
-//    MATRIXX->RefreshValues();
   if(NEO_STRIPAvailable)
     STRIP->RefreshValues();
 }
@@ -117,8 +93,6 @@ void Feedbacks_Handler::HandleTime(unsigned int ElapsedTime)
 {
   if(HapticAvailable)
     HapticMotor->HandleTime(ElapsedTime);
-//  if(MATRIX_Available)
-//    MATRIXX->HandleTime(ElapsedTime);
   if(NEO_STRIPAvailable)
     STRIP->HandleTime(ElapsedTime);
 

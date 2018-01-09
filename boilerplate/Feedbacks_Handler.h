@@ -31,12 +31,6 @@ class Feedbacks_Handler
       void blink(String color);
       void fade(String color);
 
-      // MATRIX
-      // void setMATRIX(MATRIX *pMATRIX);
-      // void startGazing();
-      // void stopGazing();
-      // void showFace(String type);
-      
     private:
       Haptic *HapticMotor;
       bool HapticAvailable;
@@ -49,9 +43,6 @@ class Feedbacks_Handler
 
       NEO_STRIP *STRIP;
       bool NEO_STRIPAvailable;
-
-      // MATRIX *MATRIXX;
-      // bool MATRIX_Available;
      
 };
 
