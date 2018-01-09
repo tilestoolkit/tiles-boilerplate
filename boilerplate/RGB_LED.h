@@ -6,16 +6,16 @@
 #define ACTIVE true
 #define INACTIVE false
 
-#define COMMON_ANODE  1
-#define COMMON_CATHODE  2
+//#define COMMON_ANODE  1
+//#define COMMON_CATHODE  2
 
-#if LED_TYPE == COMMON_ANODE
+//#if LED_TYPE == COMMON_ANODE
   #define LED_OFF HIGH
   #define LED_ON LOW
-#else if LED_TYPE == COMMON_CATHODE
-  #define LED_OFF LOW
-  #define LED_ON HIGH
-#endif
+//#else if LED_TYPE == COMMON_CATHODE
+//  #define LED_OFF LOW
+//  #define LED_ON HIGH
+//#endif
 
 class RGB_LED
 {
