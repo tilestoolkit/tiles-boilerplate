@@ -46,11 +46,11 @@ void RGB_LED::setColor(String color)
 
 void RGB_LED::setRGBaColor(uint8_t R, uint8_t G, uint8_t B, float a)
 {
-    #if LED_TYPE == COMMON_ANODE
+   // #if LED_TYPE == COMMON_ANODE
       R = (255 - R);
       G = (255 - G);
       B = (255 - B);
-    #endif    
+   // #endif    
     analogWrite(_R_LED, R);
     analogWrite(_G_LED, G);
     analogWrite(_B_LED, B);
