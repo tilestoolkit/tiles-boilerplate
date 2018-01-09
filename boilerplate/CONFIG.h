@@ -7,7 +7,7 @@
 #define xAccelerometer_ADXL345 true
 #define ACC_INT1_PIN  4 
 
-#define xTouch_CAP1188 false
+//#define xTouch_CAP1188 false
 
 #define xLED_RGB true
 #define LED_RED_PIN 0

@@ -4,7 +4,7 @@
 #include "Haptic.h"
 #include "RGB_LED.h"
 #include "NEO_STRIP.h"
-#include "MATRIX.h"
+// #include "MATRIX.h"
 #include "DRV2605.h"
 
 class Feedbacks_Handler
@@ -32,10 +32,10 @@ class Feedbacks_Handler
       void fade(String color);
 
       // MATRIX
-      void setMATRIX(MATRIX *pMATRIX);
-      void startGazing();
-      void stopGazing();
-      void showFace(String type);
+      // void setMATRIX(MATRIX *pMATRIX);
+      // void startGazing();
+      // void stopGazing();
+      // void showFace(String type);
       
     private:
       Haptic *HapticMotor;
@@ -50,8 +50,8 @@ class Feedbacks_Handler
       NEO_STRIP *STRIP;
       bool NEO_STRIPAvailable;
 
-      MATRIX *MATRIXX;
-      bool MATRIX_Available;
+      // MATRIX *MATRIXX;
+      // bool MATRIX_Available;
      
 };
 

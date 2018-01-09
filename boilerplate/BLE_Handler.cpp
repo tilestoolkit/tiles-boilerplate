@@ -101,16 +101,16 @@ void BLE_Handler::ProcessEvents()
     {
         feedback_handle.Vibrate(Command->SecondValue);
     }
-    else if(Command->FirstValue == String("matrix"))
-    {
-        if(Command->SecondValue == String("gazing")){
-        feedback_handle.startGazing();
-        } else if(Command->SecondValue == String("off")){
-            feedback_handle.stopGazing();
-        }  else {
-            feedback_handle.showFace(String(Command->SecondValue));
-        }
-    }
+//    else if(Command->FirstValue == String("matrix"))
+//    {
+//        if(Command->SecondValue == String("gazing")){
+//        feedback_handle.startGazing();
+//        } else if(Command->SecondValue == String("off")){
+//            feedback_handle.stopGazing();
+//        }  else {
+//            feedback_handle.showFace(String(Command->SecondValue));
+//        }
+//    }
     else
         Serial.println("**COMMAND NOT RECOGNIZED**");
 }
