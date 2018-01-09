@@ -17,7 +17,7 @@
 #define NEO_PIN 2
 #define NUM_LEDS 7      //Number of leds in the neopixel strip
 
-#define xDOTM_MATRIX false
+#define xCOMPASS false
 
 #define xHAPTIC_analog true
 #define VIBRATING_M_PIN 3 

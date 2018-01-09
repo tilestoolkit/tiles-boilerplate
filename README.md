@@ -50,6 +50,7 @@ These are the electronic parts for which data primitives are available
 |Tile_XX|tilt|||ADXL345,LSM9DS0||
 |Tile_XX|rotation|clockwise,counterclock||LSM9DS0|
 |Tile_XX|touched|1,2,3,4||CAP1188|ID of the pin touched in P1|
+|Tile_XX|heading|N,E,S,W||HMC5883L|Grove sensor module|
 
 ### Feedbacks
 |ReceiverID|Name|P1|P2|Device|Note|

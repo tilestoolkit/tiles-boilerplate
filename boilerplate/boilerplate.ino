@@ -23,6 +23,8 @@ BLE_Handler BLE;
 // Variables for Sensors
 Sensors_Handler sensor_handle(&BLE);
 ADXL345 *ACCELEROMETER = NULL;
+Adafruit_HMC5883_Unified *COMPASS = NULL;
+
 
 // Variables for Feedbacks 
 Feedbacks_Handler feedback_handle;
@@ -45,6 +47,11 @@ void setup(void)
     if(xAccelerometer_ADXL345){
     ACCELEROMETER = new ADXL345(ACC_INT1_PIN);
     sensor_handle.setAccelerometer(ACCELEROMETER);
+    }
+
+    if(xCOMPASS){
+    COMPASS = new Adafruit_HMC5883_Unified(12345);
+    sensor_handle.setCompass(COMPASS);
     }
 
     //HapticMotor (Analog)
