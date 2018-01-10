@@ -1,5 +1,0 @@
-{
-    "board": "RFduino:RFduino:RFduino",
-    "port": "/dev/cu.usbserial-DO00BNGW",
-    "sketch": "boilerplate/boilerplate.ino"
-}
