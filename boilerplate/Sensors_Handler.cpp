@@ -14,6 +14,10 @@ Sensors_Handler::Sensors_Handler(BLE_Handler *Handler)   //default constructor
     _Compass = NULL;
     Compass_Timing = 0;
 
+    //Light
+    _Light = NULL;
+    Light_Timing = 0;
+
     states = 1;
 }
 
@@ -22,6 +26,7 @@ void Sensors_Handler::HandleTime(unsigned int ElapsedTime)
 {
     Accelerometer_Timing += ElapsedTime;
     Compass_Timing += ElapsedTime;
+    Light_Timing += ElapsedTime;
 }
 
 String Sensors_Handler::pollEvent()    // If an event has occured returns the event code
@@ -82,6 +87,14 @@ String Sensors_Handler::pollEvent()    // If an event has occured returns the ev
 
     }
 
+    if(_LightAvailable == true && Light_Timing >= LIGHT_UPDATE)
+    {
+        Light_Timing = 0;
+
+        Serial.println(_Light->readVisibleLux()); // from 0 to 9000 with very bright torch light
+       // TODO: implement primitive
+    }
+
     if(EventString != String(""))
     {  
         Token Event;
@@ -103,5 +116,12 @@ void Sensors_Handler::setCompass(Adafruit_HMC5883_Unified *Comp)
 {
     _Compass = Comp;
     _CompassAvailable = Comp->begin();
+}
+
+void Sensors_Handler::setLight(TSL2561_CalculateLux *Light)
+{
+    _Light = Light;
+    Light->init();
+    _LightAvailable = true;
 }
 

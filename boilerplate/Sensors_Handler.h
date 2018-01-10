@@ -2,6 +2,7 @@
 #include "BLE_Handler.h"
 #include <Adafruit_Sensor.h>
 #include <Adafruit_HMC5883_U.h>
+#include <Digital_Light_TSL2561.h>
 
 class Sensors_Handler
 {
@@ -11,6 +12,7 @@ class Sensors_Handler
       void HandleTime(unsigned int ElapsedTime);   
       void setAccelerometer(ADXL345 *Acc);  // Set the private member _Accelerometer with an existing instance of an Accelerometer object
       void setCompass(Adafruit_HMC5883_Unified *Comp);
+      void setLight(TSL2561_CalculateLux *Light);
 
     private:
       bool EventTriggered;      // True if an event has occured, else false. Reset on read with pollEvent();
@@ -30,6 +32,12 @@ class Sensors_Handler
       Adafruit_HMC5883_Unified *_Compass;
       #define COMPASS_UPDATE 650
       unsigned int Compass_Timing;
+
+      //Light
+      bool _LightAvailable;
+      TSL2561_CalculateLux *_Light;
+      #define LIGHT_UPDATE 450
+      unsigned int Light_Timing;
 
 };
 

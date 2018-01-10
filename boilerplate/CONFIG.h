@@ -19,6 +19,8 @@
 
 #define xCOMPASS false
 
+#define xLIGHT false
+
 #define xHAPTIC_analog true
 #define VIBRATING_M_PIN 3 
 
