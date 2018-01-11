@@ -51,6 +51,8 @@ These are the electronic parts for which data primitives are available
 |Tile_XX|rotation|clockwise,counterclock||LSM9DS0|
 |Tile_XX|touched|1,2,3,4||CAP1188|ID of the pin touched in P1|
 |Tile_XX|heading|N,E,S,W||HMC5883L|Grove sensor module|
+|Tile_XX|light|dark,normal,bright,very bright||TSL2561|Grove sensor module|
+
 
 ### Feedbacks
 |ReceiverID|Name|P1|P2|Device|Note|
@@ -62,7 +64,7 @@ These are the electronic parts for which data primitives are available
 |          |matrix|off||8X8 Matrix||
 |          |matrix|gazing||8X8 Matrix||
 |          |matrix|dollar,happy1,x,puzzled,sad1,sad2,sad3,||8X8 Matrix||
-|          |haptic|short,long||Vibration motor (analog)||
+|          |haptic|short,long,[#ms]||Vibration motor (analog)||
 |          |haptic|[ID]]||DRV2605| Feedback pattern ID, see page 57-58 of the [datasheet](http://www.ti.com/lit/ds/symlink/drv2605.pdf) |
 
 ##ToDo

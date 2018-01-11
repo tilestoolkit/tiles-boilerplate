@@ -85,14 +85,19 @@ String Sensors_Handler::pollEvent()    // If an event has occured returns the ev
         else if (265 < headingDegrees && headingDegrees < 275)
           EventString = String("heading,W");
 
-    }
+    }   
 
     if(_LightAvailable == true && Light_Timing >= LIGHT_UPDATE)
     {
-        Light_Timing = 0;
+       Light_Timing = 0;
 
-        Serial.println(_Light->readVisibleLux()); // from 0 to 9000 with very bright torch light
-       // TODO: implement primitive
+//        Serial.println(_Light->readVisibleLux()); // from 0 to 9000 with very bright torch light
+       lux = _Light->readVisibleLux();
+
+       if (lux > 700) EventString = String("light,very bright");
+       else if (lux > 300) EventString = String("light,bright");
+       else if (lux > 0) EventString = String("light,normal");
+       else if (lux == 0) EventString = String("light,dark");
     }
 
     if(EventString != String(""))

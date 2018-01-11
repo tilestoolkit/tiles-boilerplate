@@ -67,14 +67,14 @@ void Feedbacks_Handler::Vibrate(uint8_t Time)
 
 void Feedbacks_Handler::Vibrate(String Type)
 {
-    if(HapticAvailable == true)
-    {    
-    if(Type == String("short"))
-      HapticMotor->VibrateShort();
-    else if(Type == String("long"))
-      HapticMotor->VibrateLong();
-    } else if(HapticICAvailable == true)
-    {
+    if(HapticAvailable && !HapticICAvailable){
+      if(Type == String("short"))
+        HapticMotor->VibrateShort();
+      else if(Type == String("long"))
+        HapticMotor->VibrateLong();
+      else if (Type.toInt() > 0 && Type.toInt() < 5000)
+        HapticMotor->Vibrate(Type.toInt()); 
+    } else if(HapticICAvailable == true){
       Vibrate(Type.toInt());
       //Serial.print("*DEBUG: "); Serial.println(Type.toInt());
     } 

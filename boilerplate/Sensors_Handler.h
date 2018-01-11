@@ -36,8 +36,9 @@ class Sensors_Handler
       //Light
       bool _LightAvailable;
       TSL2561_CalculateLux *_Light;
-      #define LIGHT_UPDATE 450
+      #define LIGHT_UPDATE 950
       unsigned int Light_Timing;
+      signed long lux;
 
 };
 

@@ -10,8 +10,8 @@ Haptic::Haptic(int HapticPin)
 void Haptic::Vibrate(int ms)
 {
 	VibrateTime = ms;
-    Haptic_Timing = 0;
-    StartVibrate();
+  Haptic_Timing = 0;
+  StartVibrate();
 }
 
 void Haptic::VibrateShort()
