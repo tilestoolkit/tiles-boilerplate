@@ -1,7 +1,0 @@
-{
-    "sketch": "boilerplate.ino",
-    "port": "/dev/cu.SLAB_USBtoUART",
-    "board": "adafruit:nrf52:feather52",
-    "configuration": "debug=l0",
-    "output": "./temp/vsoutput"
-}
