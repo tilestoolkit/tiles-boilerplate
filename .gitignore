@@ -1,3 +1,4 @@
 /boilerplate/temp/*
 *.a
 *.a
+.DS_Store

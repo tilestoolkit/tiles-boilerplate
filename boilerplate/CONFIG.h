@@ -4,12 +4,12 @@
 #define SUFFIX "Tile_"
 
 //Devices
-#define xAccelerometer_ADXL345 true
+#define xAccelerometer_ADXL345 false
 #define ACC_INT1_PIN  7 
 
 #define xIMU_LSM9DS0 false
 
-#define xTouch_CAP1188 true
+#define xTouch_CAP1188 false
 #define CAP1188_RESET  29
 #define CAP1188_IRQ 28
 
@@ -18,9 +18,9 @@
 #define BUTTON_PIN 5
 
 #define xLED_RGB true
-#define LED_RED 16
-#define LED_GREEN 15
-#define LED_BLUE 11
+#define PIN_LED_RED 2
+#define PIN_LED_GREEN 3
+#define PIN_LED_BLUE 4
 #define LED_TYPE COMMON_ANODE
 
 #define xLED_NEO false
@@ -32,5 +32,5 @@
 #define xHAPTIC_analog false
 #define VIBRATING_M_PIN     3 
 
-#define xHAPTIC_IC true
+#define xHAPTIC_IC false
 #endif

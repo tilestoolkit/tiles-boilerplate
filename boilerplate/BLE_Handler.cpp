@@ -22,7 +22,7 @@ void BLE_Handler::start()
     char2.setPermission(SECMODE_OPEN, SECMODE_NO_ACCESS);
     char2.setFixedLen(1);
     char2.begin();
-    char2.write(2);    // Set the characteristic to 'Wrist' (2) 
+    char2.write("2");    // Set the characteristic to 'Wrist' (2)
     char3.setProperties(CHR_PROPS_WRITE);
     char3.setPermission(SECMODE_NO_ACCESS, SECMODE_OPEN);
     char3.setWriteCallback(write_callback);  

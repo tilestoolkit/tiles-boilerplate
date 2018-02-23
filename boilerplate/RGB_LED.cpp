@@ -8,10 +8,12 @@ RGB_LED::RGB_LED(int R, int G, int B)
     pinMode(_R_LED, OUTPUT);
     pinMode(_G_LED, OUTPUT);
     pinMode(_B_LED, OUTPUT);
+     
     digitalWrite(_R_LED, LED_OFF);
     digitalWrite(_G_LED, LED_OFF);
     digitalWrite(_B_LED, LED_OFF);
     State = LED_OFF;
+
 }
 
 
