@@ -13,6 +13,8 @@
 #define CAP1188_RESET  29
 #define CAP1188_IRQ 28
 
+#define xTemp_Si7051 true
+
 #define STATUS_LED_PIN 30
 
 #define BUTTON_PIN 5

@@ -28,6 +28,7 @@ Sensors_Handler sensor_handle(&BLE);
 ADXL345 *ACCELEROMETER = NULL;
 LSM9DS0 *IMU = NULL;
 CAP1188 *TOUCH = NULL;
+Temp_Si7051 *TEMP = NULL;
 
 // Variables for Feedbacks 
 Feedbacks_Handler feedback_handle;
@@ -78,6 +79,11 @@ void setup(void)
     if(xTouch_CAP1188){
     TOUCH = new CAP1188(0);
     sensor_handle.setTouchSensor(TOUCH);
+    }
+    //Temp
+    if(xTemp_Si7051){
+    TEMP = new Temp_Si7051();
+    sensor_handle.setTempSensor(TEMP);
     }
     //Intitialization of FEEDBACKS
     //DotMatrix

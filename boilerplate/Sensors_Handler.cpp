@@ -18,6 +18,10 @@ Sensors_Handler::Sensors_Handler(BLE_Handler *Handler)   //default constructor
     _TouchSensor = NULL;
     TouchSensor_Timing = 0;
 
+    //Temperature
+    _TempSensor = NULL;
+    Temp_Timing = 0;
+
     states = 1;
 }
 
@@ -27,6 +31,7 @@ void Sensors_Handler::HandleTime(unsigned int ElapsedTime)
     Accelerometer_Timing += ElapsedTime;  
     InertialCentral_Timing += ElapsedTime;
     TouchSensor_Timing += ElapsedTime;
+    Temp_Timing += ElapsedTime;
     _InertialCentral->HandleTime(ElapsedTime);
 }
 
@@ -100,6 +105,14 @@ String Sensors_Handler::pollEvent()    // If an event has occured returns the ev
             //Serial.println("quiquiqui");
            BLE->shoutdown();
         }
+    }
+
+    if(_TempSensorAvailable == true && Temp_Timing >= TEMP_UPDATE)
+    {
+        Temp_Timing = 0;
+        float t = _TempSensor->read();
+        
+        EventString = String("temp," + String(t));
     } 
     
 
@@ -129,6 +142,12 @@ void Sensors_Handler::setTouchSensor(CAP1188 *Touch)
 {
     _TouchSensor = Touch;
     _TouchSensorAvailable = true;
+}
+
+void Sensors_Handler::setTempSensor(Temp_Si7051 *Temp)  
+{
+    _TempSensor = Temp;
+    _TempSensorAvailable = true;
 }
 
 void Sensors_Handler::state_change()
