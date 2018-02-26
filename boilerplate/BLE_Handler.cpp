@@ -8,7 +8,10 @@ BLE_Handler::BLE_Handler()
 void BLE_Handler::start()
 {
     Bluefruit.begin();
-    Bluefruit.setName("Tile_");
+    uint32_t addr_low  = MAC_ADDRESS_LOW;
+    String MAC = String((addr_low) & 0xFF, HEX);
+    AdvertiseName = String(SUFFIX + MAC);
+    Bluefruit.setName(AdvertiseName.c_str());
     Bluefruit.setConnectCallback(connect_callback);
     Bluefruit.setDisconnectCallback(disconnect_callback);
     service.begin();

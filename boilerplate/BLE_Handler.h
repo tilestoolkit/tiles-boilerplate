@@ -7,6 +7,10 @@
 #include "Feedbacks_Handler.h"
 #include "STATUS_LED.h"
 
+typedef volatile uint32_t REG32;
+#define pREG32 (REG32 *)
+#define MAC_ADDRESS_LOW   (*(pREG32 (0x100000a4)))
+
 class Token;
 
 class BLE_Handler
@@ -24,7 +28,7 @@ class BLE_Handler
       bool Connected;
       bool EventReceived;   // true if an event has been Received, cleared with a call to ProcessEvents()
       bool EventToSend;     // true if there are events waiting to be send
-      String AdvertiseName = "TEST";          
+      String AdvertiseName;          
       StackArray<Token*> ReceivedStack;   
       StackArray<Token*> SendStack;
       
@@ -52,7 +56,9 @@ class Token
     void set(String pFirstValue, String pSecondValue = String(""), String pThirdValue = String(""));  
     String FirstValue;
     String SecondValue;
-    String ThirdValue;     
+    String ThirdValue;
+
+    
 };
 
 #endif
