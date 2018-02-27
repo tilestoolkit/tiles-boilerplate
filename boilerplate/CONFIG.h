@@ -15,6 +15,8 @@
 
 #define xTemp_Si7051 true
 
+#define xHum_HDC2010 true
+
 #define STATUS_LED_PIN 30
 
 #define BUTTON_PIN 5

@@ -29,6 +29,7 @@ ADXL345 *ACCELEROMETER = NULL;
 LSM9DS0 *IMU = NULL;
 CAP1188 *TOUCH = NULL;
 Temp_Si7051 *TEMP = NULL;
+Hum_HDC2010 *HUM = NULL;
 
 // Variables for Feedbacks 
 Feedbacks_Handler feedback_handle;
@@ -84,6 +85,11 @@ void setup(void)
     if(xTemp_Si7051){
     TEMP = new Temp_Si7051();
     sensor_handle.setTempSensor(TEMP);
+    }
+    //Hum
+    if(xHum_HDC2010){
+    HUM = new Hum_HDC2010();
+    sensor_handle.setHumSensor(HUM);
     }
     //Intitialization of FEEDBACKS
     //DotMatrix

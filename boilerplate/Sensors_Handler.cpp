@@ -21,6 +21,10 @@ Sensors_Handler::Sensors_Handler(BLE_Handler *Handler)   //default constructor
     //Temperature
     _TempSensor = NULL;
     Temp_Timing = 0;
+    
+    //Humidity
+    _HumSensor = NULL;
+    Hum_Timing = 0;
 
     states = 1;
 }
@@ -32,6 +36,7 @@ void Sensors_Handler::HandleTime(unsigned int ElapsedTime)
     InertialCentral_Timing += ElapsedTime;
     TouchSensor_Timing += ElapsedTime;
     Temp_Timing += ElapsedTime;
+    Hum_Timing += ElapsedTime;
     _InertialCentral->HandleTime(ElapsedTime);
 }
 
@@ -114,6 +119,15 @@ String Sensors_Handler::pollEvent()    // If an event has occured returns the ev
         String t = String(round_temp);
         
         EventString = String("temp," + t.substring(0, t.length()-1)); //remove second decimal (printed as 0 after round) from string
+    }
+
+    if(_HumSensorAvailable == true && Hum_Timing >= HUM_UPDATE)
+    {
+        Hum_Timing = 0;
+        
+        // String t = String(round_temp);
+        // EventString = String("ht," + );
+        EventString = String("humi," + _HumSensor->read()); //remove second decimal (printed as 0 after round) from string
     } 
     
 
@@ -144,10 +158,16 @@ void Sensors_Handler::setTouchSensor(CAP1188 *Touch)
     _TouchSensorAvailable = true;
 }
 
-void Sensors_Handler::setTempSensor(Temp_Si7051 *Temp)  
+void Sensors_Handler::setTempSensor(Temp_Si7051 *Temp)
 {
     _TempSensor = Temp;
     _TempSensorAvailable = true;
+}
+
+void Sensors_Handler::setHumSensor(Hum_HDC2010 *Hum)
+{
+    _HumSensor = Hum;
+    _HumSensorAvailable = true;
 }
 
 void Sensors_Handler::state_change()
