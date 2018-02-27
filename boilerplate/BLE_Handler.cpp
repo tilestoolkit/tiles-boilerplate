@@ -18,14 +18,16 @@ void BLE_Handler::start()
     
     char1.setProperties(CHR_PROPS_NOTIFY);
     char1.setPermission(SECMODE_OPEN, SECMODE_NO_ACCESS);
-    char1.setMaxLen(18);
+    char1.setMaxLen(20);
     //char1.setCccdWriteCallback(cccd_callback);  // Optionally capture CCCD updates
     char1.begin();
+
     char2.setProperties(CHR_PROPS_READ);
     char2.setPermission(SECMODE_OPEN, SECMODE_NO_ACCESS);
     char2.setFixedLen(1);
+    char2.write8(2);    // Set the characteristic to 'Wrist' (2)
     char2.begin();
-    char2.write("2");    // Set the characteristic to 'Wrist' (2)
+    
     char3.setProperties(CHR_PROPS_WRITE);
     char3.setPermission(SECMODE_NO_ACCESS, SECMODE_OPEN);
     char3.setWriteCallback(write_callback);  
@@ -77,9 +79,8 @@ void BLE_Handler::SendEvent(Token* Event)
 {
     String payload = Event->getEventString();
     char sendData[20] = {0};
-    payload.toCharArray(sendData, payload.length()+1);    
-    //SimbleeBLE.send(sendData, payload.length());
-    char1.notify(sendData, sizeof(payload));
+    payload.toCharArray(sendData, payload.length()+1);
+    char1.notify(sendData, payload.length());
     Serial.print("**Event sent: "); Serial.print(payload); Serial.println("**");
 }
 

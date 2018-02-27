@@ -110,16 +110,16 @@ String Sensors_Handler::pollEvent()    // If an event has occured returns the ev
     if(_TempSensorAvailable == true && Temp_Timing >= TEMP_UPDATE)
     {
         Temp_Timing = 0;
-        float t = _TempSensor->read();
+        float round_temp = roundf(_TempSensor->read() * 10) / 10; //round to first decimal
+        String t = String(round_temp);
         
-        EventString = String("temp," + String(t));
+        EventString = String("temp," + t.substring(0, t.length()-1)); //remove second decimal (printed as 0 after round) from string
     } 
     
 
     if(EventString != String(""))
     {  
-        Token Event;
-        Event.set(EventString);
+        Token Event = Token(EventString);
         BLE->SendEvent(&Event);        
     }  
     return EventString;
