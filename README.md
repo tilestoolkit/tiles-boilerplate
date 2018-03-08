@@ -24,7 +24,7 @@ A data primitive is exchanged between RFDUINO and a BLE Client using UTF-8 comma
 
 A data primtive containing an event triggered from a sensor (e.g. accelerometer) is called *input primitive*; e.g. *"tap,single"*. A data primitive containing a command send to an actuator (e.g. motor) is called *output primitive*; e.g. *"led,blink,red"*.
 
-## List of sensors and actuators
+## List of sensors and actuators for Tiles Square
 These are the electronic parts for which data primitives are available
 
 ### Input
@@ -40,6 +40,16 @@ These are the electronic parts for which data primitives are available
 * Vibration motor driven by analogic circuit
 * Vibration motor driven by DRV2605 IC
 
+## List of sensors and actuators for Tiles Temp
+These are the electronic parts for which data primitives are available
+
+### Input
+* Si7051 temperature sensor
+* HDC2010 humidity sensor
+
+### Output
+* RGB LED, common anode
+
 ## Protocol
 
 ### Sensor
@@ -50,6 +60,9 @@ These are the electronic parts for which data primitives are available
 |Tile_XX|tilt|||ADXL345,LSM9DS0||
 |Tile_XX|rotation|clockwise,counterclock||LSM9DS0|
 |Tile_XX|touched|1,2,3,4||CAP1188|ID of the pin touched in P1|
+|Tile_XX|temp|NN.N||Si7051|TilesTemp hardware devices|
+|Tile_XX|humi|NN.N||HDC2010|TilesTemp hardware devices|
+
 
 ### Feedbacks
 |ReceiverID|Name|P1|P2|Device|Note|
