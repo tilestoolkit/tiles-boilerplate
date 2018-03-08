@@ -30,6 +30,7 @@ LSM9DS0 *IMU = NULL;
 CAP1188 *TOUCH = NULL;
 Temp_Si7051 *TEMP = NULL;
 Hum_HDC2010 *HUM = NULL;
+OFF_Pin *OFF = NULL;
 
 // Variables for Feedbacks 
 Feedbacks_Handler feedback_handle;
@@ -90,6 +91,11 @@ void setup(void)
     if(xHum_HDC2010){
     HUM = new Hum_HDC2010();
     sensor_handle.setHumSensor(HUM);
+    }
+    //Off pin
+    if(xOFF_PIN){
+    OFF = new OFF_Pin();
+    sensor_handle.setOffPin(OFF);
     }
     //Intitialization of FEEDBACKS
     //DotMatrix

@@ -19,6 +19,9 @@
 
 #define STATUS_LED_PIN 30
 
+#define xOFF_PIN true
+#define OFF_PIN 14
+
 #define BUTTON_PIN 5
 
 #define xLED_RGB true

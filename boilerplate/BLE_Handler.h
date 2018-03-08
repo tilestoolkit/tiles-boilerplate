@@ -22,7 +22,7 @@ class BLE_Handler
       void ReceiveEvent(char *Data, int Lenght);
       void ProcessEvents();
       void Emit(Token *Event);
-      void shoutdown();
+      void shutdown();
       void start();
 
       bool Connected;

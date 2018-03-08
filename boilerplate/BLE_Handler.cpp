@@ -158,7 +158,7 @@ void BLE_Handler::ProcessEvents()
         Serial.println("**COMMAND NOT RECOGNIZED**");
 }
 
-void BLE_Handler::shoutdown()
+void BLE_Handler::shutdown()
 {
     //digitalWrite(STATUS_LED_PIN,LOW);
     //extern STATUS_LED status_led;

@@ -4,6 +4,7 @@
 #include "Temp_Si7051.h"
 #include "BLE_Handler.h"
 #include "Hum_HDC2010.h"
+#include "OFF_Pin.h"
 
 
 class Sensors_Handler
@@ -17,6 +18,7 @@ class Sensors_Handler
       void setTouchSensor(CAP1188 *Touch);
       void setTempSensor(Temp_Si7051 *Temp);
       void setHumSensor(Hum_HDC2010 *Hum);
+      void setOffPin(OFF_Pin *Off);
 
     private:
       bool EventTriggered;      // True if an event has occured, else false. Reset on read with pollEvent();
@@ -26,6 +28,7 @@ class Sensors_Handler
       bool _TouchSensorAvailable;
       bool _TempSensorAvailable;
       bool _HumSensorAvailable;
+      bool _OffPinAvailable;
       BLE_Handler *BLE;
       int states;
       void state_change();
@@ -52,7 +55,12 @@ class Sensors_Handler
       
       //Humidity sensor
       Hum_HDC2010 *_HumSensor;
-      #define HUM_UPDATE  3000   // refresh period
+      #define HUM_UPDATE  4000   // refresh period
       unsigned int Hum_Timing;
+
+      //OFF pim
+      OFF_Pin *_OffPin;
+      #define OFF_UPDATE  500   // refresh period
+      unsigned int Off_Timing;
 };
 

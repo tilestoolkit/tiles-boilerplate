@@ -26,6 +26,10 @@ Sensors_Handler::Sensors_Handler(BLE_Handler *Handler)   //default constructor
     _HumSensor = NULL;
     Hum_Timing = 0;
 
+    //OFF pin
+    _OffPin = NULL;
+    Off_Timing = 0;
+
     states = 1;
 }
 
@@ -37,6 +41,7 @@ void Sensors_Handler::HandleTime(unsigned int ElapsedTime)
     TouchSensor_Timing += ElapsedTime;
     Temp_Timing += ElapsedTime;
     Hum_Timing += ElapsedTime;
+    Off_Timing += ElapsedTime;
     _InertialCentral->HandleTime(ElapsedTime);
 }
 
@@ -108,7 +113,7 @@ String Sensors_Handler::pollEvent()    // If an event has occured returns the ev
             String temp = String(touchpin);
             EventString = String("touched," + temp);
             //Serial.println("quiquiqui");
-           BLE->shoutdown();
+           BLE->shutdown();
         }
     }
 
@@ -128,13 +133,24 @@ String Sensors_Handler::pollEvent()    // If an event has occured returns the ev
         // String t = String(round_temp);
         // EventString = String("ht," + );
         EventString = String("humi," + _HumSensor->read()); //remove second decimal (printed as 0 after round) from string
-    } 
-    
+    }
 
+    if(_OffPinAvailable == true && Off_Timing >= OFF_UPDATE)
+    {
+        // turn on red led on shutdown
+        Off_Timing = 0;
+        if(_OffPin->isGrounded()){
+            digitalWrite(PIN_LED_RED, LOW);
+            delay(2000);
+            digitalWrite(PIN_LED_RED, HIGH);
+            BLE->shutdown();
+        }
+    }
+    
     if(EventString != String(""))
     {  
         Token Event = Token(EventString);
-        BLE->SendEvent(&Event);        
+        BLE->SendEvent(&Event);
     }  
     return EventString;
 }
@@ -168,6 +184,12 @@ void Sensors_Handler::setHumSensor(Hum_HDC2010 *Hum)
 {
     _HumSensor = Hum;
     _HumSensorAvailable = true;
+}
+
+void Sensors_Handler::setOffPin(OFF_Pin *Off)
+{
+    _OffPin = Off;
+    _OffPinAvailable = true;
 }
 
 void Sensors_Handler::state_change()
