@@ -1,4 +1,4 @@
-#ifndef OFF_Pin_h
+#if !defined(OFF_Pin_h)
 #define OFF_Pin_h
 
 #include <Arduino.h>
