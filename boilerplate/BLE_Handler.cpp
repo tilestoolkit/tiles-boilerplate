@@ -154,6 +154,13 @@ void BLE_Handler::ProcessEvents()
             feedback_handle.showFace(String(Command->SecondValue));
         }
     }
+    else if(Command->FirstValue == String("shut"))
+    {
+        digitalWrite(PIN_LED_RED, LOW);
+        delay(2000);
+        digitalWrite(PIN_LED_RED, HIGH);
+        shutdown();
+    }
     else
         Serial.println("**COMMAND NOT RECOGNIZED**");
 }
@@ -166,8 +173,6 @@ void BLE_Handler::shutdown()
     Serial.println("Tile shutting down");
     delay(20);
     systemOff(BUTTON_PIN, LOW);
-    //Simblee_systemOff();
-    //Simblee_ULPDelay(INFINITE);
 }
 
 

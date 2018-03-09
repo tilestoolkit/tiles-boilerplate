@@ -3,14 +3,14 @@
 
 #define SUFFIX "Tile_"
 
-#define TILES_SQUARE  1
-#define TILES_TEMP  2
+#define T_SQUARE  1
+#define T_TEMP  2
 
 // Set your device here ///
-#define DEVICE TILES_SQUARE
+#define DEVICE T_SQUARE
 ///////////////////////////
 
-#if DEVICE == TILES_SQUARE
+#if DEVICE == T_SQUARE
     #define xAccelerometer_ADXL345 true
     #define ACC_INT1_PIN  7
     #define xIMU_LSM9DS0 false
@@ -38,7 +38,7 @@
     #define xHum_HDC2010 false
     #define OFF_PIN 14
     #define xOFF_PIN false
-#elif DEVICE == TILES_TEMP
+#elif DEVICE == T_TEMP
     #define xTemp_Si7051 true
     #define xHum_HDC2010 true
     #define xOFF_PIN true
