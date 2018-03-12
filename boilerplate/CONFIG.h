@@ -34,6 +34,8 @@
 
     #define xHAPTIC_IC true
 
+    #define BT_LED 19
+
     #define xTemp_Si7051 false
     #define xHum_HDC2010 false
     #define OFF_PIN 14
@@ -66,6 +68,8 @@
     #define VIBRATING_M_PIN     3 
 
     #define xHAPTIC_IC false
+
+    #define BT_LED NULL
 #endif
 
 

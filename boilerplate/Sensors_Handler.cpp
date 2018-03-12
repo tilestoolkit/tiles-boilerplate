@@ -113,7 +113,7 @@ String Sensors_Handler::pollEvent()    // If an event has occured returns the ev
             String temp = String(touchpin);
             EventString = String("touched," + temp);
             //Serial.println("quiquiqui");
-           BLE->shutdown();
+        //    BLE->shutdown();
         }
     }
 
@@ -162,7 +162,7 @@ void Sensors_Handler::setAccelerometer(ADXL345 *Acc)  // Set the private member 
     _AccelerometerAvailable = Acc->SensorAvailable;
 }
 
-void Sensors_Handler::setInertialCentral(LSM9DS0 *InC)  // Set the private member _Accelerometer with an existing instance of an Accelerometer object
+void Sensors_Handler::setInertialCentral(LSM9DS0 *InC)
 {
     _InertialCentral = InC;
     _InertialCentralAvailable = InC->SensorAvailable;

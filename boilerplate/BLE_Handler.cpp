@@ -159,6 +159,7 @@ void BLE_Handler::ProcessEvents()
         digitalWrite(PIN_LED_RED, LOW);
         delay(2000);
         digitalWrite(PIN_LED_RED, HIGH);
+        if(BT_LED) digitalWrite(BT_LED, LOW);
         shutdown();
     }
     else

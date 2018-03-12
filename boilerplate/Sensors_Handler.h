@@ -14,7 +14,7 @@ class Sensors_Handler
       String pollEvent();                         // If an event has occured returns the event code
       void HandleTime(unsigned int ElapsedTime);   
       void setAccelerometer(ADXL345 *Acc);  // Set the private member _Accelerometer with an existing instance of an Accelerometer object
-      void setInertialCentral(LSM9DS0 *InC);  // Set the private member _Accelerometer with an existing instance of an Accelerometer object
+      void setInertialCentral(LSM9DS0 *InC);
       void setTouchSensor(CAP1188 *Touch);
       void setTempSensor(Temp_Si7051 *Temp);
       void setHumSensor(Hum_HDC2010 *Hum);
