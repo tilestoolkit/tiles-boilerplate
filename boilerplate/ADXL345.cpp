@@ -45,23 +45,23 @@ ADXL345::ADXL345(int Pin)
 	{
 	  accel.begin();
       Serial.println("ADXL345 Available");
-	  SensorAvailable = true;	  
+	  SensorAvailable = true;
 	}
 
-    /* Set the range to whatever is appropriate for your project */
+    /* Set the range and data rate to whatever is appropriate for your project */
     accel.setRange(ADXL345_RANGE_2_G);
+    accel.setDataRate(ADXL345_DATARATE_6_25HZ);
 
-    // enable single and double tap interrupt + activity/inactivity interrupts
-    accel.writeRegister(ADXL345_REG_INT_ENABLE, 0b01111000);
-
+    // enable single and double tap interrupts
+    accel.writeRegister(ADXL345_REG_INT_ENABLE, 0b01100000);
     // map single tap, double tap, activity and inactivity interrupts in the INT1 pin
-    accel.writeRegister(ADXL345_REG_INT_MAP, 0x87);
+    // accel.writeRegister(ADXL345_REG_INT_MAP, 0x87);
 
     /************************** Activity and Inactivity configuration **************************/
-    accel.writeRegister(ADXL345_REG_THRESH_ACT, 8);
-    accel.writeRegister(ADXL345_REG_THRESH_INACT, 3);
-    accel.writeRegister(ADXL345_REG_TIME_INACT, 0b00000001);
-    accel.writeRegister(ADXL345_REG_ACT_INACT_CTL, 0b11111111);
+    // accel.writeRegister(ADXL345_REG_THRESH_ACT, 8);
+    // accel.writeRegister(ADXL345_REG_THRESH_INACT, 3);
+    // accel.writeRegister(ADXL345_REG_TIME_INACT, 0b00000001);
+    // accel.writeRegister(ADXL345_REG_ACT_INACT_CTL, 0b11111111);
 
     /*********************** Tap and double tap configuration ************************/
     // single tap configuration
@@ -71,7 +71,7 @@ ADXL345::ADXL345(int Pin)
 
     // double tap configuration
     accel.writeRegister(ADXL345_REG_LATENT, 100);
-    accel.writeRegister(ADXL345_REG_WINDOW, 255);
+    accel.writeRegister(ADXL345_REG_WINDOW, 500);
     /*************************************************************************************/
 
     //read and clear interrupts
@@ -218,51 +218,14 @@ void ADXL345::RefreshValues() // This function has to be adapted to the current 
 
     
     //Populate sensor events if interrupt occured
-    if (true)  //Interrupt occured
-    {
+
+    
         int Source = accel.readRegister(ADXL345_REG_INT_SOURCE);
-        
-        if(abs(d_x) < 200 && abs(d_y) < 200)
-        {
-            if(Source & ACC_INT_TAP)
-            {
-                if(Source & ACC_INT_DOUBLE_TAP)
-                {
-                    DoubleTapped = 1;
-                    Tapped = 0;
-                   // Serial.println("iDOUUBLETAPPED");
-                }
-            
-                else
-                {
-                  DoubleTapped = 0;
-                  Tapped = 1;
-                  //Serial.println("isTAPPED");
-                }
-            }
-        }
-        else if(abs(d_x) > 200 || abs(d_y) > 200)
-        {
-          Shaked = true;
-        }
-        if(Source & ACC_INT_ACT)
-        {
-            #ifdef LOG_ACC
-            if(State == false)
-              Serial.println("ACC Active !");
-            #endif
-            
-            State = true;
-        }      
-        if(Source & ACC_INT_INACT)
-        {
-            #ifdef LOG_ACC
-            if(State == true)
-              Serial.println("ACC inactive...");
-            #endif
-            
-            State = false;
-        }
-    }
+
+        if(Source & ACC_INT_DOUBLE_TAP) DoubleTapped = true;
+        else if(Source & ACC_INT_TAP) Tapped = true;
+
+        if(abs(d_x) > 200 || abs(d_y) > 200) Shaked = true;
+    
     return;  
 }

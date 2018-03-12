@@ -35,7 +35,7 @@ class Sensors_Handler
 
       //Accelrometer
       ADXL345 *_Accelerometer;            // Handle an accelerometer object
-      #define ACCELEROMETER_UPDATE  100   // refresh period
+      #define ACCELEROMETER_UPDATE  200   // refresh period
       unsigned int Accelerometer_Timing;
       
       //Sensors source of TokenSoloEvent

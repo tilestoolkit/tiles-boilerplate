@@ -65,8 +65,8 @@ String Sensors_Handler::pollEvent()    // If an event has occured returns the ev
         else if (_Accelerometer->isShaked())
         EventString = String("shake");
         
-        //else if (_Accelerometer->isTilted())
-        //    EventString = String("tilt");
+        else if (_Accelerometer->isTilted())
+        EventString = String("tilt");
     }
 
     if(_InertialCentralAvailable == true && InertialCentral_Timing >= ACCELEROMETER_UPDATE)
