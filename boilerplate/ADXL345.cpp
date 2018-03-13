@@ -1,11 +1,9 @@
 #include "ADXL345.h"
 
-ADXL345::ADXL345(int Pin)
+ADXL345::ADXL345()
 {
-    InterruptPin = Pin;
     Tapped = false;
     DoubleTapped = false;
-    State = false;
     Tilted = false;
     TiltAxis = 0;
 
@@ -14,14 +12,11 @@ ADXL345::ADXL345(int Pin)
 
     FIR_Sample = 0;
     
-    for(int i = 0; i < ACC_FIR_SIZE; i++)
-    {
+    for(int i = 0; i < ACC_FIR_SIZE; i++) {
         x_FIR[i] = 0;
         y_FIR[i] = 0;
         z_FIR[i] = 0;
     }
-
-    pinMode(InterruptPin, INPUT);
     
     Serial.println("Checking for ADXL345");
     accel = Adafruit_ADXL345_Unified(12345);
@@ -34,15 +29,13 @@ ADXL345::ADXL345(int Pin)
 	Wire.send(0x00);
 	#endif
 	
-    if(Wire.endTransmission() != 0)
-    {
+    if(Wire.endTransmission() != 0) {
       Serial.println("No ADXL345");
 	  SensorAvailable = false;	  
 	  return;
     }
 	
-	else
-	{
+	else {
 	  accel.begin();
       Serial.println("ADXL345 Available");
 	  SensorAvailable = true;
@@ -78,64 +71,39 @@ ADXL345::ADXL345(int Pin)
     accel.readRegister(ADXL345_REG_INT_SOURCE);
 }
 
-bool ADXL345::isShaked ()       // True if the sensor is shaked
-{
-    if(Shaked)
-    {
+bool ADXL345::isShaked() {       // True if the sensor is shaked
+    if(Shaked) {
       Shaked = false;
       return true;
     }
-
-    else
-      return false;
+    else return false;
 }
 
-bool ADXL345::isTapped ()       // True if the sensor has been tapped once
-{
-    if(Tapped)
-    {
-    //Serial.println("isTAPPED");
+bool ADXL345::isTapped() {       // True if the sensor has been tapped once
+    if(Tapped) {
       Tapped = false;
       return true;
     }
-
-    else
-      return false;
+    else return false;
 }
-bool ADXL345::isDoubleTapped () // Returns true if the sensor has been double tapped
-{
-    if(DoubleTapped)
-    {
-       // Serial.println("isDOUBLETAPPED");
+bool ADXL345::isDoubleTapped() { // Returns true if the sensor has been double tapped
+    if(DoubleTapped) {
       DoubleTapped = false;
       return true;
     }
-
-    else
-      return false;
+    else return false;
 }
 
-int ADXL345::isTilted ()        // Return the tilt axis according to enum Axis, else returns false
-{
-    if(Tilted)
-    {
-        Tilted = false;
-        return TiltAxis;
+int ADXL345::isTilted() {        // Return the tilt axis according to enum Axis, else returns false
+    if(Tilted) {
+      Tilted = false;
+      return TiltAxis;
     }
-
-    else
-        return 0;
-}
-
-bool ADXL345::isActive()        // Return the state of the sensor (true = active, false = inactive)
-{
-    return State;
+    else return false;
 }
 
 
-
-void ADXL345::RefreshValues() // This function has to be adapted to the current used sensor
-{
+void ADXL345::RefreshValues() {
  
 /**********************************************
  * Read new values, compute the new low pass
@@ -143,8 +111,7 @@ void ADXL345::RefreshValues() // This function has to be adapted to the current 
  * values
  *********************************************/
     
-	if(SensorAvailable == false)
-		return;
+	if(SensorAvailable == false) return;
 	
     int new_x = accel.getX();
     int new_y = accel.getY();
@@ -158,11 +125,8 @@ void ADXL345::RefreshValues() // This function has to be adapted to the current 
     y = new_y;
     z = new_z;
     
-    if(FIR_Sample +1 == ACC_FIR_SIZE)
-        FIR_Sample = 0;
-    
-    else
-        FIR_Sample++;
+    if(FIR_Sample +1 == ACC_FIR_SIZE) FIR_Sample = 0;
+    else FIR_Sample++;
 
     x_FIR[FIR_Sample] = new_x;
     y_FIR[FIR_Sample] = new_y;
@@ -172,8 +136,7 @@ void ADXL345::RefreshValues() // This function has to be adapted to the current 
     y_Filtered = 0;
     z_Filtered = 0;
   
-    for(uint8_t i = 0; i < ACC_FIR_SIZE; i++)
-    { 
+    for(uint8_t i = 0; i < ACC_FIR_SIZE; i++) { 
         x_Filtered += x_FIR[i];
         y_Filtered += y_FIR[i];
         z_Filtered += z_FIR[i];
@@ -182,50 +145,35 @@ void ADXL345::RefreshValues() // This function has to be adapted to the current 
     x_Filtered /= ACC_FIR_SIZE;  
     y_Filtered /= ACC_FIR_SIZE;
     z_Filtered /= ACC_FIR_SIZE;
-
-    #ifdef LOG_ACC
-    Serial.print("X");Serial.println(x, DEC);
-    Serial.print("Y");Serial.println(y, DEC);
-    Serial.print("Z");Serial.println(z, DEC);
-    #endif
     
 /**********************************************
  * Check if the pawn is tilted using the output
  * of a low pass FIR 
  *********************************************/
  
-    if(abs(x_Filtered) > ACC_SHAKE_THRESH && abs(y_Filtered) > ACC_SHAKE_THRESH)
-    {
+    if(abs(x_Filtered) > ACC_TILT_THRESH && abs(y_Filtered) > ACC_TILT_THRESH) {
         Tilted = true;
         TiltAxis = ADXL345::Y_AXIS | ADXL345::X_AXIS;
     }
     
-    else if(abs(x_Filtered) > ACC_SHAKE_THRESH)
-    {
+    else if(abs(x_Filtered) > ACC_TILT_THRESH) {
         Tilted = true;
         TiltAxis = ADXL345::X_AXIS;
     }
     
-    else if(abs(y_Filtered) > ACC_SHAKE_THRESH)
-    {
+    else if(abs(y_Filtered) > ACC_TILT_THRESH) {
         Tilted = true;
         TiltAxis = ADXL345::Y_AXIS;
     }
 
-    else
-        Tilted = false;
-
+    else Tilted = false;
 
     
-    //Populate sensor events if interrupt occured
+    int Source = accel.readRegister(ADXL345_REG_INT_SOURCE);
 
+    if(Source & ACC_INT_DOUBLE_TAP) DoubleTapped = true;
+    else if(Source & ACC_INT_TAP) Tapped = true;
+
+    if(abs(d_x) > ACC_SHAKE_THRESH || abs(d_y) > ACC_SHAKE_THRESH) Shaked = true;
     
-        int Source = accel.readRegister(ADXL345_REG_INT_SOURCE);
-
-        if(Source & ACC_INT_DOUBLE_TAP) DoubleTapped = true;
-        else if(Source & ACC_INT_TAP) Tapped = true;
-
-        if(abs(d_x) > 200 || abs(d_y) > 200) Shaked = true;
-    
-    return;  
 }

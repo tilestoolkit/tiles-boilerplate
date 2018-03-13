@@ -1,6 +1,6 @@
 /********************************************************
   # NAME: boilerplate.ino
-  # AUTHOR: Simone Mora (simonem@ntnu.no)
+  # AUTHOR: Simone Mora (simonem@ntnu.no), Francesco Gianni (francg@idi.ntnu.no)
   # DATE: --
   # LICENSE: Apache V2.0
 ********************************************************/
@@ -69,7 +69,7 @@ void setup(void)
     //Initialization of SENSORS
     //Accelerometer
     if(xAccelerometer_ADXL345){
-    ACCELEROMETER = new ADXL345(ACC_INT1_PIN);
+    ACCELEROMETER = new ADXL345();
     sensor_handle.setAccelerometer(ACCELEROMETER);
     }
     //IMU
