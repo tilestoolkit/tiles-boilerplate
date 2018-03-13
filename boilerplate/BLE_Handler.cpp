@@ -16,19 +16,19 @@ void BLE_Handler::start()
     Bluefruit.setDisconnectCallback(disconnect_callback);
     service.begin();
     
-    char1.setProperties(CHR_PROPS_NOTIFY);
+    char1.setProperties(CHR_PROPS_READ | CHR_PROPS_NOTIFY);
     char1.setPermission(SECMODE_OPEN, SECMODE_NO_ACCESS);
     char1.setMaxLen(20);
     //char1.setCccdWriteCallback(cccd_callback);  // Optionally capture CCCD updates
     char1.begin();
 
-    char2.setProperties(CHR_PROPS_READ);
+    char2.setProperties(CHR_PROPS_WRITE | CHR_PROPS_WRITE_WO_RESP);
     char2.setPermission(SECMODE_OPEN, SECMODE_NO_ACCESS);
     char2.setFixedLen(1);
     char2.write8(2);    // Set the characteristic to 'Wrist' (2)
     char2.begin();
     
-    char3.setProperties(CHR_PROPS_WRITE);
+    char3.setProperties(CHR_PROPS_WRITE | CHR_PROPS_WRITE_WO_RESP);
     char3.setPermission(SECMODE_NO_ACCESS, SECMODE_OPEN);
     char3.setWriteCallback(write_callback);  
     char3.setMaxLen(18);

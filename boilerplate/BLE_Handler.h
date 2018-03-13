@@ -35,10 +35,10 @@ class BLE_Handler
     
       char DeviceName[8] = {0};
 
-      BLEService        service = BLEService(0x1234);
-      BLECharacteristic char1 = BLECharacteristic(0xAA01);
-      BLECharacteristic char2 = BLECharacteristic(0xAA02);
-      BLECharacteristic char3 = BLECharacteristic(0xAA03);
+      BLEService        service = BLEService(0x2220);
+      BLECharacteristic char1 = BLECharacteristic(0x2221);
+      BLECharacteristic char2 = BLECharacteristic(0x2222);
+      BLECharacteristic char3 = BLECharacteristic(0x2223);
       static void connect_callback(uint16_t conn_handle);
       static void disconnect_callback(uint16_t conn_handle, uint8_t reason);
       static void write_callback(BLECharacteristic& chr, uint8_t* data, uint16_t len, uint16_t offset);
