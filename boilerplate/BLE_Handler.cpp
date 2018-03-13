@@ -80,7 +80,7 @@ void BLE_Handler::SendEvent(Token* Event)
     String payload = Event->getEventString();
     char sendData[20] = {0};
     payload.toCharArray(sendData, payload.length()+1);
-    char1.notify(sendData, payload.length());
+    char1.notify(sendData, payload.length()+1);
     Serial.print("**Event sent: "); Serial.print(payload); Serial.println("**");
 }
 
@@ -166,20 +166,11 @@ void BLE_Handler::ProcessEvents()
         Serial.println("**COMMAND NOT RECOGNIZED**");
 }
 
-void BLE_Handler::shutdown()
-{
-    //digitalWrite(STATUS_LED_PIN,LOW);
-    //extern STATUS_LED status_led;
-    //status_led.off();
+void BLE_Handler::shutdown() {
     Serial.println("Tile shutting down");
     delay(20);
-    systemOff(BUTTON_PIN, LOW);
+    systemOff(BUTTON_PIN, LOW);  // wake up interrupt
 }
-
-
-
-
-
 
 
 /*********************************TOKEN CLASS************************************************/
