@@ -6,6 +6,7 @@
 #include "NEO_STRIP.h"
 #include "MATRIX.h"
 #include "DRV2605.h"
+#include "BUZZER.h"
 
 class Feedbacks_Handler
 {
@@ -18,9 +19,13 @@ class Feedbacks_Handler
       // Haptic
       void setHapticMotor(Haptic *pHapticMotor);
       void setHapticMotor(DRV2605 *pHapticIC);
-      //void Vibrate(unsigned int Time);
       void Vibrate(String Type);
-      void Vibrate(uint8_t Time);
+      void burst();
+      void shortv();
+      void longv();
+      void raise();
+      void fall();
+      void raiseFall();
 
       // RGB Led
       void setRGB_LED(RGB_LED *pLED);
@@ -36,6 +41,10 @@ class Feedbacks_Handler
       void startGazing();
       void stopGazing();
       void showFace(String type);
+
+      // BUZZER
+      void setBuzzer(BUZZER *pBuzzer);
+      void buzz();
       
     private:
       Haptic *HapticMotor;
@@ -52,6 +61,9 @@ class Feedbacks_Handler
 
       MATRIX *MATRIXX;
       bool MATRIX_Available;
+
+      BUZZER *Buzz;
+      bool BUZZER_Available;
      
 };
 

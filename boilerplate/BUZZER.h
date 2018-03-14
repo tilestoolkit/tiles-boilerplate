@@ -109,6 +109,7 @@ private:
       int noteDurations[8] = {
         4, 8, 8, 4, 4, 4, 4, 4
       };
+    void tone(int pin, int frequency, int duration);
     unsigned int Buzzer_Timing;
     unsigned int RefreshThreshold = 50; //Refresh values every 50ms
 };

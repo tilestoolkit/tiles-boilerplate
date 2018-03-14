@@ -140,10 +140,16 @@ void BLE_Handler::ProcessEvents()
         }
 
     }
-    else if(Command->FirstValue == String("haptic"))
-    {
-        feedback_handle.Vibrate(Command->SecondValue);
+    else if(Command->FirstValue == String("haptic")) {
+        if     (Command->SecondValue == String("burst"))      feedback_handle.burst();
+        else if(Command->SecondValue == String("short"))      feedback_handle.shortv();
+        else if(Command->SecondValue == String("long"))       feedback_handle.longv();
+        else if(Command->SecondValue == String("raise"))      feedback_handle.raise();
+        else if(Command->SecondValue == String("fall"))       feedback_handle.fall();
+        else if(Command->SecondValue == String("raise-fall")) feedback_handle.raiseFall();
+        else feedback_handle.Vibrate(Command->SecondValue);
     }
+
     else if(Command->FirstValue == String("matrix"))
     {
         if(Command->SecondValue == String("gazing")){
@@ -161,6 +167,9 @@ void BLE_Handler::ProcessEvents()
         digitalWrite(PIN_LED_RED, HIGH);
         if(BT_LED) digitalWrite(BT_LED, LOW);
         shutdown();
+    }
+    else if(Command->FirstValue == String("buzzer")) {
+        feedback_handle.buzz();
     }
     else
         Serial.println("**COMMAND NOT RECOGNIZED**");

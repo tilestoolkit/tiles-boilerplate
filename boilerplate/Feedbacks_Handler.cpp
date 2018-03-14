@@ -7,6 +7,7 @@ Feedbacks_Handler::Feedbacks_Handler()
     RGB_LEDAvailable = false;
     NEO_STRIPAvailable = false;
     MATRIX_Available = false;
+    BUZZER_Available = false;
 }
 
 // RGB LED
@@ -73,34 +74,53 @@ void Feedbacks_Handler::setHapticMotor(Haptic *pHapticMotor)
     HapticAvailable = true;
 }
 
-void Feedbacks_Handler::setHapticMotor(DRV2605 *pHapticIC){
+void Feedbacks_Handler::setHapticMotor(DRV2605 *pHapticIC) {
     HapticIC = pHapticIC;
     HapticICAvailable = true;
 }
 
-
-void Feedbacks_Handler::Vibrate(uint8_t Time)
-{  
-    if(HapticICAvailable == true)
-      HapticIC->Vibrate(Time);
-      else     
-        HapticMotor->Vibrate(Time);
+void Feedbacks_Handler::Vibrate(String Type) {
+    if(HapticICAvailable) HapticIC->Vibrate(Type.toInt());
 }
 
-void Feedbacks_Handler::Vibrate(String Type)
+void Feedbacks_Handler::burst() {
+    if(HapticICAvailable) HapticIC->burst();
+}
+
+void Feedbacks_Handler::shortv() {
+    if(HapticAvailable) HapticMotor->VibrateShort();
+    else if(HapticICAvailable) HapticIC->shortv();
+}
+
+void Feedbacks_Handler::longv() {
+    if(HapticAvailable) HapticMotor->VibrateLong();
+    else if(HapticICAvailable) HapticIC->longv();
+}
+
+void Feedbacks_Handler::raise() {
+    if(HapticICAvailable) HapticIC->raise();
+}
+
+void Feedbacks_Handler::fall() {
+    if(HapticICAvailable) HapticIC->fall();
+}
+
+void Feedbacks_Handler::raiseFall() {
+    if(HapticICAvailable) HapticIC->raiseFall();
+}
+
+// Buzzer
+void Feedbacks_Handler::setBuzzer(BUZZER *pBuzzer)
 {
-    if(HapticAvailable == true)
-    {    
-    if(Type == String("short"))
-      HapticMotor->VibrateShort();
-    else if(Type == String("long"))
-      HapticMotor->VibrateLong();
-    } else if(HapticICAvailable == true)
-    {
-      Vibrate(Type.toInt());
-      //Serial.print("*DEBUG: "); Serial.println(Type.toInt());
-    } 
+    Buzz = pBuzzer;
+    BUZZER_Available = true;
 }
+
+void Feedbacks_Handler::buzz()
+{
+    Buzz->play_melody();
+}
+
 
 //Service Methods
 String Feedbacks_Handler::UpdateFeedback()

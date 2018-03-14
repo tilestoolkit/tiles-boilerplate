@@ -14,7 +14,6 @@
 #include "Sensors_Handler.h"
 #include "CONFIG.h"
 #include "STATUS_LED.h"
-#include "BUZZER.h"
 
 // Variables for BLE
 BLE_Handler BLE;
@@ -40,7 +39,7 @@ RGB_LED *LED;
 NEO_STRIP *STRIP = NULL;
 MATRIX *M_MATRIX = NULL;
 //STATUS_LED status_led;
-BUZZER buzz;
+BUZZER *Buzzer;
 
 
 int ledState = HIGH;         
@@ -97,6 +96,7 @@ void setup(void)
     OFF = new OFF_Pin();
     sensor_handle.setOffPin(OFF);
     }
+
     //Intitialization of FEEDBACKS
     //DotMatrix
     if(xDOTM_MATRIX){
@@ -125,6 +125,11 @@ void setup(void)
     //feedback_handle.setColor("blue");
     //delay(500);
     //feedback_handle.setColor("off");
+    }
+    //Buzzer
+    if(xBUZZER){
+    Buzzer = new BUZZER();
+    feedback_handle.setBuzzer(Buzzer);
     }
 
     //Start timers

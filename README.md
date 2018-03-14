@@ -74,7 +74,8 @@ These are the electronic parts for which data primitives are available
 |          |matrix|off||8X8 Matrix||
 |          |matrix|gazing||8X8 Matrix||
 |          |matrix|dollar,happy1,x,puzzled,sad1,sad2,sad3,||8X8 Matrix||
-|          |haptic|short,long||Vibration motor (analog)||
+|          |haptic|short,long||DRV2605 / Vibration motor (analog)||
+|          |haptic|burst,raise,fall,raise-fall||DRV2605||
 |          |haptic|[ID]]||DRV2605| Feedback pattern ID, see page 57-58 of the [datasheet](http://www.ti.com/lit/ds/symlink/drv2605.pdf) |
 
 ##ToDo
