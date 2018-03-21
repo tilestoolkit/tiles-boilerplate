@@ -30,6 +30,8 @@
     #define xDOTM_MATRIX false
     #define BUZZER_PIN 4
     #define xBUZZER true
+    #define OFF_PIN 14
+    #define xOFF_PIN true
 
     #define xHAPTIC_analog false
     #define VIBRATING_M_PIN     3
@@ -40,8 +42,6 @@
 
     #define xTemp_Si7051 false
     #define xHum_HDC2010 false
-    #define OFF_PIN 14
-    #define xOFF_PIN false
 #elif DEVICE == T_TEMP
     #define xTemp_Si7051 true
     #define xHum_HDC2010 true
