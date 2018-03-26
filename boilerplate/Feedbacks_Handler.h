@@ -44,7 +44,7 @@ class Feedbacks_Handler
 
       // BUZZER
       void setBuzzer(BUZZER *pBuzzer);
-      void buzz();
+      void buzz(char *song);
       
     private:
       Haptic *HapticMotor;

@@ -168,11 +168,14 @@ void BLE_Handler::ProcessEvents()
         if(BT_LED) digitalWrite(BT_LED, LOW);
         shutdown();
     }
-    else if(Command->FirstValue == String("buzzer")) {
-        feedback_handle.buzz();
+    else if(Command->FirstValue == String("sound")) {
+        if     (Command->SecondValue == String("on"))    feedback_handle.buzz(ON_S);
+        else if(Command->SecondValue == String("off"))   feedback_handle.buzz(OFF_S);
+        else if(Command->SecondValue == String("siren")) feedback_handle.buzz(SIREN);
+        else Serial.println("**Buzzer parameter unknown**");
     }
-    else
-        Serial.println("**COMMAND NOT RECOGNIZED**");
+
+    else Serial.println("**COMMAND NOT RECOGNIZED**");
 }
 
 void BLE_Handler::shutdown() {

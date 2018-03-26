@@ -97,24 +97,11 @@ String Sensors_Handler::pollEvent()    // If an event has occured returns the ev
         }
     }
 
-     if(_TouchSensorAvailable == true && TouchSensor_Timing >= TOUCHSENSOR_UPDATE)
-    {
-        //Serial.println("DEBUG");
+     if(_TouchSensorAvailable == true && TouchSensor_Timing >= TOUCHSENSOR_UPDATE){
         TouchSensor_Timing = 0;
         short touchpin = _TouchSensor->isTouched();
-        if(touchpin == 2)
-        {
-            String temp = String(touchpin);
-            EventString = String("touched," + temp);
-            //Serial.print("Touched");
-            //Serial.println(touchpin);
-            //state_change();
-        } else if(touchpin == 1){
-            String temp = String(touchpin);
-            EventString = String("touched," + temp);
-            //Serial.println("quiquiqui");
-        //    BLE->shutdown();
-        }
+        if(touchpin == 2) EventString = String("touched,B");
+        else if(touchpin == 1) EventString = String("touched,A");
     }
 
     if(_TempSensorAvailable == true && Temp_Timing >= TEMP_UPDATE)
@@ -143,6 +130,7 @@ String Sensors_Handler::pollEvent()    // If an event has occured returns the ev
             digitalWrite(PIN_LED_RED, LOW);
             delay(2000);
             digitalWrite(PIN_LED_RED, HIGH);
+            if(BT_LED) digitalWrite(BT_LED, LOW);
             BLE->shutdown();
         }
     }

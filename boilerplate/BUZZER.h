@@ -14,6 +14,7 @@
 #define NOTE_A1  55
 #define NOTE_AS1 58
 #define NOTE_B1  62
+
 #define NOTE_C2  65
 #define NOTE_CS2 69
 #define NOTE_D2  73
@@ -26,7 +27,8 @@
 #define NOTE_A2  110
 #define NOTE_AS2 117
 #define NOTE_B2  123
-#define NOTE_C3  131
+
+#define NOTE_C3  131 //ok
 #define NOTE_CS3 139
 #define NOTE_D3  147
 #define NOTE_DS3 156
@@ -38,6 +40,7 @@
 #define NOTE_A3  220
 #define NOTE_AS3 233
 #define NOTE_B3  247
+
 #define NOTE_C4  262
 #define NOTE_CS4 277
 #define NOTE_D4  294
@@ -50,7 +53,8 @@
 #define NOTE_A4  440
 #define NOTE_AS4 466
 #define NOTE_B4  494
-#define NOTE_C5  523
+
+#define NOTE_C5  523 //ko
 #define NOTE_CS5 554
 #define NOTE_D5  587
 #define NOTE_DS5 622
@@ -62,6 +66,7 @@
 #define NOTE_A5  880
 #define NOTE_AS5 932
 #define NOTE_B5  988
+
 #define NOTE_C6  1047
 #define NOTE_CS6 1109
 #define NOTE_D6  1175
@@ -91,6 +96,15 @@
 #define NOTE_D8  4699
 #define NOTE_DS8 4978
 
+#define isdigit(n) (n >= '0' && n <= '9')
+#define OCTAVE_OFFSET 0
+
+#define ON_S  ((const char *) "on:d=4,o=5,b=180:b,e,c")
+#define OFF_S ((const char *) "off:d=4,o=5,b=180:c,e,b")
+#define SIREN ((const char *) "siren:d=4,o=5,b=90:g,d,g,d,g,d")
+// char *song = "Indiana:d=4,o=5,b=250:e,8p,8f,8g,8p,1c6,8p.,d,8p,8e,1f,p.,g,8p,8a,8b,8p,1f6,p,a,8p,8b,2c6,2d6,2e6,e,8p,8f,8g,8p,1c6,p,d6,8p,8e6,1f.6,g,8p,8g,e.6,8p,d6,8p,8g,e.6,8p,d6,8p,8g,f.6,8p,e6,8p,8d6,2c6";
+
+
 class BUZZER
 {
 public:
@@ -98,18 +112,17 @@ public:
     void RefreshValues();   //This should be invoked by Feedbacks/Sensor handler
     void HandleTime(unsigned int ElapsedTime);  //This should be invoked by Feedbacks/Sensor handler
     void play_tune(String note);
-    void play_melody();
+    void play_melody(char *song);
     void stop_tune();
+    void play_rtttl(char *p);
 private:
-    int melody[8] = {
-        NOTE_C4, NOTE_G3, NOTE_G3, NOTE_A3, NOTE_G3, 0, NOTE_B3, NOTE_C4
-      };
-      
-      // note durations: 4 = quarter note, 8 = eighth note, etc.:
-      int noteDurations[8] = {
-        4, 8, 8, 4, 4, 4, 4, 4
-      };
-    void tone(int pin, int frequency, int duration);
+    int notes[49] = { 0,
+        NOTE_C2, NOTE_CS2, NOTE_D2, NOTE_DS2, NOTE_E2, NOTE_F2, NOTE_FS2, NOTE_G2, NOTE_GS2, NOTE_A2, NOTE_AS2, NOTE_B2,
+        NOTE_C3, NOTE_CS3, NOTE_D3, NOTE_DS3, NOTE_E3, NOTE_F3, NOTE_FS3, NOTE_G3, NOTE_GS3, NOTE_A3, NOTE_AS3, NOTE_B3,
+        NOTE_C4, NOTE_CS4, NOTE_D4, NOTE_DS4, NOTE_E4, NOTE_F4, NOTE_FS4, NOTE_G4, NOTE_GS4, NOTE_A4, NOTE_AS4, NOTE_B4
+    };
+
+    void tone(int frequency, int duration = 0);
     unsigned int Buzzer_Timing;
     unsigned int RefreshThreshold = 50; //Refresh values every 50ms
 };

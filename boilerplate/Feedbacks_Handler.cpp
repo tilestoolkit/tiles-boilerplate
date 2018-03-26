@@ -110,15 +110,13 @@ void Feedbacks_Handler::raiseFall() {
 }
 
 // Buzzer
-void Feedbacks_Handler::setBuzzer(BUZZER *pBuzzer)
-{
+void Feedbacks_Handler::setBuzzer(BUZZER *pBuzzer) {
     Buzz = pBuzzer;
     BUZZER_Available = true;
 }
 
-void Feedbacks_Handler::buzz()
-{
-    Buzz->play_melody();
+void Feedbacks_Handler::buzz(char *song) {
+    Buzz->play_melody(song);
 }
 
 
