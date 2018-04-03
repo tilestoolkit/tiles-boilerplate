@@ -5,16 +5,15 @@
 #define ACC_INT_DOUBLE_TAP    0x20
 #define ACC_INT_ACT           0x10
 #define ACC_INT_INACT         0x08
-
-#define ACC_FIR_SIZE          (uint8_t)10
-#define ACC_SHAKE_THRESH      100
-//#define   LOG_ACC
+#define ACC_FIR_SIZE          (uint8_t)2
+#define ACC_SHAKE_THRESH      200
+#define ACC_TILT_THRESH       180
 
 class ADXL345
 {
 
     public:
-      ADXL345(int Pin);
+      ADXL345();
       
       int x;  /// X acceleration instantaneous value
       int y;  /// Y acceleration instantaneous value
@@ -24,12 +23,11 @@ class ADXL345
       bool isTapped ();       // True if the sensor has been tapped once
       bool isDoubleTapped (); // Returns true if the sensor has been double tapped
       int isTilted ();        // Return the tilt axis according to enum Axis, else returns false
-      bool isActive();        // Return the state of the sensor (true = active, false = inactive)
       void RefreshValues ();  // Reads the accelerations components
 
       enum Axis{X_AXIS = 1, Y_AXIS = 2};
 	  
-	  bool SensorAvailable;
+	    bool SensorAvailable;
       
     private:
       Adafruit_ADXL345_Unified accel;  /// Object representing the used sensor
@@ -52,7 +50,5 @@ class ADXL345
       bool DoubleTapped;  // True if tapped twice, Reset on read with isDoubleTapped()
       bool Tilted;        // True if the ADXL345 is tilted
       int TiltAxis;       // Axis on wich ADXL345 is tilted
-      bool State;         // True if the sensor is active, else false
-      int InterruptPin;   // Interrupt pin (pretty clear no ?)
 
 };

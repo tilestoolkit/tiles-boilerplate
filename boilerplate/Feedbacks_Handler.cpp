@@ -6,6 +6,8 @@ Feedbacks_Handler::Feedbacks_Handler()
     HapticICAvailable = false;
     RGB_LEDAvailable = false;
     NEO_STRIPAvailable = false;
+    MATRIX_Available = false;
+    BUZZER_Available = false;
 }
 
 // RGB LED
@@ -43,6 +45,28 @@ void Feedbacks_Handler::fade(String color)
     STRIP->fade(color);
 }
 
+// MATRIX
+void Feedbacks_Handler::setMATRIX(MATRIX *pMATRIX)
+{
+  MATRIXX = pMATRIX;
+  MATRIX_Available = true;
+}
+
+void Feedbacks_Handler::startGazing()
+{
+  MATRIXX->start_gazing();
+}
+
+void Feedbacks_Handler::stopGazing()
+{
+  MATRIXX->stop_gazing();
+}
+
+void Feedbacks_Handler::showFace(String type)
+{
+  MATRIXX->face(type);
+}
+
 
 //Haptic Motor
 void Feedbacks_Handler::setHapticMotor(Haptic *pHapticMotor)
@@ -51,34 +75,51 @@ void Feedbacks_Handler::setHapticMotor(Haptic *pHapticMotor)
     HapticAvailable = true;
 }
 
-void Feedbacks_Handler::setHapticMotor(DRV2605 *pHapticIC){
+void Feedbacks_Handler::setHapticMotor(DRV2605 *pHapticIC) {
     HapticIC = pHapticIC;
     HapticICAvailable = true;
 }
 
-
-void Feedbacks_Handler::Vibrate(uint8_t Time)
-{  
-    if(HapticICAvailable == true)
-      HapticIC->Vibrate(Time);
-      else     
-        HapticMotor->Vibrate(Time);
+void Feedbacks_Handler::Vibrate(String Type) {
+    if(HapticICAvailable) HapticIC->Vibrate(Type.toInt());
 }
 
-void Feedbacks_Handler::Vibrate(String Type)
-{
-    if(HapticAvailable && !HapticICAvailable){
-      if(Type == String("short"))
-        HapticMotor->VibrateShort();
-      else if(Type == String("long"))
-        HapticMotor->VibrateLong();
-      else if (Type.toInt() > 0 && Type.toInt() < 5000)
-        HapticMotor->Vibrate(Type.toInt()); 
-    } else if(HapticICAvailable == true){
-      Vibrate(Type.toInt());
-      //Serial.print("*DEBUG: "); Serial.println(Type.toInt());
-    } 
+void Feedbacks_Handler::burst() {
+    if(HapticICAvailable) HapticIC->burst();
 }
+
+void Feedbacks_Handler::shortv() {
+    if(HapticAvailable) HapticMotor->VibrateShort();
+    else if(HapticICAvailable) HapticIC->shortv();
+}
+
+void Feedbacks_Handler::longv() {
+    if(HapticAvailable) HapticMotor->VibrateLong();
+    else if(HapticICAvailable) HapticIC->longv();
+}
+
+void Feedbacks_Handler::raise() {
+    if(HapticICAvailable) HapticIC->raise();
+}
+
+void Feedbacks_Handler::fall() {
+    if(HapticICAvailable) HapticIC->fall();
+}
+
+void Feedbacks_Handler::raiseFall() {
+    if(HapticICAvailable) HapticIC->raiseFall();
+}
+
+// Buzzer
+void Feedbacks_Handler::setBuzzer(BUZZER *pBuzzer) {
+    Buzz = pBuzzer;
+    BUZZER_Available = true;
+}
+
+void Feedbacks_Handler::buzz(char *song) {
+    Buzz->play_melody(song);
+}
+
 
 //Service Methods
 String Feedbacks_Handler::UpdateFeedback()
@@ -93,9 +134,10 @@ void Feedbacks_Handler::HandleTime(unsigned int ElapsedTime)
 {
   if(HapticAvailable)
     HapticMotor->HandleTime(ElapsedTime);
+  if(MATRIX_Available)
+    MATRIXX->HandleTime(ElapsedTime);
   if(NEO_STRIPAvailable)
     STRIP->HandleTime(ElapsedTime);
-
     //Serial.print("Elapsed Time: "); Serial.println(ElapsedTime);
 } 
 

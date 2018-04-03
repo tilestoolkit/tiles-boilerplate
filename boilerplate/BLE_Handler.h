@@ -1,10 +1,15 @@
 #ifndef BLEHANDLER_h
 #define BLEHANDLER_h
 
-#include <RFduinoBLE.h>
+#include <bluefruit.h>
 #include <StackArray.h>
 #include "CONFIG.h"
 #include "Feedbacks_Handler.h"
+#include "STATUS_LED.h"
+
+typedef volatile uint32_t REG32;
+#define pREG32 (REG32 *)
+#define MAC_ADDRESS_LOW   (*(pREG32 (0x100000a4)))
 
 class Token;
 
@@ -17,12 +22,27 @@ class BLE_Handler
       void ReceiveEvent(char *Data, int Lenght);
       void ProcessEvents();
       void Emit(Token *Event);
+      void shutdown();
+      void start();
+
       bool Connected;
       bool EventReceived;   // true if an event has been Received, cleared with a call to ProcessEvents()
       bool EventToSend;     // true if there are events waiting to be send
       String AdvertiseName;          
       StackArray<Token*> ReceivedStack;   
-      StackArray<Token*> SendStack;   
+      StackArray<Token*> SendStack;
+      
+    
+      char DeviceName[8] = {0};
+
+      BLEService        service = BLEService(0x2220);
+      BLECharacteristic char1 = BLECharacteristic(0x2221);
+      BLECharacteristic char2 = BLECharacteristic(0x2222);
+      BLECharacteristic char3 = BLECharacteristic(0x2223);
+      static void connect_callback(uint16_t conn_handle);
+      static void disconnect_callback(uint16_t conn_handle, uint8_t reason);
+      static void write_callback(BLECharacteristic& chr, uint8_t* data, uint16_t len, uint16_t offset);
+
 };
 
 class Token
@@ -36,7 +56,9 @@ class Token
     void set(String pFirstValue, String pSecondValue = String(""), String pThirdValue = String(""));  
     String FirstValue;
     String SecondValue;
-    String ThirdValue;     
+    String ThirdValue;
+
+    
 };
 
 #endif

@@ -1,5 +1,5 @@
 #include <Arduino.h>
-#include <Ai_RFD_WS2812.h>
+#include <Adafruit_NeoPixel.h>
 #include "CONFIG.h"
 
 class NEO_STRIP
@@ -34,6 +34,6 @@ class NEO_STRIP
         unsigned int target_b = 0;
         unsigned int counter = 0;
 
-        RFD_WS2812 leds = RFD_WS2812(NUM_LEDS, NEO_PIN);
+        Adafruit_NeoPixel leds = Adafruit_NeoPixel(NUM_LEDS, NEO_PIN, NEO_GRB + NEO_KHZ800);
 };
 

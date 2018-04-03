@@ -2,34 +2,38 @@
 
 NEO_STRIP::NEO_STRIP()
 {
-  leds.initialize();
-  colorWipe(leds.packRGB(0,0,255),25);
-  delay(500);
-  colorWipe(leds.packRGB(0,0,0),25);
+  leds.begin();
+  leds.setBrightness(5);
+  //leds.show();
+
+  //colorWipe(leds.Color(0,0,255),25);
+  //delay(500);
+  //colorWipe(leds.Color(0,0,0),25);
 }
 
 // Fill the dots one after the other with a color
  void NEO_STRIP::setColor(String color)
  {
+    //Serial.println("debug B");
     if (color == "off"){
-      colorWipe(leds.packRGB(0,0,0),25);
+      colorWipe(leds.Color(0,0,0),25);
       blinking = false;
       fading = false;
     } 
     else if (color == "red") {
-      colorWipe(leds.packRGB(255,0,0),25);
+      colorWipe(leds.Color(255,0,0),25);
     }
     else if (color == "green"){
-      colorWipe(leds.packRGB(0,255,0),25);
+      colorWipe(leds.Color(0,255,0),25);
       } 
     else if (color == "blue"){
-      colorWipe(leds.packRGB(0,0,255),25);
+      colorWipe(leds.Color(0,0,255),25);
   }
     else if (color == "white") {
-      colorWipe(leds.packRGB(255,255,255),25);
+      colorWipe(leds.Color(255,255,255),25);
     }
     else if (color == "black") {
-      colorWipe(leds.packRGB(0,0,0),25);
+      colorWipe(leds.Color(0,0,0),25);
     }
  }
 
@@ -66,10 +70,10 @@ NEO_STRIP::NEO_STRIP()
 
  void NEO_STRIP::colorWipe(uint32_t c, uint8_t wait) 
  {
-   for(uint16_t i=0; i<leds.getNumPixels(); i++) 
+   for(uint16_t i=0; i<leds.numPixels(); i++) 
    {
-       leds.setPixel(i, c);
-       leds.render();
+       leds.setPixelColor(i, c);
+       leds.show();
        delay(wait);
    }
  }
@@ -105,7 +109,7 @@ void NEO_STRIP::RefreshValues()
       if(target_b == 255){
         curr_b = curr_b +fadeAmount;}
       counter = counter + fadeAmount;
-      colorWipe(leds.packRGB(curr_r, curr_g, curr_b),10);  // set the color
+      colorWipe(leds.Color(curr_r, curr_g, curr_b),10);  // set the color
       if(counter <= 0 || counter >= 230){
         fadeAmount = -fadeAmount;
       }
