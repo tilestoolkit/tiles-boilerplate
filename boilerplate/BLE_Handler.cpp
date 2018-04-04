@@ -68,8 +68,6 @@ void BLE_Handler::disconnect_callback(uint16_t conn_handle, uint8_t reason)
 
 void BLE_Handler::write_callback(BLECharacteristic& chr, uint8_t* data, uint16_t len, uint16_t offset)
 {
-  Serial.println("Received token");
-  Serial.println((char*)data);
   extern BLE_Handler BLE;
   BLE.ReceiveEvent((char*)data, len);
 }
@@ -112,34 +110,19 @@ void BLE_Handler::ProcessEvents()
     Token *Command = NULL;
     Command = ReceivedStack.pop();
 
-    if(Command == NULL)
-      return;
-    else
-        {
-            String temp = Command->getEventString();
-            Serial.print("**Command received: "); Serial.print(temp); Serial.println("**");
-        }   
-    if(Command->FirstValue == String("led"))
-    {
-        if(Command->SecondValue == String("on"))
-        {
-          feedback_handle.setColor(Command->ThirdValue);
-          Serial.println("debug A");
-        }
-        else if(Command->SecondValue == String("blink"))
-        {
-          feedback_handle.blink(Command->ThirdValue);
-        }    
-        else if(Command->SecondValue == String("fade"))
-        {
-          feedback_handle.fade(Command->ThirdValue);
-        }
-        else if(Command->SecondValue == String("off"))
-        {
-          feedback_handle.setColor(Command->SecondValue);
-        }
+    if(Command == NULL) return;
+    else {
+        String temp = Command->getEventString();
+        Serial.print("**Command received: "); Serial.print(temp); Serial.println("**");
+    }   
 
+    if(Command->FirstValue == String("led")) {
+        if     (Command->SecondValue == String("on"))    feedback_handle.setColor(Command->ThirdValue);
+        else if(Command->SecondValue == String("blink")) feedback_handle.blink(Command->ThirdValue);
+        else if(Command->SecondValue == String("fade"))  feedback_handle.fade(Command->ThirdValue);
+        else if(Command->SecondValue == String("off"))   feedback_handle.setColor(Command->SecondValue);
     }
+    
     else if(Command->FirstValue == String("haptic")) {
         if     (Command->SecondValue == String("burst"))      feedback_handle.burst();
         else if(Command->SecondValue == String("short"))      feedback_handle.shortv();

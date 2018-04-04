@@ -70,7 +70,7 @@ These are the electronic parts for which data primitives are available
 |ReceiverID|Name|P1|P2|Device|Note|
 |----------|----|--|--|------|----|
 |          |led |off||RGB,NEOPIXEL||
-|          |led |on |red,green,blue,white|RGB,NEOPIXEL||
+|          |led |on |red,green,blue,white,orange,yellow|RGB,NEOPIXEL||
 |          |led |blink |red,green,blue,white|NEOPIXEL||
 |          |led |fade |red,green,blue,white|NEOPIXEL||
 |          |matrix|off||8X8 Matrix||

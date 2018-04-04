@@ -31,6 +31,10 @@ void RGB_LED::setColor(String color)
     setRGBaColor(0, 0, 0);
   else if (color == "red")
     setRGBaColor(255, 0, 0);
+  else if (color == "orange")
+    setRGBaColor(255, 40, 0);
+  else if (color == "yellow")
+    setRGBaColor(255, 255, 0);
   else if (color == "green")
     setRGBaColor(0, 255, 0);
   else if (color == "blue")
