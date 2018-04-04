@@ -29,7 +29,7 @@ void BLE_Handler::start()
     char2.begin();
     
     char3.setProperties(CHR_PROPS_WRITE | CHR_PROPS_WRITE_WO_RESP);
-    char3.setPermission(SECMODE_NO_ACCESS, SECMODE_OPEN);
+    char2.setPermission(SECMODE_OPEN, SECMODE_NO_ACCESS);
     char3.setWriteCallback(write_callback);  
     char3.setMaxLen(18);
     char3.begin();
