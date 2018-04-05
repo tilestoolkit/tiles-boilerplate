@@ -152,8 +152,8 @@ void BLE_Handler::ProcessEvents()
         shutdown();
     }
     else if(Command->FirstValue == String("sound")) {
-        if     (Command->SecondValue == String("on"))    feedback_handle.buzz(ON_S);
-        else if(Command->SecondValue == String("off"))   feedback_handle.buzz(OFF_S);
+        if     (Command->SecondValue == String("up"))    feedback_handle.buzz(ON_S);
+        else if(Command->SecondValue == String("down"))   feedback_handle.buzz(OFF_S);
         else if(Command->SecondValue == String("siren")) feedback_handle.buzz(SIREN);
         else Serial.println("**Buzzer parameter unknown**");
     }
