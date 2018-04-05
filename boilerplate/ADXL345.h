@@ -7,7 +7,7 @@
 #define ACC_INT_INACT         0x08
 #define ACC_FIR_SIZE          (uint8_t)2
 #define ACC_SHAKE_THRESH      200
-#define ACC_TILT_THRESH       180
+#define ACC_TILT_THRESH       180 /// 90 -> ~25º, 180 -> ~45º
 
 class ADXL345
 {
@@ -50,5 +50,13 @@ class ADXL345
       bool DoubleTapped;  // True if tapped twice, Reset on read with isDoubleTapped()
       bool Tilted;        // True if the ADXL345 is tilted
       int TiltAxis;       // Axis on wich ADXL345 is tilted
+
+      const float alpha = 0.5;
+      double fXg = 0;
+      double fYg = 0;
+      double fZg = 0;
+
+      double pitch, roll, Xg, Yg, Zg;
+      int tilt_angle;
 
 };

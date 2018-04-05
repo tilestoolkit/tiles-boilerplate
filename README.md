@@ -57,7 +57,7 @@ These are the electronic parts for which data primitives are available
 |--------|----|--|--|------|----|
 |Tile_XX|tap|single,double||ADXL345,LSM9DS0||
 |Tile_XX|shake|||ADXL345,LSM9DS0||
-|Tile_XX|tilt|||ADXL345,LSM9DS0||
+|Tile_XX|tilt|NN||ADXL345,LSM9DS0|return tilt angle|
 |Tile_XX|rotation|clockwise,counterclock||LSM9DS0|
 |Tile_XX|heading|N,E,S,W||HMC5883L|Grove sensor module|
 |Tile_XX|light|dark,normal,bright,very bright||TSL2561|Grove sensor module|

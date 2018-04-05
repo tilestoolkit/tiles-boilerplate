@@ -97,7 +97,7 @@ bool ADXL345::isDoubleTapped() { // Returns true if the sensor has been double t
 int ADXL345::isTilted() {        // Return the tilt axis according to enum Axis, else returns false
     if(Tilted) {
       Tilted = false;
-      return TiltAxis;
+      return tilt_angle;
     }
     else return false;
 }
@@ -168,6 +168,20 @@ void ADXL345::RefreshValues() {
 
     else Tilted = false;
 
+    if(Tilted) {
+        //Low Pass Filter
+        fXg = new_x * alpha + (fXg * (1.0 - alpha));
+        fYg = new_y * alpha + (fYg * (1.0 - alpha));
+        fZg = new_z * alpha + (fZg * (1.0 - alpha));
+
+        //Roll & Pitch Equations
+        roll  = (atan2(-fYg, fZg)*180.0)/M_PI;
+        pitch = (atan2(fXg, sqrt(fYg*fYg + fZg*fZg))*180.0)/M_PI;
+
+        tilt_angle = max(abs(roll), abs(pitch));
+
+        // Serial.println(tilt_angle);
+    }
     
     int Source = accel.readRegister(ADXL345_REG_INT_SOURCE);
 

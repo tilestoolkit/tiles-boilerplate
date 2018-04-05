@@ -57,30 +57,23 @@ void Sensors_Handler::HandleTime(unsigned int ElapsedTime)
 
 String Sensors_Handler::pollEvent()    // If an event has occured returns the event code
 {
-   EventString = "";
+    EventString = "";
 
-    if(_AccelerometerAvailable == true && Accelerometer_Timing >= ACCELEROMETER_UPDATE)
-    {
-        //Serial.println("ACC UPDATE");
+    // Accelerometer
+
+    if(_AccelerometerAvailable == true && Accelerometer_Timing >= ACCELEROMETER_UPDATE) {
         Accelerometer_Timing = 0;
-        
         _Accelerometer->RefreshValues();
-        
-        if (_Accelerometer->isTapped())
-        EventString = String("tap,single");
-        
-        else if (_Accelerometer->isDoubleTapped())
-        EventString = String("tap,double");
-        
-        else if (_Accelerometer->isShaked())
-        EventString = String("shake");
-        
-        else if (_Accelerometer->isTilted())
-        EventString = String("tilt");
+
+        if      (_Accelerometer->isTapped())          EventString = String("tap,single");
+        else if (_Accelerometer->isDoubleTapped())    EventString = String("tap,double");
+        else if (_Accelerometer->isShaked())          EventString = String("shake");
+        else if (tilt_a = _Accelerometer->isTilted()) EventString = String("tilt," + String(tilt_a));
     }
 
-    if(_CompassAvailable == true && Compass_Timing >= COMPASS_UPDATE)
-    {
+    // Compass
+
+    if(_CompassAvailable == true && Compass_Timing >= COMPASS_UPDATE) {
 
         Compass_Timing = 0;
 
@@ -98,8 +91,6 @@ String Sensors_Handler::pollEvent()    // If an event has occured returns the ev
         heading -= 2*PI;
    
         float headingDegrees = heading * 180/M_PI; 
-  
-//        Serial.print("Heading (degrees): "); Serial.println(headingDegrees);
        
         if (headingDegrees < 5 || headingDegrees > 355)
           EventString = String("heading,N");
@@ -112,8 +103,9 @@ String Sensors_Handler::pollEvent()    // If an event has occured returns the ev
 
         else if (265 < headingDegrees && headingDegrees < 275)
           EventString = String("heading,W");
-  }
+    }
 
+    // IMU
 
     if(_InertialCentralAvailable == true && InertialCentral_Timing >= ACCELEROMETER_UPDATE){
         InertialCentral_Timing = 0;
@@ -171,8 +163,7 @@ String Sensors_Handler::pollEvent()    // If an event has occured returns the ev
         EventString = String("temp," + t.substring(0, t.length()-1)); //remove second decimal (printed as 0 after round) from string
     }
 
-    if(_HumSensorAvailable == true && Hum_Timing >= HUM_UPDATE)
-    {
+    if(_HumSensorAvailable == true && Hum_Timing >= HUM_UPDATE) {
         Hum_Timing = 0;
         
         // String t = String(round_temp);
@@ -180,8 +171,7 @@ String Sensors_Handler::pollEvent()    // If an event has occured returns the ev
         EventString = String("humi," + _HumSensor->read()); //remove second decimal (printed as 0 after round) from string
     }
 
-    if(_OffPinAvailable == true && Off_Timing >= OFF_UPDATE)
-    {
+    if(_OffPinAvailable == true && Off_Timing >= OFF_UPDATE) {
         // turn on red led on shutdown
         Off_Timing = 0;
         if(_OffPin->isGrounded()){
@@ -194,11 +184,10 @@ String Sensors_Handler::pollEvent()    // If an event has occured returns the ev
     }
     
 
-    if(EventString != String(""))
-    {  
+    if(EventString != String("")) {
         Token Event = Token(EventString);
         BLE->SendEvent(&Event);
-    }  
+    }
     return EventString;
 }
 

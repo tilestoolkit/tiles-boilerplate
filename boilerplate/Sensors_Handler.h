@@ -39,6 +39,7 @@ class Sensors_Handler
 
       //Accelrometer
       bool _AccelerometerAvailable;
+      int tilt_a;
       ADXL345 *_Accelerometer;            // Handle an accelerometer object
       #define ACCELEROMETER_UPDATE  100   // refresh period
       unsigned int Accelerometer_Timing;
