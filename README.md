@@ -61,7 +61,7 @@ These are the electronic parts for which data primitives are available
 |Tile_XX|rotation|clockwise,counterclock||LSM9DS0|
 |Tile_XX|heading|N,E,S,W||HMC5883L|Grove sensor module|
 |Tile_XX|light|dark,normal,bright,very bright||TSL2561|Grove sensor module|
-|Tile_XX|touched|A,B||CAP1188|label of the pin touched in P1|
+|Tile_XX|touch|A,B||CAP1188|label of the pin touched in P1|
 |Tile_XX|temp|NN.N||Si7051|TilesTemp hardware devices|
 |Tile_XX|humi|NN.N||HDC2010|TilesTemp hardware devices|
 

@@ -150,8 +150,8 @@ String Sensors_Handler::pollEvent()    // If an event has occured returns the ev
      if(_TouchSensorAvailable == true && TouchSensor_Timing >= TOUCHSENSOR_UPDATE){
         TouchSensor_Timing = 0;
         short touchpin = _TouchSensor->isTouched();
-        if(touchpin == 2) EventString = String("touched,B");
-        else if(touchpin == 1) EventString = String("touched,A");
+        if(touchpin == 2) EventString = String("touch,B");
+        else if(touchpin == 1) EventString = String("touch,A");
     }
 
     if(_TempSensorAvailable == true && Temp_Timing >= TEMP_UPDATE)
