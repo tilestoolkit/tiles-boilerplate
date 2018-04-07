@@ -23,12 +23,18 @@ NEO_STRIP::NEO_STRIP()
     else if (color == "red") {
       colorWipe(leds.Color(255,0,0),25);
     }
-    else if (color == "green"){
+    else if (color == "orange") {
+      colorWipe(leds.Color(255,110,0),25);
+    }
+    else if (color == "yellow") {
+      colorWipe(leds.Color(255,255,0),25);
+    }
+    else if (color == "green") {
       colorWipe(leds.Color(0,255,0),25);
-      } 
-    else if (color == "blue"){
+    } 
+    else if (color == "blue") {
       colorWipe(leds.Color(0,0,255),25);
-  }
+    }
     else if (color == "white") {
       colorWipe(leds.Color(255,255,255),25);
     }
@@ -53,6 +59,14 @@ NEO_STRIP::NEO_STRIP()
   if (color == "red") {
     target_r = 255;
     target_g = 0;
+    target_b = 0; }
+  else if (color == "orange") {
+    target_r = 255;
+    target_g = 40;
+    target_b = 0; }
+  else if (color == "yellow") {
+    target_r = 255;
+    target_g = 255;
     target_b = 0; }
   else if (color == "green"){
     target_r = 0;

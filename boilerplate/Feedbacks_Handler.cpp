@@ -25,24 +25,17 @@ void Feedbacks_Handler::setNEO_STRIP(NEO_STRIP *pSTRIP)
 }
 
 // Common LED methods
-void Feedbacks_Handler::setColor(String color)
-{
-  if(RGB_LEDAvailable)
-    LED->setColor(color);
-  else if(NEO_STRIPAvailable)
-    STRIP->setColor(color);
+void Feedbacks_Handler::setColor(String color) {
+    if     (NEO_STRIPAvailable) STRIP->setColor(color);
+    else if(RGB_LEDAvailable)   LED->setColor(color);
 }
 
-void Feedbacks_Handler::blink(String color)
-{
-    if(NEO_STRIPAvailable)
-    STRIP->blink(color);
+void Feedbacks_Handler::blink(String color) {
+    if(NEO_STRIPAvailable) STRIP->blink(color);
 }
 
-void Feedbacks_Handler::fade(String color)
-{
-    if(NEO_STRIPAvailable)
-    STRIP->fade(color);
+void Feedbacks_Handler::fade(String color) {
+    if(NEO_STRIPAvailable) STRIP->fade(color);
 }
 
 // MATRIX

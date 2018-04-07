@@ -24,9 +24,11 @@
     #define PIN_LED_GREEN 15
     #define PIN_LED_BLUE 11
     #define LED_TYPE COMMON_ANODE
+
     #define xLED_NEO false
-    #define NEO_PIN 27
-    #define NUM_LEDS 3      //Number of leds in the neopixel strip
+    #define NEO_PIN 2
+    #define NUM_LEDS 16      //Number of leds in the neopixel strip
+    
     #define xDOTM_MATRIX false
     #define BUZZER_PIN 4
     #define xBUZZER true
