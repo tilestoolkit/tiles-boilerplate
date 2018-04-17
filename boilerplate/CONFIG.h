@@ -76,7 +76,13 @@
 
     #define xHAPTIC_IC false
 
+    #define BUZZER_PIN NULL
+    #define xBUZZER false
+
     #define BT_LED NULL
+
+    #define xCOMPASS false
+    #define xLIGHT false
 #endif
 
 
