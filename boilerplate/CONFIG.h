@@ -29,7 +29,7 @@
     #define NEO_PIN 2
     #define NUM_LEDS 16      //Number of leds in the neopixel strip
     
-    #define xDOTM_MATRIX false
+    #define xDOTM_MATRIX true
     #define BUZZER_PIN 4
     #define xBUZZER true
     #define OFF_PIN 14

@@ -51,7 +51,7 @@ void MATRIX::face(String type)
   stop_gazing();
   matrix.clear();
   if(type == "sad1")
-    matrix.drawBitmap(0,0,sad1,8,8,LED_ON);
+    { matrix.drawBitmap(0,0,sad1,8,8,LED_ON); Serial.println("face"); }
     else if(type == "sad2")
     matrix.drawBitmap(0,0,sad2,8,8,LED_ON);
     else if(type == "sad3")
@@ -64,6 +64,20 @@ void MATRIX::face(String type)
     matrix.drawBitmap(0,0,x,8,8,LED_ON);
     else if(type == "puzzled")
     matrix.drawBitmap(0,0,puzzled,8,8,LED_ON);
+    else if(type == "a")
+    matrix.drawBitmap(0,0,a,8,8,LED_ON);
+    else if(type == "b")
+    matrix.drawBitmap(0,0,b,8,8,LED_ON);
+    else if(type == "c")
+    matrix.drawBitmap(0,0,c,8,8,LED_ON);
+    else if(type == "d")
+    matrix.drawBitmap(0,0,d,8,8,LED_ON);
+    else if(type == "e")
+    matrix.drawBitmap(0,0,e,8,8,LED_ON);
+    else if(type == "f")
+    matrix.drawBitmap(0,0,f,8,8,LED_ON);
+    else if(type == "g")
+    matrix.drawBitmap(0,0,g,8,8,LED_ON);
     
   matrix.writeDisplay(); 
 }

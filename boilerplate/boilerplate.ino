@@ -30,7 +30,7 @@ TSL2561_CalculateLux *LIGHT = NULL;
 LSM9DS0 *IMU = NULL;
 CAP1188 *TOUCH = NULL;
 Temp_Si7051 *TEMP = NULL;
-Hum_HDC2010 *HUM = NULL;
+//Hum_HDC2010 *HUM = NULL;
 OFF_Pin *OFF = NULL;
 
 
@@ -43,6 +43,8 @@ NEO_STRIP *STRIP = NULL;
 MATRIX *M_MATRIX = NULL;
 //STATUS_LED status_led;
 BUZZER *Buzzer;
+
+void timer_callback(TimerHandle_t xTimerID);
 
 
 int ledState = HIGH;         
@@ -97,10 +99,10 @@ void setup(void)
     sensor_handle.setTempSensor(TEMP);
     }
     //Hum
-    if(xHum_HDC2010){
-    HUM = new Hum_HDC2010();
-    sensor_handle.setHumSensor(HUM);
-    }
+   // if(xHum_HDC2010){
+   // HUM = new Hum_HDC2010();
+   // sensor_handle.setHumSensor(HUM);
+   // }
     //Off pin
     if(xOFF_PIN){
     OFF = new OFF_Pin();
